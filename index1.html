@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pastelaria</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -74,47 +75,95 @@
     <section class="overlay"></section>
 
     <div id="home" class="home">  
-        <div class="home-slider">
-            <div class="w">
-                <div class="slide" style="background: url(img/delicious-cinnamon-rolls-with-copy-space.jpg) no-repeat;">
+        <div class="swiper home-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide slide" style="background: url(img/1.jpg) no-repeat;">
                     <div class="content">
-                        <span>Comida deliciosa</span>
-                        <h3>Incriveis pasteis</h3>
+                        <h3>Pasteis Deliciosos</h3>
                         <a href="" class="btn-home">começe agora</a>
                     </div>
                 </div>
-                <div class="slide" style="background: url(img/delicious-cinnamon-rolls-with-copy-space.jpg) no-repeat;">
+                <div class="swiper-slide slide" style="background: url(img/2.jpg) no-repeat;">
                     <div class="content">
-                        <span>Comida deliciosa</span>
-                        <h3>Momentos de manha</h3>
+                        <h3>Sabores irresistíveis</h3>
                         <a href="" class="btn-home">começe agora</a>
                     </div>
                 </div>
-                <div class="slide" style="background: url(img/delicious-cinnamon-rolls-with-copy-space.jpg) no-repeat;">
+                <div class="swiper-slide slide" style="background: url(img/3.jpg) no-repeat;">
                     <div class="content">
-                        <span>Comida deliciosa</span>
-                        <h3>Cozinhas otimas</h3>
+                        <h3>Feitos com carrinho</h3>
                         <a href="" class="btn-home">começe agora</a>
                     </div>
                 </div>
             </div>
+            <div class="swiper-scrollbar"></div>
         </div>
     </div>
-    <script>
-        const navBar = document.querySelector("nav");
-              menuBtns = document.querySelectorAll(".menu-icon");
-              overlay = document.querySelector(".overlay");
-        
-              menuBtns.forEach(menuBtn => {
-                menuBtn.addEventListener("click", () => {
-                    navBar.classList.toggle("open");
-                })
-              });
 
-              overlay.addEventListener("click", () => {
-                navBar.classList.toggle("open")
-              })
-    </script>
-    <link rel="stylesheet" href="js/script.js">    
+    <br>
+    <br>
+
+    <div class="shop" id="shop">
+        <div class="middle-text">
+            <h2>Doces Populares</h2>
+        </div>
+        <div class="shop-content">
+            <div class="row">
+                <img src="img/brioche (2).jpg" alt="">
+                <h3>Croissant Brioche</h3>
+                <p></p>
+                <div class="in-text">
+                    <div class="price">
+                        <h6>2.00€</h6>
+                    </div>
+                    <div class="s-btnn">
+                        <a href="">Order now</a>
+                    </div>
+                </div>
+                <div class="top-icon">
+                    <a href=""><i class='bx bx-heart'></i></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <img src="img/p.png" alt="">
+                <h3>Croissant Brioche</h3>
+                <p></p>
+                <div class="in-text">
+                    <div class="price">
+                        <h6>2.00€</h6>
+                    </div>
+                    <div class="s-btnn">
+                        <a href="">Order now</a>
+                    </div>
+                </div>
+                <div class="top-icon">
+                    <a href=""><i class='bx bx-heart'></i></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <img src="img/20220508214609674_31cee5891ee447698e2651b07b61f927_uiv59b.jpg" alt="">
+                <h3>Croissant Brioche</h3>
+                <p></p>
+                <div class="in-text">
+                    <div class="price">
+                        <h6>2.00€</h6>
+                    </div>
+                    <div class="s-btnn">
+                        <a href="">Order now</a>
+                    </div>
+                </div>
+                <div class="top-icon">
+                    <a href=""><i class='bx bx-heart'></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row-btn">
+            <a href="">Todos os produtos<i class='bx bxs-right-arrow'></i></a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>   
 </body>
 </html>
