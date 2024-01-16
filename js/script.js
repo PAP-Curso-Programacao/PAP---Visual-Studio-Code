@@ -22,7 +22,7 @@ var swiper = new Swiper(".home-slider", {
     },   
 });
 
-const swiper = new Swiper('.swiper', {
+var swiper = new Swiper('.review-slider', {
     // Optional parameters
     direction: 'vertical',
     loop: true,

@@ -388,7 +388,7 @@ nav.open ~ .overlay{
 }
 
 .review .container .board{
-    max-width: 987px;   
+    max-width: 980px;   
     width: 100%;
     background-color: var(--orange);
     text-align: center;
@@ -397,7 +397,8 @@ nav.open ~ .overlay{
 }
 
 .review .container .text-light{
-    color: var(--white);
+    color: var(--black);
+    font-size: 20px;
 }
 
 .review .container .swiper {
@@ -417,12 +418,12 @@ nav.open ~ .overlay{
     padding: 1.5em 2em;
     width: 50%;
     border-radius: 5px;
-    font-size: .9em;
+    font-size: 11px;
     position: relative;
 }
 
 .review .swiper .swiper-slide .comments::after{
-    content: '';
+    content: "";
     position: absolute;
     bottom: -19px;
     left: 45%;
@@ -430,5 +431,34 @@ nav.open ~ .overlay{
     height: 0;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    border-top: 20px solid transparent;
+    border-top: 20px solid var(--white-light);
+    z-index: -99;
+}
+
+.review .swiper .profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.review .swiper .profile img{
+    width: 30%;
+    border-radius: 50%;
+    border: 5px solid var(--orange);
+    margin: 10px 0;
+}
+
+.review .swiper .profile > a{
+    text-decoration: none;
+    color: var(--white-light);
+}
+
+.review .swiper .profile > span{
+    color: var(--white-light);
+    font-size: .8em;
+}
+
+.review .swiper .swiper-button-prev, .swiper-button-next{
+    color: var(--white-light);
 }
