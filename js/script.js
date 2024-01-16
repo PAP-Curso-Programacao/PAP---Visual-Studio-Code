@@ -22,17 +22,13 @@ var swiper = new Swiper(".home-slider", {
     },   
 });
 
-var swiper = new Swiper('.review-slider', {
-    // Optional parameters
-    direction: 'vertical',
+var swiper = new Swiper('.slider2', {
     loop: true,
   
-    // If we need pagination
     pagination: {
       el: '.swiper-pagination',
     },
   
-    // Navigation arrows
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',

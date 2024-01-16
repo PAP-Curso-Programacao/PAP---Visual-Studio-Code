@@ -403,7 +403,7 @@ nav.open ~ .overlay{
 
 .review .container .swiper {
     width: 600px;
-    height: 300px;
+    height: auto;
 }
 
 .review .swiper .swiper-slide .flex{
@@ -426,7 +426,7 @@ nav.open ~ .overlay{
     content: "";
     position: absolute;
     bottom: -19px;
-    left: 45%;
+    left: 43%;
     width: 0;
     height: 0;
     border-left: 20px solid transparent;
@@ -456,9 +456,36 @@ nav.open ~ .overlay{
 
 .review .swiper .profile > span{
     color: var(--white-light);
-    font-size: .8em;
+    font-size: 1.1em;
 }
 
 .review .swiper .swiper-button-prev, .swiper-button-next{
     color: var(--white-light);
+    display: none;
+}
+
+@media (min-width: 320px) {
+    .board{
+        width: auto;
+    }
+
+    .review .container .swiper {
+        width: 320px;
+    }
+
+    .board > h1,p{
+        padding: 0 2em;
+    }
+}
+
+@media (min-width: 770px) {
+    .board{
+        width: 100%;
+    }
+    .review .container .swiper {
+        width: 600px;
+    }
+    .review .swiper .swiper-button-prev, .swiper-button-next{
+        display: initial;
+    }
 }
