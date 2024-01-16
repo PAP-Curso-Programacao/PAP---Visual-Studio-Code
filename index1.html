@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,14 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <nav>
         <div class="logo">
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria</span>
         </div>
-        
+
         <div class="sidebar">
             <div class="logo">
                 <i class='bx bx-menu menu-icon'></i>
@@ -24,7 +26,7 @@
             <div class="sidebar-content">
                 <ul class="lists">
                     <li class="list">
-                        <a href="" class="nav-link">
+                        <a href="index1.php" class="nav-link">
                             <i class='bx bx-home icon'></i>
                             <span class="link">Home</span>
                         </a>
@@ -39,12 +41,6 @@
                         <a href="" class="nav-link">
                             <i class='bx bx-photo-album icon'></i>
                             <span class="link">Galeria</span>
-                        </a>
-                    </li>
-                    <li class="list">
-                        <a href="" class="nav-link">
-                            <i class='bx bx-store icon'></i>
-                            <span class="link">Lojas</span>
                         </a>
                     </li>
                     <li class="list">
@@ -74,22 +70,23 @@
 
     <section class="overlay"></section>
 
-    <div id="home" class="home">  
+
+    <section id="home" class="home">
         <div class="swiper home-slider">
             <div class="swiper-wrapper">
-                <div class="swiper-slide slide" style="background: url(img/1.jpg) no-repeat;">
+                <div class="swiper-slide slide" style="background: url(img/banner/banner1.jpg) no-repeat;">
                     <div class="content">
                         <h3>Pasteis Deliciosos</h3>
                         <a href="" class="btn-home">Começe agora</a>
                     </div>
                 </div>
-                <div class="swiper-slide slide" style="background: url(img/2.jpg) no-repeat;">
+                <div class="swiper-slide slide" style="background: url(img/banner/banner2.jpg) no-repeat;">
                     <div class="content">
                         <h3>Sabores irresistíveis</h3>
                         <a href="" class="btn-home">Começe agora</a>
                     </div>
                 </div>
-                <div class="swiper-slide slide" style="background: url(img/3.jpg) no-repeat;">
+                <div class="swiper-slide slide" style="background: url(img/banner/banner3.jpg) no-repeat;">
                     <div class="content">
                         <h3>Feitos com carrinho</h3>
                         <a href="" class="btn-home">Começe agora</a>
@@ -98,70 +95,101 @@
             </div>
             <div class="swiper-scrollbar"></div>
         </div>
-    </div>
+    </section>
 
-    <br>
-    <br>
-    <br>
-
-    <div class="shop" id="shop">
-        <div class="middle-text">
-            <h2>Doces Populares</h2>
+    <section id="feature" class="feature">
+        <div class="fe-box">
+            <img src="img/icon/online.png" alt="">
+            <h6>Online Order</h6>
         </div>
-        <div class="shop-content">
-            <div class="row">
-                <img src="img/frutos secos.png" alt="">
-                <h3>Caracol de frutos secos</h3>
-                <div class="in-text">
-                    <div class="price">
-                        <h6>2.00€</h6>
-                    </div>
-                    <div class="s-btnn">
-                        <a href="#">Order now</a>
-                    </div>
+        <div class="fe-box">
+            <img src="img/icon/free.png" alt="">
+            <h6>Free Shipping</h6>
+        </div>
+        <div class="fe-box">
+            <img src="img/icon/support.png" alt="">
+            <h6>24h Support</h6>
+        </div>
+    </section>
+
+    <section id="product" class="product">
+        <h2>Os Nossos Produtos</h2>
+        <p>Descubra um mundo de sabores refinados</p>
+        <div class="pro-container">
+            <div class="pro">
+                <img src="img/products/caracol.jpg" alt="">
+                <div class="des">
+                    <h5>Caracol de frutos secos</h5>
+                    <h4>2.00€</h4>
                 </div>
-                <div class="heart-icon">
-                    <a href="#"><i class='bx bx-heart'></i></a>
+                <div class="s-btnn">
+                    <a href="#">Order now</a>
+                </div>
+            </div>
+            <div class="pro">
+                <img src="img/products/bolasberlim.jpg" alt="">
+                <div class="des">
+                    <h5>Bolas de Berlim</h5>
+                    <h4>2.00€</h4>
+                </div>
+                <div class="s-btnn">
+                    <a href="#">Order now</a>
                 </div>
             </div>
 
-            <div class="row">
-                <img src="img/bolas de berlim.png" alt="">
-                <h3>Croissant Brioche</h3>
-                <div class="in-text">
-                    <div class="price">
-                        <h6>2.00€</h6>
-                    </div>
-                    <div class="s-btnn">
-                        <a href="#">Order now</a>
-                    </div>
+            <div class="pro">
+                <img src="img/products/cookiesamer.jpg" alt="">
+                <div class="des">
+                    <h5>Cookie americana</h5>
+                    <h4>2.00€</h4>
                 </div>
-                <div class="heart-icon">
-                    <a href="#"><i class='bx bx-heart'></i></a>
-                </div>
-            </div>
-
-            <div class="row">
-                <img src="img/brioche.png" alt="">
-                <h3>Croissant Brioche</h3>
-                <div class="in-text">
-                    <div class="price">
-                        <h6>2.00€</h6>
-                    </div>
-                    <div class="s-btnn">
-                        <a href="#">Order now</a>
-                    </div>
-                </div>
-                <div class="heart-icon">
-                    <a href="#"><i class='bx bx-heart'></i></a>
+                <div class="s-btnn">
+                    <a href="#">Order now</a>
                 </div>
             </div>
         </div>
         <div class="row-btn">
-            <a href="#" class="btn-all">Todos os produtos<i class='bx bxs-right-arrow'></i></a>
+            <a href="#" class="btn">Todos os produtos<i class='bx bxs-right-arrow'></i></a>
         </div>
-    </div>
+    </section>
+
+    <section id="review" class="review">
+        <div class="container">
+            <div class="board">
+                <h2 class="text-light">Mensagens dos nossos clientes</h2>
+                <p class="text-light">As melhores mensgans dos nossos clientes</p>
+
+                <!-- Slider main container -->
+                <div class="swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">
+                            <div class="flex">
+                                <div class="comments">
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit, reprehenderit doloremque? Labore quae provident officiis, eligendi blanditiis eaque beatae nostrum eius alias hic animi quasi molestias, tenetur autem corrupti maxime!                                    
+                                </div>
+                                <div class="profile">
+                                    <img src="" alt="">
+                                    <a href="#">Rafael Cordeiro</a>
+                                    <span>Web Developer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="js/script.js"></script>   
+    <script src="js/script.js"></script>
 </body>
+
 </html>
