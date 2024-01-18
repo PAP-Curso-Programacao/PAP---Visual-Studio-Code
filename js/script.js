@@ -33,4 +33,5 @@ var swiper = new Swiper('.slider2', {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
-  });
+});
+

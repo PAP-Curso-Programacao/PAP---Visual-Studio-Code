@@ -8,8 +8,6 @@
         outline: none;
         border: none;
         text-decoration: none;
-        transition: all 0.4s cubic-bezier(.43,1,1,.62,1.08);
-        text-transform: capitalize;
     }
 
 body{
@@ -22,11 +20,7 @@ body{
     --orange: #cd9452;
     --black: #222;
     --white: #fff;
-    --light-white: #ccc;
-    --grey: #858585;
-    --light-beg: #f5f5f5;
-    --dark-bg: rgba(0,0,0.7);
-    --border: .1rem solid #aaa;
+    --border: .1rem solid #cce7d0;
     --box-shadow: 0 5rem 1rem rgba(0,0,0.1);
 }
 
@@ -126,7 +120,7 @@ nav.open .sidebar{
 }
 
 .lists .nav-link:hover{
-    background-color: #4070f4; /*mudar a cor quando passa o rato*/
+    background-color: var(--orange); /*mudar a cor quando passa o rato*/
 }
 
 .nav-link .icon{
@@ -249,7 +243,7 @@ nav.open ~ .overlay{
     text-align: center;
     padding: 25px 15px;
     box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.03);
-    border: 1px solid #cce7d0;
+    border: var(--border);
     border-radius: 4px;
     margin: 15px 0;
 }
@@ -272,6 +266,17 @@ nav.open ~ .overlay{
     border-radius: 4px;
     color: var(--white);
     background-color: var(--orange);
+}
+
+@media (max-width: 477px){
+    .feature{
+        padding: 40px 120px;
+        justify-content: space-between;
+    }
+    .feature .fe-box{
+        width: 155px;
+        margin: 0 0 15px 0;
+    }
 }
 
 /*PRODUCT*/
@@ -304,7 +309,7 @@ nav.open ~ .overlay{
     width: 23%;
     min-width: 250px;
     padding: 10px 12px;
-    border: 1px solid #cce7d0;
+    border: var(--border);
     border-radius: 25px;
     cursor: pointer;
     margin: 15px 0;
@@ -342,15 +347,22 @@ nav.open ~ .overlay{
     color: var(--orange);
 }
 
-.product .pro .s-btnn a{
-    display: inline-block;
-    padding: 9px 23px;
+.product .pro i{
+    font-size: 24px;
+}
+
+.product .pro .cart{
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    border-radius: 50px;
     background-color: var(--orange);
-    color: var(--white);
-    font-size: 14px;
     font-weight: 500;
-    border-radius: 3rem;
-    transition: all .50s ease;
+    color: var(--white-light);
+    border: var(--border);
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }
 
 .product .row-btn .btn{
@@ -465,7 +477,7 @@ nav.open ~ .overlay{
 }
 
 @media (min-width: 320px) {
-    .board{
+    .review .container .board{
         width: auto;
     }
 
@@ -473,13 +485,17 @@ nav.open ~ .overlay{
         width: 320px;
     }
 
-    .board > h1,p{
+    .review .container .board > h1,p{
         padding: 0 2em;
+    }
+
+    .review .swiper .swiper-slide .comments::after{
+        left: 38%;
     }
 }
 
 @media (min-width: 770px) {
-    .board{
+    .review .container .board{
         width: 100%;
     }
     .review .container .swiper {
@@ -488,4 +504,223 @@ nav.open ~ .overlay{
     .review .swiper .swiper-button-prev, .swiper-button-next{
         display: initial;
     }
+    .review .swiper .swiper-slide .comments::after{
+        left: 44%;
+    }
+}
+
+/*CONTACT PAGE*/
+.contact-details{
+    margin-top: 7rem;
+    padding: 40px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contact-details .details{
+    width: 40%;
+}
+
+.contact-details .details span,
+.form-details form span{
+    font-size: 12px;
+}
+
+.contact-details .details h2,
+.form-details form h2{
+    font-size: 26px;
+    line-height: 35px;
+    padding: 20px 0;
+}
+
+.contact-details .details h3{
+    font-size: 16px;
+    padding-bottom: 15px;
+}
+
+.contact-details .details li{
+    list-style: none;
+    display: flex;
+    padding: 10px 0;
+}
+
+.contact-details .details li i{
+    font-size: 14px;
+    padding-right: 22px;
+}
+
+.contact-details .details li p{
+    margin: 0;
+    font: 14px;
+}
+
+.contact-details .map{
+    width: 55%;
+    height: 400px;
+}
+
+.contact-details .map iframe{
+    width: 100%;
+    height: 100%;
+}
+
+.form-details{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    padding: 80px;
+    border: var(--border);
+}
+
+.form-details form{
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.form-details form input,
+.form-details form textarea{
+    width: 100%;
+    padding: 12px 15px;
+    outline: none;
+    margin-bottom: 20px;
+    border: var(--border);
+}
+
+.form-details form button{
+    background-color: var(--orange);
+    color: var(--white-light);
+}
+
+.form-details .people div{
+    padding-bottom: 25px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.form-details .people div img{
+    margin-top: 6rem;
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.form-details .people div p{
+    margin: 0;
+    margin-top: 6rem;
+    font-size: 13px;
+    line-height: 25px;
+}
+
+.form-details .people div p span{
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+}
+
+.form-details .s-btnn a{
+    display: inline-block;
+    padding: 9px 23px;
+    background-color: var(--orange);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 3rem;
+    transition: all .50s ease;
+}
+
+@media (max-width: 799px) {
+    .form-details{
+        padding: 40px;
+    }
+    .form-details form{
+        width: 50%;
+    }
+}
+
+@media (max-width:477px) {
+    .contact-details{
+        flex-direction: column;
+    }
+    .contact-details .details{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .contact-details .map{
+        width: 100%;
+    }
+    .form-details{
+        margin: 10px;
+        padding: 30px 10px;
+        flex-wrap: wrap;
+    }
+    .form-details form{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+/*FOOTER*/
+footer{
+    padding: 40px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .col{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+footer h4{
+    font-size: 14px;
+    padding-bottom: 20px;
+}
+
+footer p{
+    font-size: 13px;
+    margin: 0 0 8px 0;
+}
+
+footer a{
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--black);
+    margin-bottom: 10px;
+}
+
+footer .follow{
+    margin-top: 20px;
+}
+
+footer .follow i{
+    padding-right: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+footer .install .row img{
+    border: var(--border);
+    border-radius: 6px;
+}
+
+footer .install img{
+    margin: 10px 0 15px 0;
+}
+
+footer .follow i:hover,
+footer a:hover{
+    color: var(--orange);
+}
+
+footer .copyright{
+    width: 100%;
+    text-align: center;
 }
