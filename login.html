@@ -66,7 +66,71 @@
         </div>
     </nav>
 
-    <script src="js/script.js"></script>
+    <section class="overlay"></section>
+
+    <section class="login">
+        <div class="form_container">
+           <div class="form login_form">
+                <form action="">
+                    <h2>Login</h2>
+                    <div class="input_box">
+                        <input type="email"  name="email" id="email" placeholder="Insira o seu email" required>
+                        <i class='bx bx-envelope email'></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="password" id="password" placeholder="Insira o a sua password" required>
+                        <i class='bx bx-lock-alt password'></i>
+                        <i class='fa-regular fa-eye-slash pw_hide'></i>
+                    </div>
+
+                    <div class="option_field">
+                        <span class="checkbox">
+                            <input type="checkbox" id="check">
+                            <label for="check">Relembar me</label>
+                        </span>
+                        <a href="#" class="forgot_pw">Forgot password</a>
+                    </div>
+
+                    <button class="button">Entrar Agora</button>
+
+                    <div class="login_signup">
+                        Nao tem uma conta? <a href="#" id="signup">Registar</a>
+                    </div>
+                </form>
+           </div>
+
+            <div class="form signup_form">
+                <form action="">
+                    <h2>Registar</h2>
+                    <div class="input_box">
+                        <input type="text" name="name" id="name" placeholder="Insira o seu nome" required>
+                        <i class='bx bx-user user'></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="email" name="" id="" placeholder="Insira o seu gmail" required>
+                        <i class='bx bx-envelope email'></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="signupPassword" id="signupPassword" placeholder="Criar a sua password" required>
+                        <i class='bx bx-lock-alt password'></i>
+                        <i class='fa-regular fa-eye-slash pw_hide'></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar password" required>
+                        <i class='bx bx-lock-alt password'></i>
+                        <i class='fa-regular fa-eye-slash pw_hide'></i>
+                    </div>
+
+                    <button class="button">Registar Agora</button>
+
+                    <div class="login_signup">
+                        Ja tem uma conta? <a href="#" id="login">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

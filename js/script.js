@@ -1,13 +1,12 @@
 const navBar = document.querySelector("nav");
-    menuBtns = document.querySelectorAll(".menu-icon");
-    overlay = document.querySelector(".overlay");
+let menuBtns = document.querySelectorAll(".menu-icon");
+const overlay = document.querySelector(".overlay");
     
     menuBtns.forEach(menuBtn => {
     menuBtn.addEventListener("click", () => {
         navBar.classList.toggle("open");
         })
     });
-
     overlay.addEventListener("click", () => {
         navBar.classList.toggle("open")
     })
@@ -35,3 +34,35 @@ var swiper = new Swiper('.slider2', {
     },
 });
 
+    const home = document.querySelector(".login");
+    const formContainer = document.querySelector(".form_container");
+    const signupBtn = document.querySelector("#signup");
+    const loginBtn = document.querySelector("#login");
+    const pwShowHide = document.querySelectorAll(".pw_hide");
+
+    pwShowHide.forEach((icon) => {
+        icon.addEventListener("click", () => {
+            let getPwInput = icon.parentElement.querySelector("input");
+            if (getPwInput.type === "password") {
+                getPwInput.type = "text";
+                icon.classList.replace("fa-eye-slash", "fa-eye"); 
+            } else {
+                getPwInput.type = "password";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            }
+        });
+    })
+
+    if (signupBtn) {
+        signupBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            formContainer.classList.add("active");
+        });
+    }
+
+    if (loginBtn) {
+        loginBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            formContainer.classList.remove("active");
+        });
+    }
