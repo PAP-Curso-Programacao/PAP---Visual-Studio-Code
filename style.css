@@ -59,7 +59,7 @@ nav{
     align-items: center;
     background-color: var(--white);
     box-shadow: 0 0 1px rgba(0,0,0.1);
-    z-index: 2;
+    z-index: 10000;
 }
 
 nav .logo{
@@ -730,19 +730,20 @@ footer .copyright{
 
 /*LOGIN*/
 .login{
-   position: relative;
-   height: 100vh;
-   width: 100%; 
+    position: relative;
+    height: 100vh;
+    width: 100%;
 }
 
 .login .form_container{
+    margin-top: 5rem;
     position: absolute;
     max-width: 320px;
     width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1.2);
-    z-index: 101;
+    z-index: 102;
     background-color: var(--orange);
     padding: 25px;
     border-radius: 12px;
@@ -756,6 +757,7 @@ footer .copyright{
 
 .login .form_container.active .signup_form{
     display: block;
+    max-height: 110%;
 }
 
 .login .form_container.active .login_form{
@@ -785,6 +787,10 @@ footer .copyright{
     transition: all 0.2s ease;
     border-bottom: 1.5px solid var(--white-light);
     background-color: var(--orange);
+}
+
+.login .input_box .placeholder::placeholder{
+    color: var(--white-light);
 }
 
 .login .input_box input:focus{
@@ -841,7 +847,7 @@ footer .copyright{
 }
 
 .login .checkbox input{
-    accent-color: var(--orange);
+    accent-color: var(--white-light);
 }
 
 .login .checkbox label{
@@ -857,10 +863,28 @@ footer .copyright{
     width: 100%;
     padding: 10px 0;
     border-radius: 10px;
+    font-weight: 500;
 }
 
 .login .login_signup{
     font-size: 12px;
     text-align: center;
     margin-top: 15px;
+}
+
+/*ABOUT`PAGE*/
+.about-head{
+    margin-top: 8rem;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+}
+
+.about-head img{
+    width: 50%;
+    height: auto;
+}
+
+.about-head div{
+    padding-left: 40px;
 }

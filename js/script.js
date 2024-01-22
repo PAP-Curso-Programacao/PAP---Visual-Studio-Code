@@ -34,6 +34,7 @@ var swiper = new Swiper('.slider2', {
     },
 });
 
+function formLoginRegistar() {
     const home = document.querySelector(".login");
     const formContainer = document.querySelector(".form_container");
     const signupBtn = document.querySelector("#signup");
@@ -51,7 +52,7 @@ var swiper = new Swiper('.slider2', {
                 icon.classList.replace("fa-eye", "fa-eye-slash");
             }
         });
-    })
+    });
 
     if (signupBtn) {
         signupBtn.addEventListener("click", (e) => {
@@ -66,3 +67,6 @@ var swiper = new Swiper('.slider2', {
             formContainer.classList.remove("active");
         });
     }
+}
+
+formLoginRegistar();
