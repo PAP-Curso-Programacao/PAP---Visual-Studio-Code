@@ -87,5 +87,35 @@
         }
         exit();
     }
-    
+
+    function emptyInputLogin($email, $password){
+    $result = false;
+    if (empty($email) || empty($password)) {
+        $result = true;
+    }
+    return $result;
+    }
+
+    function loginUser($db, $email, $password){
+    $uidExists = uidExists($db, $email, $username);
+
+    if ($uidExists === false) {
+        header("location: ../login.php?error=wronglogin");
+        exit();
+    }
+
+    // Obtenha a senha armazenada no banco de dados
+    $storedPassword = $userExists["senha"];
+
+    // Compare a senha fornecida com a senha armazenada (sem hash)
+    if ($password !== $storedPassword) {
+        header("location: ../login.php?error=wronglogin");
+        exit();
+    }
+    session_start();
+    $_SESSION["userid"] = $userExists["id_clientes"];
+    $_SESSION["email"] = $userExists["email"];
+    header("location: ../index.php");
+    exit();
+    }
 ?>

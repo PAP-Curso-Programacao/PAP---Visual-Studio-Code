@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,6 +143,9 @@
             else if($_GET["error"] == "invalidname"){
                 echo "<p>Escolha um nome diferente!</p>";
             }
+            else if($_GET["error"] == "wronglogin"){
+                echo "<p>Informacao do login incorreta!</p>";
+            }
             else if($_GET["error"] == "invalidemail"){
                 echo "<p>Escolha um gmail diferente!</p>";
             }
@@ -147,6 +154,9 @@
             }
             else if($_GET["error"] == "stmtfailed"){
                 echo "<p>Aconteceu algo de errado, tente novamente!</p>";
+            }
+            else if($_GET["error"] == "none"){
+                echo "<p>Ja se encontra logado!</p>";
             }
         }
     ?>
