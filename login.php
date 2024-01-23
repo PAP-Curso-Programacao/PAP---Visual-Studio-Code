@@ -71,7 +71,7 @@
     <section class="login">
         <div class="form_container">
            <div class="form login_form">
-                <form action="">
+                <form method="post" action="">
                     <h2>Login</h2>
                     <div class="input_box">
                         <input type="email"  name="email" id="loginEmail" class="placeholder" placeholder="Insira o seu email" required>
@@ -100,7 +100,7 @@
            </div>
 
             <div class="form signup_form">
-                <form action="">
+                <form method="post" action="includes/process_register.php">
                     <h2>Registar</h2>
                     <div class="input_box">
                         <input type="text" name="name" id="name" class="placeholder" placeholder="Insira o seu nome" required>
@@ -111,7 +111,7 @@
                         <i class='bx bx-envelope email'></i>
                     </div>
                     <div class="input_box">
-                        <input type="password" name="signupPassword" id="signupPassword" class="placeholder" placeholder="Criar a sua password" required>
+                        <input type="password" name="password" id="password" class="placeholder" placeholder="Criar a sua password" required>
                         <i class='bx bx-lock-alt password'></i>
                         <i class='fa-regular fa-eye-slash pw_hide'></i>
                     </div>
@@ -130,6 +130,26 @@
             </div>
         </div>
     </section>
+
+    <?php
+        if(isset($_GET["error"])){
+            if($_GET["error"] == "emptyinput"){
+                echo "<p>Preencha todos os campos!</p>";
+            }
+            else if($_GET["error"] == "invalidname"){
+                echo "<p>Escolha um nome diferente!</p>";
+            }
+            else if($_GET["error"] == "invalidemail"){
+                echo "<p>Escolha um gmail diferente!</p>";
+            }
+            else if($_GET["error"] == "passwordsdontmatch"){
+                echo "<p>Passwords nao coincidem!</p>";
+            }
+            else if($_GET["error"] == "stmtfailed"){
+                echo "<p>Aconteceu algo de errado, tente novamente!</p>";
+            }
+        }
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
