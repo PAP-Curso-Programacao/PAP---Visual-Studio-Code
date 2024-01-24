@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,28 +36,37 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href="catalogo.html" class="nav-link">
+                        <a href="catalogo.php" class="nav-link">
                             <i class='bx bx-book icon'></i>
                             <span class="link">Catalogo</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="about.html" class="nav-link">
+                        <a href="about.php" class="nav-link">
                             <i class='bx bx-info-circle icon'></i>
                             <span class="link">Sobre</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="contact.html" class="nav-link">
+                        <a href="contact.php" class="nav-link">
                             <i class='bx bx-envelope icon'></i>
                             <span class="link">Contacte Nos</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="login.html" class="nav-link">
+                        <?php if(isset($_SESSION['useruid']) && $_SESSION['useruid'] == true): ?>
+                            <!-- Usuário está logado: Mostrar Perfil -->
+                            <a href="profile.php" class="nav-link">
+                            <i class='bx bx-user icon'></i>
+                            <span class="link">Perfil</span>
+                            </a>
+                        <?php else: ?>
+                            <!-- Usuário não está logado: Mostrar Login -->
+                            <a href="login.php" class="nav-link">
                             <i class='bx bx-user icon'></i>
                             <span class="link">Login</span>
-                        </a>
+                            </a>
+                        <?php endif; ?>
                     </li>
                 </ul>
                 <div class="bottom-content">

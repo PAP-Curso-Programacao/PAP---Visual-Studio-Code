@@ -6,7 +6,7 @@
     $password = $_POST['password'];
 
     require_once 'conn.php';
-    require_once 'functions_inc.php';
+    require_once 'functions.inc.php';
 
     if (emptyInputLogin($email, $password) !== false) {
         header("location: ../login.php?error=emptyinput");
@@ -15,6 +15,6 @@
 
     loginUser($db, $email, $password);
     } else {
-    header("location: ../php/login.php");
+    header("location: ../login.php");
     exit();
 }

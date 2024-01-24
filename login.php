@@ -28,33 +28,33 @@
             <div class="sidebar-content">
                 <ul class="lists">
                     <li class="list">
-                        <a href="index1.html" class="nav-link">
+                        <a href="index1.php" class="nav-link">
                             <i class='bx bx-home icon'></i>
                             <span class="link">Home</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="" class="nav-link">
+                        <a href="catalogo.php" class="nav-link">
                             <i class='bx bx-book icon'></i>
                             <span class="link">Catalogo</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="" class="nav-link">
+                        <a href="about.php" class="nav-link">
                             <i class='bx bx-info-circle icon'></i>
                             <span class="link">Sobre</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="contact.html" class="nav-link">
+                        <a href="contact.php" class="nav-link">
                             <i class='bx bx-envelope icon'></i>
                             <span class="link">Contacte Nos</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="login.html" class="nav-link">
+                        <a href="login.php" class="nav-link">
                             <i class='bx bx-user icon'></i>
-                            <span class="link">Perfil</span>
+                            <span class="link">Login</span>
                         </a>
                     </li>
                 </ul>
@@ -75,7 +75,7 @@
     <section class="login">
         <div class="form_container">
            <div class="form login_form">
-                <form method="post" action="">
+                <form method="post" action="includes/process_login.php">
                     <h2>Login</h2>
                     <div class="input_box">
                         <input type="email"  name="email" id="loginEmail" class="placeholder" placeholder="Insira o seu email" required>

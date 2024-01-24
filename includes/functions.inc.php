@@ -43,7 +43,7 @@
         return $result;
     }
 
-    function uidExists($db, $nome, $email){   
+    function userExists($db, $nome, $email){   
         $sql = "SELECT * FROM Clientes WHERE Nome = ? OR Email = ?;";
         $stmt = $db->prepare($sql);
     
@@ -97,15 +97,14 @@
     }
 
     function loginUser($db, $email, $password){
-    $uidExists = uidExists($db, $email, $username);
+    $userExists = userExists($db, $email, $email);
 
-    if ($uidExists === false) {
-        header("location: ../login.php?error=wronglogin");
+    if ($userExists === false) {
         exit();
     }
 
     // Obtenha a senha armazenada no banco de dados
-    $storedPassword = $userExists["senha"];
+    $storedPassword = $userExists["Senha"];
 
     // Compare a senha fornecida com a senha armazenada (sem hash)
     if ($password !== $storedPassword) {
@@ -113,9 +112,9 @@
         exit();
     }
     session_start();
-    $_SESSION["userid"] = $userExists["id_clientes"];
-    $_SESSION["email"] = $userExists["email"];
-    header("location: ../index.php");
+    $_SESSION["userid"] = $userExists["ID"];
+    $_SESSION["useruid"] = $userExists["Email"];
+    header("location: ../index1.php");
     exit();
     }
 ?>
