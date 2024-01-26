@@ -16,7 +16,7 @@
             <span class="logo-name">Pastelaria Crocancia</span>
         </div>
         <div class="shopping-cart">
-            <a href="carrinho.php"><i class='bx bx-shopping-bag'></i></a>
+            <i class='bx bx-shopping-bag' id="cart-icon"></i>
             <div class="cart">
                 <h2 class="cart-title">O Seu Carrinho</h2>
                 <div class="cart-content">
