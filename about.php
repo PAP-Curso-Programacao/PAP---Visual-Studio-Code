@@ -17,6 +17,9 @@
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria Crocancia</span>
         </div>
+        <div class="shopping-cart">
+                <a href="carrinho.php"><i class='bx bx-shopping-bag'></i></a>
+        </div>
 
         <div class="sidebar">
             <div class="logo">
@@ -26,7 +29,7 @@
             <div class="sidebar-content">
                 <ul class="lists">
                     <li class="list">
-                        <a href="index1.php" class="nav-link">
+                        <a href="index.php" class="nav-link">
                             <i class='bx bx-home icon'></i>
                             <span class="link">Home</span>
                         </a>
@@ -87,7 +90,7 @@
                     <h1>A nossa equipa</h1>
                 </div>
             </div>
-            <div class="team-card">
+            <div class="team-card" id="team-section">
                 <div class="card">
                     <div class="image-section">
                         <img src="img/icon/boy.png" alt="">

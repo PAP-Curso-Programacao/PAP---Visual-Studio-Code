@@ -24,6 +24,9 @@
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria Crocancia</span>
         </div>
+        <div class="shopping-cart">
+                <a href="carrinho.php"><i class='bx bx-shopping-bag'></i></a>
+        </div>
 
         <div class="sidebar">
             <div class="logo">
@@ -33,7 +36,7 @@
             <div class="sidebar-content">
                 <ul class="lists">
                     <li class="list">
-                        <a href="index1.php" class="nav-link">
+                        <a href="index.php" class="nav-link">
                             <i class='bx bx-home icon'></i>
                             <span class="link">Home</span>
                         </a>
@@ -114,10 +117,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="button">
-                <ul>
-                    <a href="#"><i class='bx bx-pencil icon'></i></a>
-                </ul>
+                <div class="btn">
+                    <ul>
+                        <a href="editProfile.php"><i class='bx bx-pencil icon'></i></a>
+                        <a href="includes/logout.inc.php"><i class='bx bx-log-out icon'></i></a>
+                    </ul>
+                </div>
             </div>
             </div>
             <?php

@@ -21,6 +21,9 @@
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria Crocancia</span>
         </div>
+        <div class="shopping-cart">
+                <a href="carrinho.php"><i class='bx bx-shopping-bag'></i></a>
+        </div>
 
         <div class="sidebar">
             <div class="logo">
@@ -30,7 +33,7 @@
             <div class="sidebar-content">
                 <ul class="lists">
                     <li class="list">
-                        <a href="index1.php" class="nav-link">
+                        <a href="index.php" class="nav-link">
                             <i class='bx bx-home icon'></i>
                             <span class="link">Home</span>
                         </a>
@@ -156,7 +159,7 @@
             </div>
         </div>
         <div class="row-btn">
-            <a href="#" class="btn">Todos os produtos<i class='bx bxs-right-arrow'></i></a>
+            <a href="catalogo.php" class="btn">Todos os produtos<i class='bx bxs-right-arrow'></i></a>
         </div>
     </section>
 
@@ -234,14 +237,14 @@
         </div>
         <div class="col">
             <h4>Sobre</h4>
-            <a href="#">Sobre Nos</a>
-            <a href="#">Equipa</a>
-            <a href="#">Contacto</a>
+            <a href="about.php">Sobre Nos</a>
+            <a href="about.php#team-section">Equipa</a>
+            <a href="contact.php">Contacto</a>
         </div>
 
         <div class="col">
             <h4>Conta</h4>
-            <a href="#">Registrar</a>
+            <a href="login.php">Registrar</a>
             <a href="#">Ver carrinho</a>
             <a href="#">Acompanhar pedido</a>
         </div>

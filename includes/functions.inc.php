@@ -114,7 +114,7 @@
     session_start();
     $_SESSION["userid"] = $userExists["ID"];
     $_SESSION["useruid"] = $userExists["Email"];
-    header("location: ../index1.php");
+    header("location: ../index.php");
     exit();
     }
 ?>
