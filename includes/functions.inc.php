@@ -81,8 +81,6 @@
         $stmt->bindValue(1, $nome, SQLITE3_TEXT);
         $stmt->bindValue(2, $email, SQLITE3_TEXT);
         $stmt->bindValue(3, $password, SQLITE3_TEXT);
-        $stmt->bindValue(4, "o", SQLITE3_TEXT);
-        $stmt->bindValue(5, "ola", SQLITE3_TEXT);
         $result = $stmt->execute();
     
         if ($result) {
@@ -123,6 +121,17 @@
     exit();
     }
 
+    function emptyInputProfile($nome, $telefone, $email){
+    $result = false;
+
+    // Verificar se todos os campos estão vazios
+    if (empty($nome) && empty($telefone) && empty($email)) {
+        $result = true;
+    }
+
+    return $result;
+}
+
     function userExistsProfile($db, $ID, $email, $telefone){
     $sql = "SELECT * FROM Clientes WHERE (email = :Email OR telefone = :Telefone) AND ID != :ID";
     $stmt = $db->prepare($sql);
@@ -152,9 +161,9 @@
     }
 }
 
-function updateUser($db, $ID, $nome, $email, $telefone, $morada){
-
-    $sql = "UPDATE Clientes SET Nome = ?, Email = ?, Telefone = ?, Morada = ? WHERE ID = ?";
+function updateUser($db, $ID, $nome, $email, $morada, $telefone){
+    
+    $sql = "UPDATE Clientes SET Nome = ?, Email = ?, Morada = ?, Telefone = ? WHERE ID = ?";
     $stmt = $db->prepare($sql);
 
     if (!$stmt) {
@@ -165,9 +174,9 @@ function updateUser($db, $ID, $nome, $email, $telefone, $morada){
     // Bind dos parâmetros usando variáveis
     $stmt->bindParam(1, $nome, SQLITE3_TEXT);
     $stmt->bindParam(2, $email, SQLITE3_TEXT);
-    $stmt->bindParam(3, $telefone, SQLITE3_TEXT);
-    $stmt->bindParam(4, $morada, SQLITE3_TEXT);
-    $stmt->bindParam(5, $ID, SQLITE3_INTEGER);
+    $stmt->bindParam(3, $morada, SQLITE3_TEXT);
+    $stmt->bindParam(4, $telefone, SQLITE3_TEXT);
+    $stmt->bindParam(5, $ID, SQLITE3_INTEGER);  
 
     $result = $stmt->execute();
 

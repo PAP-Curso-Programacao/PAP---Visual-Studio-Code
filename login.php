@@ -85,7 +85,7 @@
                         <i class='bx bx-envelope email'></i>
                     </div>
                     <div class="input_box">
-                        <input type="password" name="password" id="password" class="placeholder" placeholder="Insira o a sua password" required>
+                        <input type="password" name="password" id="LoginPassword" class="placeholder" placeholder="Insira o a sua password" required>
                         <i class='bx bx-lock-alt password'></i>
                         <i class='fa-regular fa-eye-slash pw_hide'></i>
                     </div>

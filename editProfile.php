@@ -5,6 +5,7 @@
         header("location: login.php");
         exit();
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -96,33 +97,33 @@
         <div class="right">
             <div class="info">
                 <h3>Informações</h3>
-                <div class="info_data">
-                    <form action="includes/EditProfile.inc.php" method="post">
-                        <div class="data">
-                            <h4>Nome:</h4>
-                            <p><input type="text" name="name" placeholder="<?php echo $nome; ?>"></p>
-                        </div>
-                        <div class="data">
-                        <h4>Email:</h4>
-                            <p><input type="email" name="email" placeholder="<?php echo $email; ?>"></p>
-                        </div>
-                        <div class="data">
-                            <h4>Telemovel:</h4>
-                            <p><input type="text" name="telemovel" placeholder="<?php echo $telemovel; ?>"></p>
-                        </div>
-                        <div class="data">
-                            <h4>Morada:</h4>
-                            <p><input type="text" name="morada" placeholder="<?php echo $morada; ?>"></p>
-                        </div>    
-                    </form>
+                    <div class="info_data">
+                        <form action="includes/editProfile.inc.php" method="post">
+                            <div class="data">
+                                <h4>Nome:</h4>
+                                <p><input type="text" name="name" placeholder="<?php echo $nome; ?>"></p>
+                            </div>
+                            <div class="data">
+                                <h4>Email:</h4>
+                                <p><input type="email" name="email" placeholder="<?php echo $email; ?>"></p>
+                            </div>
+                            <div class="data">
+                                <h4>Telemovel:</h4>
+                                <p><input type="text" name="telemovel" placeholder="<?php echo $telemovel; ?>"></p>
+                            </div>
+                            <div class="data">
+                                <h4>Morada:</h4>
+                                <p><input type="text" name="morada" placeholder="<?php echo $morada; ?>"></p>
+                            </div>  
+                    </div>
                 </div>
-            </div>
-            <div class="btn">
-                <ul>
-                    <a href="includes/editProfile.inc.php"><i class='bx bx-refresh icon'></i></a>
-                    <a href="includes/logout.inc.php"><i class='bx bx-log-out icon'></i></a>
-                </ul>
-            </div>
+                <div class="btn">
+                    <ul>
+                        <button type="submit" class="s-btnn"><i class='bx bx-refresh icon'></i></button>
+                        <a href="includes/logout.inc.php"><i class='bx bx-log-out icon'></i></a>
+                    </ul>
+                </div>
+            </form>
         </div>
     </div>
     <?php } ?>
