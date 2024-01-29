@@ -1295,6 +1295,14 @@ footer .copyright{
     color: var(--white-light);
 }
 
+.profile .wrapper .right .info_data .data input {
+    background-color: var(--orange); 
+    color: var(--white-light); 
+    border: none;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
 .profile .wrapper .right .btn {
     text-align: right;
     width: 100%;

@@ -80,6 +80,54 @@
 
     <section class="overlay"></section>
 
+    <section class="profile">
+    <div class="wrapper">
+        <div class="left">
+            <img src="img/icon/boy.png" alt="" width="100">
+            <?php
+                include('/includes/profile.inc.php');
+                foreach ($user as $info) {
+                $nome = $info[0];
+                $email = $info[1];
+                $telemovel = $info[2];
+                $morada = $info[3];
+            ?>
+        </div>
+        <div class="right">
+            <div class="info">
+                <h3>Informações</h3>
+                <div class="info_data">
+                    <form action="includes/EditProfile.inc.php" method="post">
+                        <div class="data">
+                            <h4>Nome:</h4>
+                            <p><input type="text" name="name" placeholder="<?php echo $nome; ?>"></p>
+                        </div>
+                        <div class="data">
+                        <h4>Email:</h4>
+                            <p><input type="email" name="email" placeholder="<?php echo $email; ?>"></p>
+                        </div>
+                        <div class="data">
+                            <h4>Telemovel:</h4>
+                            <p><input type="text" name="telemovel" placeholder="<?php echo $telemovel; ?>"></p>
+                        </div>
+                        <div class="data">
+                            <h4>Morada:</h4>
+                            <p><input type="text" name="morada" placeholder="<?php echo $morada; ?>"></p>
+                        </div>    
+                    </form>
+                </div>
+            </div>
+            <div class="btn">
+                <ul>
+                    <a href="includes/editProfile.inc.php"><i class='bx bx-refresh icon'></i></a>
+                    <a href="includes/logout.inc.php"><i class='bx bx-log-out icon'></i></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+</div>
+</section>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
