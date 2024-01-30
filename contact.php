@@ -121,7 +121,7 @@
                 123 312 <br>Email: rafael@gmail.com</p>
             </div>
             <div>
-                <img src="img/icon/boy.png" alt="">
+                <img src="img/review/4.jpeg" alt="">
                 <p><span>Pedro Azevedo</span>CEO<br> Telemovel: +351 912 
                 123 312 <br>Email: pastelaria@gmail.com</p>
             </div>

@@ -1073,6 +1073,12 @@ footer .copyright{
     margin-top: 15px;
 }
 
+@media (max-width:477px) {
+    .login .form_container{
+        max-width: 280px;
+    }
+}
+
 /*ABOUT`PAGE*/
 .about-head{
     margin-top: 10rem;
@@ -1337,13 +1343,24 @@ footer .copyright{
 }
 
 @media (max-width:477px) {
+
     .profile .wrapper{
         padding: 40px 120px;
-        width: 320px;
+        width: 100%;
         display: table;
+        box-sizing: border-box;
+
+    }
+
+    .profile .wrapper .right{
+        width: 100%;
     }
 
     .profile .wrapper img{
         margin-left: 5rem;
+    }
+
+    .profile .wrapper .s-btnn{
+        margin: 0 5px; 
     }
 }

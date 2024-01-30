@@ -93,7 +93,7 @@
             <div class="team-card" id="team-section">
                 <div class="card">
                     <div class="image-section">
-                        <img src="img/icon/boy.png" alt="">
+                        <img src="img/review/4.jpeg" alt="">
                     </div>
                     <div class="content">
                         <h3>Pedro Azevedo</h3>

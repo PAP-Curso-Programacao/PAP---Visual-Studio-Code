@@ -92,91 +92,29 @@
     <section class="overlay"></section>
     
     <section id="product1" class="product1">
-        <h2>O nosso Catalogo</h2>
-        <div class="pro-container">
-            <div class="pro">
-                <img src="img/products/caracol.jpg" alt="">
-                <div class="des">
-                    <span>ada</span>
-                    <h5>Caracol de frutos secos</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-            <div class="pro">
-                <img src="img/products/bolasberlim.jpg" alt="">
-                <div class="des">
-                    <h5>Bolas de Berlim</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
+    <h2>O nosso Catalogo</h2>
+    <div class="pro-container">
+        <?php
+            include('/includes/catalogo.inc.php');
 
-            <div class="pro">
-                <img src="img/products/cookiesamer.jpg" alt="">
-                <div class="des">
-                    <h5>Cookie americana</h5>
-                    <h4>2.00€</h4>
+            foreach ($catalogos as $catalogo) {
+                $imagem = htmlspecialchars($catalogo[0]);
+                $nome = htmlspecialchars($catalogo[1]);
+                $preco = htmlspecialchars($catalogo[2]);
+        ?>
+                <div class="pro">
+                    <img src="<?php echo $imagem; ?>" alt="<?php echo $nome; ?>">
+                    <div class="des">
+                        <h5><?php echo $nome; ?></h5>
+                        <h4><?php echo $preco; ?>€</h4>
+                    </div>
+                    <a href="#"><i class='bx bx-cart cart'></i></a>
                 </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="img/products/cookiesamer.jpg" alt="">
-                <div class="des">
-                    <h5>Cookie americana</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="img/products/cookiesamer.jpg" alt="">
-                <div class="des">
-                    <h5>Cookie americana</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="img/products/cookiesamer.jpg" alt="">
-                <div class="des">
-                    <h5>Cookie americana</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="img/products/cookiesamer.jpg" alt="">
-                <div class="des">
-                    <h5>Cookie americana</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="img/products/cookiesamer.jpg" alt="">
-                <div class="des">
-                    <h5>Cookie americana</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="img/products/cookiesamer.jpg" alt="">
-                <div class="des">
-                    <h5>Cookie americana</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-        </div>
-    </section>
-
+        <?php
+            }
+        ?>
+    </div>
+</section>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
