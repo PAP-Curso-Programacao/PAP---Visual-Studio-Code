@@ -76,17 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let cart = document.querySelector('.cart');
     let closeCart = document.querySelector('#close-cart');
 
-    if (cartIcon) {
-        cartIcon.onclick = () => {
-            cart.classList.add("active");
-        };
-    }
-
-    if (closeCart) {
-        closeCart.onclick = () => {
-            cart.classList.remove("active");
-        };
-    }
+    cartIcon.onclick = () => {
+        cart.classList.toggle("active");
+    };
+    
+    closeCart.onclick = () => {
+        cart.classList.remove("active");
+    };
 });
-
 
