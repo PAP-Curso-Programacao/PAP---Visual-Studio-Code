@@ -19,10 +19,6 @@
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria Crocancia</span>
         </div>
-        <div class="shopping-cart">
-                <a href="carrinho.php"><i class='bx bx-shopping-bag'></i></a>
-        </div>
-
         <div class="sidebar">
             <div class="logo">
                 <i class='bx bx-menu menu-icon'></i>

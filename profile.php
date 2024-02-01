@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION["useruid"])) {
+    if (!isset($_SESSION["userid"])) {
         header("location: login.php");
         exit();
     }
@@ -24,10 +24,6 @@
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria Crocancia</span>
         </div>
-        <div class="shopping-cart">
-                <a href="carrinho.php"><i class='bx bx-shopping-bag'></i></a>
-        </div>
-
         <div class="sidebar">
             <div class="logo">
                 <i class='bx bx-menu menu-icon'></i>
@@ -66,14 +62,6 @@
                         </a>
                     </li>
                 </ul>
-                <div class="bottom-content">
-                    <li class="list">
-                        <a href="" class="nav-link">
-                            <i class='bx bxs-dashboard icon'></i>
-                            <span class="link">Dashboard</span>
-                        </a>
-                    </li>
-                </div>
             </div>
         </div>
     </nav>
@@ -91,8 +79,8 @@
                     // Informações do cliente recebidas do banco de dados
                     $nome = $info[0];
                     $email = $info[1];
-                    $telemovel = $info[2];
-                    $morada = $info[3];
+                    $telemovel = $info[3];
+                    $morada = $info[2];
                 ?>
             </div>
             <div class="right">

@@ -5,12 +5,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['name'];
     $email = $_POST['email'];
     $morada = $_POST['morada'];
-    $telemovel = $_POST['telemovel'];
+    $telefone = $_POST['telemovel'];
 
     require_once 'conn.php';
     require_once 'functions.inc.php';
 
-    if (emptyInputProfile($nome, $telemovel, $email) !== false) {
+    if (emptyInputProfile($nome, $telefone, $email) !== false) {
         header("location: ../editProfile.php?error=emptyinput");
         exit();
       }
@@ -18,16 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("location: ../editProfile.php?error=ivalidnome");
         exit();
       }
-      if (invalidPhone($telemovel) !== false) {
+      if (invalidPhone($telefone) !== false) {
         header("location: ../editProfile.php?error=ivalidphone");
         exit();
       }
-      if (userExistsProfile($db, $_SESSION["userid"], $nome, $telemovel) !== false) {
+      if (userExistsProfile($db, $_SESSION["userid"], $email, $telefone) !== false) {
         header("location: ../editProfile.php?error=userexists");
         exit();
       }
     
-      updateUser($db, $_SESSION["userid"], $nome, $email, $morada, $telemovel);
+      updateUser($db, $_SESSION["userid"], $nome, $email, $morada, $telefone);
     } else {
       header("location: ../login.php");
       exit();

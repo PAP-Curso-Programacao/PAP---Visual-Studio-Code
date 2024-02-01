@@ -16,6 +16,7 @@
     <title>Editar Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -25,10 +26,6 @@
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria Crocancia</span>
         </div> 
-        <div class="shopping-cart">
-            <a href="carrinho.php"><i class='bx bx-shopping-bag'></i></a>
-        </div>
-
         <div class="sidebar">
             <div class="logo">
                 <i class='bx bx-menu menu-icon'></i>
@@ -67,14 +64,6 @@
                     </a>
                 </li>
                 </ul>
-                <div class="bottom-content">
-                    <li class="list">
-                        <a href="" class="nav-link">
-                            <i class='bx bxs-dashboard icon'></i>
-                            <span class="link">Dashboard</span>
-                        </a>
-                    </li>
-                </div>
             </div>
         </div>
     </nav>
@@ -90,8 +79,8 @@
                 foreach ($user as $info) {
                 $nome = $info[0];
                 $email = $info[1];
-                $telemovel = $info[2];
-                $morada = $info[3];
+                $morada = $info[2];
+                $telemovel = $info[3];
             ?>
         </div>
         <div class="right">
@@ -129,7 +118,53 @@
     <?php } ?>
 </div>
 </section>
+<?php
+  if (isset($_GET["error"])) {
+    $errorMessage = "";
+    $errorType = "Atenção";
 
+    switch ($_GET["error"]) {
+      case "ivalidname":
+        $errorMessage = "Nome inválido!";
+        break;
+      case "ivalidphone":
+        $errorMessage = "Número de telemovel inválido!";
+        break;
+      case "userexists":
+        $errorMessage = "Nome ou Telemovel já existem!";
+        break;
+      case "emptyinput":
+        $errorMessage = "Preencha todos os campos!";
+        break;
+      default:
+        break;
+    }
+    if (!empty($errorMessage)) {
+        echo '<script>';
+        echo 'document.addEventListener("DOMContentLoaded", function() {';
+        echo 'toastr.error("' . $errorMessage . '", "' . $errorType . '", {
+              closeButton: false,
+              progressBar: true,
+              positionClass: "toast-top-right",
+              timeOut: 3000,
+              extendedTimeOut: 1000,
+              preventDuplicates: false,
+              newestOnTop: false,
+              showDuration: 300,
+              hideDuration: 300,
+              showEasing: "swing",
+              hideEasing: "linear",
+              showMethod: "slideDown",
+              hideMethod: "slideUp",
+              toastClass: "custom-toast-class"
+          });';
+        echo '});';
+        echo '</script>';
+      }
+    }
+?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

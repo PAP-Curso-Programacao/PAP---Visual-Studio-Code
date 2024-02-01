@@ -21,10 +21,6 @@
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria Crocancia</span>
         </div>
-        <div class="shopping-cart">
-                <a href="carrinho.php"><i class='bx bx-shopping-bag'></i></a>
-        </div>
-
         <div class="sidebar">
             <div class="logo">
                 <i class='bx bx-menu menu-icon'></i>
@@ -72,14 +68,14 @@
                         <?php endif; ?>
                     </li>
                 </ul>
-                <div class="bottom-content">
+                <?php /* <div class="bottom-content">
                     <li class="list">
                         <a href="" class="nav-link">
                             <i class='bx bxs-dashboard icon'></i>
                             <span class="link">Dashboard</span>
                         </a>
                     </li>
-                </div>
+                </div>*/?>
             </div>
         </div>
     </nav>
@@ -92,19 +88,19 @@
                 <div class="swiper-slide slide" style="background: url(img/banner/banner1.jpg) no-repeat;">
                     <div class="content">
                         <h3>Pasteis Deliciosos</h3>
-                        <a href="#" class="btn-home">Comece agora</a>
+                        <a href="catalogo.php" class="btn-home">Comece agora</a>
                     </div>
                 </div>
                 <div class="swiper-slide slide" style="background: url(img/banner/banner2.jpg) no-repeat;">
                     <div class="content">
                         <h3>Sabores irresistíveis</h3>
-                        <a href="#" class="btn-home">Comece agora</a>
+                        <a href="catalogo.php" class="btn-home">Comece agora</a>
                     </div>
                 </div>
                 <div class="swiper-slide slide" style="background: url(img/banner/banner3.jpg) no-repeat;">
                     <div class="content">
                         <h3>Feitos com carinho</h3>
-                        <a href="#" class="btn-home">Comece agora</a>
+                        <a href="catalogo.php" class="btn-home">Comece agora</a>
                     </div>
                 </div>
             </div>

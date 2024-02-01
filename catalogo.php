@@ -1,3 +1,10 @@
+<?php
+    session_start();
+
+    $userLoggedIn = isset($_SESSION["userid"])
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,22 +24,17 @@
         </div>
         <div class="shopping-cart">
             <i class='bx bx-shopping-bag' id="cart-icon"></i>
+            <span id="cart-badge" class="cart-badge">0</span>
             <div class="cart">
                 <h2 class="cart-title">O Seu Carrinho</h2>
                 <div class="cart-content">
-                    <div class="cart-box">
-                        <img src="img/products/caracol.jpg" alt="" class="cart-img">
-                        <div class="detail-box">
-                            <div class="cart-product-title">asa</div>
-                            <div class="cart-price">25€</div>
-                            <input type="number" value="1" class="cart-quantity">
+                        <div class="cart-box">
+
                         </div>
-                        <i class='bx bx-trash cart-remove'></i>
-                    </div>
                 </div>
                 <div class="total">
                     <div class="total-title">Total</div>
-                    <div class="tota-price">$0</div>
+                    <div class="total-price">$0</div>
                 </div>
                 <button type="button" class="btn-buy">Comprar Agora</button>
                 <i class='bx bx-x' id="close-cart"></i>
@@ -71,20 +73,21 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href="login.php" class="nav-link">
+                        <?php if(isset($_SESSION['useruid']) && $_SESSION['useruid'] == true): ?>
+                            <!-- Usuário está logado: Mostrar Perfil -->
+                            <a href="profile.php" class="nav-link">
+                            <i class='bx bx-user icon'></i>
+                            <span class="link">Perfil</span>
+                            </a>
+                        <?php else: ?>
+                            <!-- Usuário não está logado: Mostrar Login -->
+                            <a href="login.php" class="nav-link">
                             <i class='bx bx-user icon'></i>
                             <span class="link">Login</span>
-                        </a>
+                            </a>
+                        <?php endif; ?>
                     </li>
                 </ul>
-                <div class="bottom-content">
-                    <li class="list">
-                        <a href="" class="nav-link">
-                            <i class='bx bxs-dashboard icon'></i>
-                            <span class="link">Dashboard</span>
-                        </a>
-                    </li>
-                </div>
             </div>
         </div>
     </nav>
@@ -108,13 +111,19 @@
                         <h5><?php echo $nome; ?></h5>
                         <h4><?php echo $preco; ?>€</h4>
                     </div>
-                    <a href="#"><i class='bx bx-cart cart'></i></a>
+                    <a href="#"><i class='bx bx-cart add-cart'></i></a>
                 </div>
         <?php
             }
         ?>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    var isUserLoggedIn = <?php echo json_encode(isset($_SESSION['userid']) && $_SESSION['useruid']); ?>;
+
+</script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

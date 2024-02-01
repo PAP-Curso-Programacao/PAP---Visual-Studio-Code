@@ -1,5 +1,5 @@
 <?php
-    function emptyInputSignup($nome, $email, $telefone, $password, $confirmPassword){
+    function emptyInputSignup($nome, $email, $password, $confirmPassword){
         $result;
         if(empty($nome) || empty($email) || empty($password) || empty($confirmPassword)){
             $result = true;
@@ -70,7 +70,7 @@
     
 
     function createUser($db, $nome, $email, $password){
-        $sql = "INSERT INTO Clientes (Nome, Email, Senha,Morada,Telefone) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Clientes (Nome, Email, Senha) VALUES (?, ?, ?)";
         $stmt = $db->prepare($sql);
     
         if (!$stmt) {
@@ -143,7 +143,7 @@
     }
 
     $stmt->bindParam(':Email', $email, SQLITE3_TEXT);
-    $stmt->bindParam(':telefone', $telefone, SQLITE3_TEXT);
+    $stmt->bindParam(':Telefone', $telefone, SQLITE3_TEXT);
     $stmt->bindParam(':ID', $ID, SQLITE3_INTEGER);
 
     $result = $stmt->execute();

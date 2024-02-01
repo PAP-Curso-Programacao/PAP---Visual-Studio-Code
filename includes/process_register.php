@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("location: ../login.php?error=passwordsdontmatch");
     exit();
   }
-  if(uidExists($db, $nome, $email) !== false){
+  if(userExists($db, $nome, $email) !== false){
     header("location: ../login.php?error=nometaken");
     exit();
   }

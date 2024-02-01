@@ -73,6 +73,7 @@ nav .logo{
 nav .shopping-cart i{
     font-size: 24px; 
     color: #333;
+    cursor: pointer;
 }
 
 nav .shopping-cart{
@@ -302,8 +303,17 @@ nav .cart{
     transition: all 0.5s ease;
 }
 
+nav .cart-badge {
+    position: absolute;
+    color: var(--orange);
+    padding: 0px 0px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
 nav .cart.active {
-    right: 0; 
+    right: 0;
+    cursor: default;
 }
 
 nav .cart .cart-title{
@@ -342,41 +352,46 @@ nav .cart-product-title{
 }
 
 nav .cart .cart-price{
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
 }
 
 nav .cart-quantity{
     border:var(--border);
     outline: var(--orange);
+    margin-top: 1rem;
     width: 4rem;
-    height: 2rem;
+    height: 2.2rem;
     text-align: center;
     font-size: 1rem;
 }
 
 nav .cart .cart-remove{
-    font-size: 24px;
+    font-size: 26px;
     color: var(--orange);
     cursor: pointer;
+    margin-right: 30px;
+    margin-top: 3rem;
 }
 
 nav .cart .total{
     display: flex;
     justify-content: flex-end;
     margin-top: 1.5rem;
-    padding-bottom: 1rem;
+    padding-top: 1rem;
+    transition: all 0.3s ease;
     border-top: var(--border);
 }
 
 nav .cart .total-title{
-    font-size: 1.2rem;
+    margin-right: 2rem;
+    font-size: 1.3rem;
     font-weight: 600;
 }
 
 nav .cart .total-price{
-    font-size: 1rem;
-    margin-left: 0.5rem;
+    font-size: 1.2rem;
+    margin-right: 3rem;
 }
 
 nav .cart .btn-buy{
@@ -533,7 +548,7 @@ nav .cart #close-cart{
     padding: 10px 12px;
     border: var(--border);
     border-radius: 25px;
-    cursor: pointer;
+    cursor: default;
     margin: 15px 0;
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
     align-items: center;
@@ -574,7 +589,7 @@ nav .cart #close-cart{
     font-size: 24px;
 }
 
-.product1 .pro .cart{
+.product1 .pro .add-cart{
     width: 42px;
     height: 42px;
     line-height: 42px;
@@ -1297,6 +1312,7 @@ footer .copyright{
 }
 
 .profile .wrapper .right .info_data .data p{
+    width: 200px;
     font-size: 14px;
     margin-bottom: 10px;
     color: var(--white-light);
@@ -1364,4 +1380,33 @@ footer .copyright{
     .profile .wrapper .s-btnn{
         margin: 0 5px; 
     }
+}
+
+
+/*-------------------TOASTR NOTIFICATIONS-----------------------*/
+.custom-toast-class {
+    margin-top: 10px !important;
+    border-radius: 10px !important;
+    background-color: var(--orange) !important;
+    opacity: 1 !important;
+    box-shadow: var(--box-shadow-1) !important;
+    color: var(--white-light) !important;
+  }
+  
+  .custom-toast-class .toast-title {
+    font-weight: bold !important;
+  }
+  
+  .custom-toast-class .toast-message {
+    font-weight: normal !important;
+  }
+  
+  .custom-toast-class .toast-close-button {
+    color: #fff !important;
+  }
+  
+  .custom-toast-class .toast-progress {
+    background-color: var(--white-light) !important;
+    opacity: 1 !important;
+    pointer-events: none !important;
 }
