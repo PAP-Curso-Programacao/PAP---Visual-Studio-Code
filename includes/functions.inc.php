@@ -48,8 +48,8 @@
         return $result;
     }
 
-    function userExists($db, $nome, $email){   
-        $sql = "SELECT * FROM Clientes WHERE Nome = ? OR Email = ?;";
+    function userExists($db, $email){   
+        $sql = "SELECT * FROM Clientes WHERE Email = ?;";
         $stmt = $db->prepare($sql);
     
         if (!$stmt) {
@@ -57,8 +57,7 @@
             exit();
         }
     
-        $stmt->bindValue(1, $nome, SQLITE3_TEXT);
-        $stmt->bindValue(2, $email, SQLITE3_TEXT);
+        $stmt->bindValue(1, $email, SQLITE3_TEXT);
         $result = $stmt->execute();
     
         if ($row = $result->fetchArray()) {
@@ -69,8 +68,8 @@
     }
     
 
-    function createUser($db, $nome, $email, $password){
-        $sql = "INSERT INTO Clientes (Nome, Email, Senha) VALUES (?, ?, ?)";
+    function createUser($db, $nome, $email, $password, $telefone){
+        $sql = "INSERT INTO Clientes (Nome, Email, Senha, Telefone) VALUES (?, ?, ?, ?)";
         $stmt = $db->prepare($sql);
     
         if (!$stmt) {
@@ -81,6 +80,7 @@
         $stmt->bindValue(1, $nome, SQLITE3_TEXT);
         $stmt->bindValue(2, $email, SQLITE3_TEXT);
         $stmt->bindValue(3, $password, SQLITE3_TEXT);
+        $stmt->bindValue(4, $telefone, SQLITE3_TEXT);
         $result = $stmt->execute();
     
         if ($result) {

@@ -953,7 +953,7 @@ footer .copyright{
 }
 
 .login .form_container{
-    margin-top: 5rem;
+    margin-top: 10rem;
     position: absolute;
     max-width: 320px;
     width: 100%;
@@ -1021,7 +1021,8 @@ footer .copyright{
     font-size: 20px;
 }
 
-.login .input_box i.email, 
+.login .input_box i.email,
+.login .input_box i.phone, 
 .login .input_box i.password,
 .login .input_box i.user{
     left: 0;
@@ -1029,6 +1030,7 @@ footer .copyright{
 }
 
 .login .input_box input:focus ~ i.email,
+.login .input_box input:focus ~ i.phone,
 .login .input_box input:focus ~ i.password{
     color: var(--white-light);
 }

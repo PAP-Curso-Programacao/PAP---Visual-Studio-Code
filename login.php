@@ -90,7 +90,7 @@
                     <div class="option_field">
                         <span class="checkbox">
                             <input type="checkbox" id="check">
-                            <label for="check">Relembar me</label>
+                            <label for="check">Relembrar me</label>
                         </span>
                         <a href="#" class="forgot_pw">Forgot password</a>
                     </div>
@@ -155,6 +155,10 @@
                         <i class='bx bx-envelope email'></i>
                     </div>
                     <div class="input_box">
+                        <input type="text" name="telemovel" id="telemovel" class="placeholder" placeholder="Insira o seu telemovel" required>
+                        <i class='bx bx-phone phone'></i>
+                    </div>
+                    <div class="input_box">
                         <input type="password" name="password" id="password" class="placeholder" placeholder="Criar a sua password" required>
                         <i class='bx bx-lock-alt password'></i>
                         <i class='fa-regular fa-eye-slash pw_hide'></i>
@@ -178,28 +182,61 @@
     <?php
         if(isset($_GET["error"])){
             if($_GET["error"] == "emptyinput"){
-                echo "<p>Preencha todos os campos!</p>";
-            }
-            else if($_GET["error"] == "invalidname"){
-                echo "<p>Escolha um nome diferente!</p>";
+                $errorMessage = "Preencha todos os campos!";
             }
             else if($_GET["error"] == "wronglogin"){
-                echo "<p>Informacao do login incorreta!</p>";
+                $errorMessage = "Informacao do login incorreta!";
             }
             else if($_GET["error"] == "invalidemail"){
-                echo "<p>Escolha um gmail diferente!</p>";
+                $errorMessage = "Escolha um gmail diferente!";
+            }
+            else if($_GET["error"] == "invalidphone"){
+                $errorMessage = "Escolha um numero de telemovel diferente!";
             }
             else if($_GET["error"] == "passwordsdontmatch"){
-                echo "<p>Passwords nao coincidem!</p>";
+                $errorMessage = "Passwords nao coincidem!";
             }
             else if($_GET["error"] == "stmtfailed"){
-                echo "<p>Aconteceu algo de errado, tente novamente!</p>";
+                $errorMessage = "Aconteceu algo de errado, tente novamente!";
             }
-            else if($_GET["error"] == "none"){
-                echo "<p>Ja se encontra logado!</p>";
+            if (!empty($errorMessage)) {
+                echo '<script>';
+                echo 'document.addEventListener("DOMContentLoaded", function() {';
+                echo 'toastr.warning("' . $errorMessage . '", "' . $errorType . '", {
+                closeButton: false,
+                progressBar: true,
+                positionClass: "toast-top-right",
+                timeOut: 3000,
+                extendedTimeOut: 1000,
+                preventDuplicates: false,
+                newestOnTop: false,
+                showDuration: 300,
+                hideDuration: 300,
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "slideDown",
+                hideMethod: "slideUp",
+                toastClass: "custom-toast-class"
+            });';
+                echo '});';
+                echo '</script>';
             }
         }
     ?>
+     <?php
+                        if (isset($_GET["error"])) {
+                            $errorMessage = "";
+                            $errorType = "Sucesso";
+
+                            switch ($_GET["error"]) {
+                                case "none":
+                                    $errorMessage = "login feito com sucesso!";
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }   
+                        ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

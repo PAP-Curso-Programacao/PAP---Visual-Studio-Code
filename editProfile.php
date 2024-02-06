@@ -90,7 +90,8 @@
                         <form action="includes/editProfile.inc.php" method="post">
                             <div class="data">
                                 <h4>Nome:</h4>
-                                <p><input type="text" name="name" placeholder="<?php echo $nome; ?>"></p>
+                                <p><input type="text" name="name" value="<?php echo htmlspecialchars($nome); ?>" readonly></p>
+
                             </div>
                             <div class="data">
                                 <h4>Email:</h4>

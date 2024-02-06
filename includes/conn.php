@@ -1,11 +1,14 @@
 <?php
-class MyDB extends SQLite3
-{
-  function __construct()
+if (!class_exists('MyDB')) {
+  class MyDB extends SQLite3
   {
-    $this->open(__DIR__ . '/../database/Pastelaria.db');
+      function __construct()
+      {
+          $this->open(__DIR__ . '/../database/Pastelaria.db');
+      }
   }
 }
+
 
 $db = new MyDB();
 if (!$db) {
