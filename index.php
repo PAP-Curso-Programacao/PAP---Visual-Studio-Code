@@ -127,32 +127,25 @@
         <h2>Os Nossos Produtos</h2>
         <p>Descubra um mundo de sabores refinados</p>
         <div class="pro-container">
-            <div class="pro">
-                <img src="img/products/caracol.jpg" alt="">
-                <div class="des">
-                    <span>ada</span>
-                    <h5>Caracol de frutos secos</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
-            <div class="pro">
-                <img src="img/products/bolasberlim.jpg" alt="">
-                <div class="des">
-                    <h5>Bolas de Berlim</h5>
-                    <h4>2.00€</h4>
-                </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
+        <?php
+            include('/includes/catalogoIndex.inc.php');
 
-            <div class="pro">
-                <img src="img/products/cookiesamer.jpg" alt="">
-                <div class="des">
-                    <h5>Cookie americana</h5>
-                    <h4>2.00€</h4>
+            foreach ($catalogos as $catalogo) {
+                $imagem = htmlspecialchars($catalogo[0]);
+                $nome = htmlspecialchars($catalogo[1]);
+                $preco = htmlspecialchars($catalogo[2]);
+        ?>
+                <div class="pro">
+                    <img src="<?php echo $imagem; ?>" alt="<?php echo $nome; ?>">
+                    <div class="des">
+                        <h5><?php echo $nome; ?></h5>
+                        <h4><?php echo $preco; ?>€</h4>
+                    </div>
+                    <a href="catalogo.php"><i class='bx bx-cart cart'></i></a>
                 </div>
-                <a href="#"><i class='bx bx-cart cart'></i></a>
-            </div>
+        <?php
+            }
+        ?>
         </div>
         <div class="row-btn">
             <a href="catalogo.php" class="btn">Todos os produtos<i class='bx bxs-right-arrow'></i></a>
@@ -234,15 +227,16 @@
         <div class="col">
             <h4>Sobre</h4>
             <a href="about.php">Sobre Nos</a>
-            <a href="about.php#team-section">Equipa</a>
+            <a href="about.php">Equipa</a>
             <a href="contact.php">Contacto</a>
         </div>
 
         <div class="col">
             <h4>Conta</h4>
-            <a href="login.php">Registrar</a>
+            <a href="login.php">Login</a>
+            <!--
             <a href="#">Ver carrinho</a>
-            <a href="#">Acompanhar pedido</a>
+            <a href="#">Acompanhar pedido</a>-->
         </div>
 
         <div class="col install">

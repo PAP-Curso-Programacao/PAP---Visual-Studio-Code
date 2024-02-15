@@ -72,7 +72,7 @@
                 </li>
                 <li>
                     <i class='bx bx-envelope'></i>
-                    <p>geral@aeds.pt</p>
+                    <p>pastelaria@gmail.com</p>
                 </li>
                 <li>
                     <i class='bx bx-phone'></i>
@@ -105,21 +105,68 @@
         <div class="people">
             <div>
                 <img src="img/review/3.jpeg" alt="">
-                <p><span>Rafael Cordeiro</span>Web Developer <br> Telemovel: +351 912 
-                123 312 <br>Email: rafael@gmail.com</p>
+                <p><span>Rafael Cordeiro</span>Web Developer <br> Telemovel: +351 923 
+                321 123 <br>Email: rafael@gmail.com</p>
             </div>
             <div>
                 <img src="img/review/4.jpeg" alt="">
                 <p><span>Pedro Azevedo</span>CEO<br> Telemovel: +351 912 
-                123 312 <br>Email: pastelaria@gmail.com</p>
+                345 678 <br>Email: pastelaria@gmail.com</p>
             </div>
             <div>
                 <img src="img/icon/boy.png" alt="">
-                <p><span>Volodymyr Krasnyak</span>CEO<br> Telemovel: +351 912 
-                123 312 <br>Email: pastelaria@gmail.com</p>
+                <p><span>Volodymyr Krasnyak</span>CEO<br> Telemovel: +351 968 
+                765 432 <br>Email: pastelaria@gmail.com</p>
             </div>
         </div>
     </section>
+
+    <footer id="footer" class="footer">
+        <div class="col">
+            <h4>Contact</h4>
+            <p><strong>Endereço:</strong> Largo Dr. Serafim Lopes Pereira, 2400-250 Leiria</p>
+            <p><strong>Telemovel:</strong> 244 848 250</p>
+            <p><strong>Horário:</strong> Segunda a Domingo: 9h até 18h</p>
+            <div class="follow">
+                <h4>Sigam nos</h4>
+                <div class="icon">
+                    <i class='bx bxl-facebook'></i>
+                    <i class='bx bxl-twitter'></i>
+                    <i class='bx bxl-instagram'></i>
+                    <i class='bx bxl-pinterest' ></i>
+                    <i class='bx bxl-youtube' ></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>Sobre</h4>
+            <a href="about.php">Sobre Nos</a>
+            <a href="about.php">Equipa</a>
+            <a href="contact.php">Contacto</a>
+        </div>
+
+        <div class="col">
+            <h4>Conta</h4>
+            <a href="login.php">Login</a>
+            <!--
+            <a href="#">Ver carrinho</a>
+            <a href="#">Acompanhar pedido</a>-->
+        </div>
+
+        <div class="col install">
+            <h4>Instalar aplicação</h4>
+            <p>Google Play ou App Store</p>
+            <div class="row">
+                <img src="img/pay/play.jpg" alt="">
+                <img src="img/pay/app.jpg" alt="">
+            </div>
+            <p>Pagamento Seguros</p>
+            <img src="img/pay/pay.png" alt="">
+        </div>
+        <div class="copyright">
+            <p>© 2024 Todos os direitos reservados</p>
+        </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

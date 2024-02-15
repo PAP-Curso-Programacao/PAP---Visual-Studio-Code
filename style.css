@@ -887,6 +887,10 @@ nav .cart #close-cart{
 
 /*FOOTER*/
 footer{
+    clear: both;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     padding: 40px 20px;
     display: flex;
     flex-wrap: wrap;
@@ -908,6 +912,8 @@ footer h4{
 footer p{
     font-size: 13px;
     margin: 0 0 8px 0;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 footer a{
@@ -951,6 +957,7 @@ footer .copyright{
     position: relative;
     height: 100vh;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .login .form_container{
