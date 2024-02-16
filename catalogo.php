@@ -97,6 +97,14 @@
     
     <section id="product1" class="product1">
     <h2>O nosso Catalogo</h2>
+    <div class="search-container">
+        <div class="search">
+            <form method="GET" action="catalogo.php">
+                <button type="submit" class="btn-search"><i class="fas fa-search"></i></button>
+                <input type="text" name="search" class="input-search" placeholder="Procure alguma coisa..." />
+            </form>
+        </div>
+    </div>
     <div class="pro-container">
         <?php
             include('/includes/catalogo.inc.php');

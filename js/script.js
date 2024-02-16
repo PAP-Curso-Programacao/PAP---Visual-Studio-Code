@@ -35,6 +35,8 @@ var swiper = new Swiper('.slider2', {
     },
 });
 
+
+
 function formLoginRegistar() {
     const home = document.querySelector(".login");
     const formContainer = document.querySelector(".form_container");
