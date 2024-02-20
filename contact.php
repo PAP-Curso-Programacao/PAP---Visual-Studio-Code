@@ -95,7 +95,7 @@
             <h2>Deliciamo-nos ao receber notícias vossas</h2>
             <input type="text" placeholder="Nome">
             <input type="text" placeholder="Email">
-            <input type="text" placeholder="Subject">
+            <input type="text" placeholder="Assunto">
             <textarea name="" id="" cols="30" rows="10" placeholder="Mensagem"></textarea>
             <div class="s-btnn">
                 <a href="#">Submeter</a>

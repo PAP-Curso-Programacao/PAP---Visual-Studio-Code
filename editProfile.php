@@ -165,52 +165,6 @@
     }
 ?>
 
-<footer id="footer" class="footer">
-        <div class="col">
-            <h4>Contact</h4>
-            <p><strong>Endereço:</strong> Largo Dr. Serafim Lopes Pereira, 2400-250 Leiria</p>
-            <p><strong>Telemovel:</strong> 244 848 250</p>
-            <p><strong>Horário:</strong> Segunda a Domingo: 9h até 18h</p>
-            <div class="follow">
-                <h4>Sigam nos</h4>
-                <div class="icon">
-                    <i class='bx bxl-facebook'></i>
-                    <i class='bx bxl-twitter'></i>
-                    <i class='bx bxl-instagram'></i>
-                    <i class='bx bxl-pinterest' ></i>
-                    <i class='bx bxl-youtube' ></i>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <h4>Sobre</h4>
-            <a href="about.php">Sobre Nos</a>
-            <a href="about.php">Equipa</a>
-            <a href="contact.php">Contacto</a>
-        </div>
-
-        <div class="col">
-            <h4>Conta</h4>
-            <a href="login.php">Login</a>
-            <!--
-            <a href="#">Ver carrinho</a>
-            <a href="#">Acompanhar pedido</a>-->
-        </div>
-
-        <div class="col install">
-            <h4>Instalar aplicação</h4>
-            <p>Google Play ou App Store</p>
-            <div class="row">
-                <img src="img/pay/play.jpg" alt="">
-                <img src="img/pay/app.jpg" alt="">
-            </div>
-            <p>Pagamento Seguros</p>
-            <img src="img/pay/pay.png" alt="">
-        </div>
-        <div class="copyright">
-            <p>© 2024 Todos os direitos reservados</p>
-        </div>
-    </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

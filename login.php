@@ -230,7 +230,7 @@
 
                             switch ($_GET["error"]) {
                                 case "none":
-                                    $errorMessage = "login feito com sucesso!";
+                                    $errorMessage = "Login feito com sucesso!";
                                     break;
                                 default:
                                     break;

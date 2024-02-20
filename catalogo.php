@@ -95,19 +95,13 @@
 
     <section class="overlay"></section>
     
-    <section id="product1" class="product1">
+<section id="product1" class="product1">
     <h2>O nosso Catalogo</h2>
-    <div class="search-container">
-        <div class="search">
-            <form method="GET" action="catalogo.php">
-                <button type="submit" class="btn-search"><i class="fas fa-search"></i></button>
-                <input type="text" name="search" class="input-search" placeholder="Procure alguma coisa..." />
-            </form>
-        </div>
-    </div>
     <div class="pro-container">
         <?php
             include('/includes/catalogo.inc.php');
+
+            $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
             foreach ($catalogos as $catalogo) {
                 $imagem = htmlspecialchars($catalogo[0]);
@@ -174,7 +168,8 @@
             <p>© 2024 Todos os direitos reservados</p>
         </div>
     </footer>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
 <script>
 

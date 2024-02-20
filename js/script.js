@@ -35,8 +35,6 @@ var swiper = new Swiper('.slider2', {
     },
 });
 
-
-
 function formLoginRegistar() {
     const home = document.querySelector(".login");
     const formContainer = document.querySelector(".form_container");
@@ -122,9 +120,8 @@ function updateCartBadge() {
     cartBadge.css("display", "");
 }
 
-
 ready();
-isCartOpen = false;
+isCartOpen = false; // Declare it outside any function to make it globally accessible
 
 function ready() {
     var removeCartButtons = document.getElementsByClassName("cart-remove");
@@ -146,12 +143,21 @@ function ready() {
     }
 }
 
-function removeCartItem(event){
+function removeCartItem(event) {
     var buttonClicked = event.target;
-    buttonClicked.parentElement.remove();
+    var cartBox = buttonClicked.closest('.cart-box'); // Find the closest .cart-box ancestor
+    if (cartBox) {
+        cartBox.remove();
+    }
     updateTotal();
     updateCartBadge();
 }
+
+document.querySelector('.cart-content').addEventListener('click', function(event) {
+    if (event.target && event.target.classList.contains('cart-remove')) {
+        removeCartItem(event);
+    }
+});
 
 function updateTotal() {
     var cartBoxes = $(".cart-box");
@@ -180,7 +186,6 @@ function updateTotal() {
     $(".total-price").text("€" + total.toFixed(2));
 }
 
-
 function quantityChange(event) {
     var input = event.target;
     if (isNaN(input.value) || input.value <= 0) {
@@ -189,10 +194,18 @@ function quantityChange(event) {
     updateTotal();
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    var buyNowButton = document.querySelector('.btn-buy');
+    if (buyNowButton) {
+        buyNowButton.addEventListener('click', function(event) {
+            addCartClicked(event);
+        });
+    }
+});
 
 function addCartClicked(event) {
     if (!isUserLoggedIn) {
-        toastr.warning("Você precisa estar logado para comprar", "Aviso", {
+        toastr.warning("Precisas estar logado para comprar", "Aviso", {
             closeButton: false,
             progressBar: true,
             positionClass: "toast-top-right",
@@ -217,6 +230,7 @@ function addCartClicked(event) {
         var price = shopItem.querySelector('h4').innerText;
         var productImg = shopItem.querySelector('img').src;
         addProductToCart(title, price, productImg);
+        updateTotal();
         updateCartBadge();
     }
 }
