@@ -120,8 +120,10 @@ function updateCartBadge() {
     cartBadge.css("display", "");
 }
 
+restoreCartFromLocalStorage();
 ready();
 isCartOpen = false; // Declare it outside any function to make it globally accessible
+var productsInCart = [];
 
 function ready() {
     var removeCartButtons = document.getElementsByClassName("cart-remove");
@@ -194,14 +196,42 @@ function quantityChange(event) {
     updateTotal();
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
     var buyNowButton = document.querySelector('.btn-buy');
     if (buyNowButton) {
-        buyNowButton.addEventListener('click', function(event) {
-            addCartClicked(event);
-        });
-    }
-});
+        buyNowButton.addEventListener('click', function() {
+            var productsInCart = [];
+
+            document.querySelectorAll('.cart-box').forEach(function(box) {
+                var titleElement = box.querySelector('.cart-product-title');
+                var priceElement = box.querySelector('.cart-price');
+                var imgElement = box.querySelector('.cart-img');
+                var quantityInput = box.querySelector('.cart-quantity');
+
+                // Verifica se todas as informações do produto estão disponíveis
+                if (titleElement && priceElement && imgElement && quantityInput) {
+                    var title = titleElement.innerText;
+                    var price = priceElement.innerText;
+                    var productImg = imgElement.src;
+                    var quantity = quantityInput.value;
+
+                    var product = {
+                        title: title,
+                        price: price,
+                        quantity: quantity,
+                        productImg: productImg
+                    };
+
+                    // Adiciona o produto ao array productsInCart
+                    productsInCart.push(product);
+                }
+            });
+
+            console.log(productsInCart);
+            // Aqui você pode proceder com a lógica para lidar com os produtos do carrinho, como enviar para um servidor, etc.
+    });
+}});
+
 
 function addCartClicked(event) {
     if (!isUserLoggedIn) {
@@ -235,6 +265,7 @@ function addCartClicked(event) {
     }
 }
 
+
 function addProductToCart(title, price, productImg) {
     var cartItems = $(".cart-content");
     var cartItemImages = cartItems.find(".cart-img");
@@ -265,4 +296,120 @@ function addProductToCart(title, price, productImg) {
         cartShopBox.html(cartBoxContent);
         cartItems.append(cartShopBox);
     }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var buyNowButton = document.querySelector('.btn-buy');
+    if (buyNowButton) {
+        buyNowButton.addEventListener('click', function() {
+            var productsInCart = [];
+            var total = 0;
+
+            var cartBoxes = document.querySelectorAll('.cart-box');
+            cartBoxes.forEach(function(box, index) {
+                var titleElement = box.querySelector('.cart-product-title');
+                var priceElement = box.querySelector('.cart-price');
+                var quantityElement = box.querySelector('.cart-quantity');
+                var imgElement = box.querySelector('.cart-img');
+            
+                if (titleElement && priceElement && quantityElement && imgElement) {
+                    var title = titleElement.innerText;
+                    var price = priceElement.innerText.replace("€", "").trim(); // Remove o símbolo de euro e espaços em branco
+                    var quantity = quantityElement.value;
+                    var productImg = imgElement.src;
+                
+                    // Calcula o total enquanto coleta os dados
+                    total += parseFloat(price) * parseInt(quantity, 10);
+                
+                    var product = {
+                        title: title,
+                        price: price,
+                        quantity: quantity,
+                        productImg: productImg
+                    };
+                    productsInCart.push(product);
+                } else {
+                    console.error("Um ou mais elementos esperados estão faltando no cartBox.");
+                }
+            });
+
+            // Salvar no localStorage
+            localStorage.setItem("cartItems", JSON.stringify(productsInCart));
+
+            // Redirecionar para a página de checkout
+            window.location.href = "checkout.php"; // Modifique conforme o caminho correto da sua página de checkout
+        });
+    }
+});
+
+
+
+function displayCartItems() {
+    var cartContent = document.querySelector('.cart-content .cart-box');
+    cartContent.innerHTML = ''; // Limpa o conteúdo anterior
+
+    productsInCart.forEach(function(product) {
+        var productHTML = `
+            <div class="cart-item">
+                <img src="${product.productImg}" alt="${product.title}" class="cart-img">
+                <div class="cart-item-details">
+                    <span class="cart-product-title">${product.title}</span>
+                    <span class="cart-price">${product.price}€</span>
+                    <span class="cart-quantity">Quantidade: ${product.quantity}</span>
+                </div>
+            </div>
+        `;
+        cartContent.innerHTML += productHTML;
+    });
+}
+
+displayCartItems();
+
+function restoreCartFromLocalStorage() {
+    const storedCartItems = localStorage.getItem("cartItems");
+
+    if (storedCartItems) {
+        productsInCart = JSON.parse(storedCartItems); // Atualiza a variável global com os itens do carrinho
+        
+        displayCartItems(); // Atualiza a UI com os itens do carrinho restaurados
+
+        // Atualizar total e distintivos do carrinho (assumindo que você tenha essas funções)
+        updateTotal();
+        updateCartBadge();
+    } else {
+        // Se não houver itens, exibir a mensagem (assumindo que você tenha algum lugar para mostrar essa mensagem)
+        $(".empty-cart").show();
+    }
+}
+
+function saveCartToLocalStorage() {
+    productsInCart = []; // Reinicia a variável para capturar o estado atual do carrinho
+
+    $(".cart-box").each(function () {
+        const title = $(this).find(".cart-product-title h3").text();
+        const priceText = $(this)
+            .find(".cart-price p")
+            .text()
+            .replace("€", "")
+            .replace(",", ".");
+        const quantity = parseInt($(this).find(".cart-quantity").val(), 10);
+        const imgSrc = $(this).find(".cart-img").attr("src");
+
+        if (
+            !isNaN(parseFloat(priceText)) &&
+            !isNaN(quantity) &&
+            title.trim() !== ""
+        ) {
+            if (quantity > 0) {
+                productsInCart.push({
+                    title: title,
+                    price: parseFloat(priceText),
+                    quantity: quantity,
+                    imgSrc: imgSrc,
+                });
+            }
+        }
+    });
+
+    localStorage.setItem("cartItems", JSON.stringify(productsInCart)); // Salva no localStorage
 }
