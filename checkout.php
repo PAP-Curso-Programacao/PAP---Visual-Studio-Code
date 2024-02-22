@@ -68,10 +68,40 @@
                     <div class="col">
                         <h3 class="title">Produtos</h3>
                         <div class="inputbox">
-                            <div class="cart-content">
-                                <div class="cart-box">
-                                       
-                                </div>
+                            <div class="container">
+                            <?php
+                                if (isset($_GET['details']) && isset($_GET['total'])) {
+                                    $cartDetails = json_decode($_GET['details'], true);
+                                    $total = $_GET['total'];
+
+                                    foreach ($cartDetails as $item) {
+                                        echo "
+                                        <div class='cart-box'>
+                                            <div class='cart-item'>
+                                                <div class='cart-img-box'>
+                                                    <img src='{$item['productImg']}' alt='{$item['title']}' class='cart-img'>
+                                                </div>
+                                                <div class='detail-box'>
+                                                    <div class='cart-product-title'><h3>{$item['title']}</h3></div>
+                                                    <div class='cart-price'>{$item['price']}€</div>
+                                                    <div class='cart-quantity-box'>
+                                                        <label for='quantity'>Quantidade:</label>
+                                                        <input type='text' value='{$item['quantity']}' class='cart-quantity' id='quantity' disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><br>";
+                                    }
+
+                                    echo "
+                                    <div class='total'>
+                                        <div class='total-title'>Total</div>
+                                        <div>€{$total}</div>
+                                    </div>";
+                                } else {
+                                    echo "<div class='empty-cart'>Nenhum item no carrinho.</div>";
+                                }
+                            ?>
                             </div>
                         </div>
                     </div>

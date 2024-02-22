@@ -1404,7 +1404,7 @@ footer .copyright{
     justify-content: center;
     align-items: center;
     padding:25px; 
-        margin:0; padding:0;
+    margin:0; padding:0;
     box-sizing: border-box;
     outline: none; border:none;
     text-transform: capitalize;
@@ -1485,6 +1485,72 @@ footer .copyright{
 .payment .container form .submit-btn:hover{
     background: var(--white);
 }
+
+/* Reutiliza e adapta os estilos do carrinho para a seção de pagamento */
+.payment .cart-box {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.payment .cart-img {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.payment .detail-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.payment .cart-product-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.payment .cart-price {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.payment .cart-quantity-box input {
+    border: var(--border);
+    outline: none; /* Adaptei para remover o outline baseado na sua especificação anterior */
+    margin-top: 1rem;
+    width: 4rem;
+    height: 2.2rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* Adicione estilos para a totalização se necessário */
+.payment .total {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    transition: all 0.3s ease;
+    border-top: var(--border);
+}
+
+.payment .total-title {
+    margin-right: 2rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.payment .total-price {
+    font-size: 1.2rem;
+    margin-right: 3rem;
+}
+
 
 /*-------------------TOASTR NOTIFICATIONS-----------------------*/
 .custom-toast-class {
