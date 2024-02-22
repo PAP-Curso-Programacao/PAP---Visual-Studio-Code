@@ -63,47 +63,43 @@
 
     <section class="payment">
         <div class="container">
-            <form action="">
+            <form action="includes/process.encomenda.php" method="post" id="encomendaForm">
                 <div class="row">
                     <div class="col">
                         <h3 class="title">Produtos</h3>
-                        <div class="inputbox">
                             <div class="container">
-                            <?php
-                                if (isset($_GET['details']) && isset($_GET['total'])) {
-                                    $cartDetails = json_decode($_GET['details'], true);
-                                    $total = $_GET['total'];
+                                <div class="cart-box">
+                                <?php
+    if (isset($_GET['details']) && isset($_GET['total'])) {
+        $cartDetails = json_decode($_GET['details'], true);
+        $total = $_GET['total'];
 
-                                    foreach ($cartDetails as $item) {
-                                        echo "
-                                        <div class='cart-box'>
-                                            <div class='cart-item'>
-                                                <div class='cart-img-box'>
-                                                    <img src='{$item['productImg']}' alt='{$item['title']}' class='cart-img'>
-                                                </div>
-                                                <div class='detail-box'>
-                                                    <div class='cart-product-title'><h3>{$item['title']}</h3></div>
-                                                    <div class='cart-price'>{$item['price']}€</div>
-                                                    <div class='cart-quantity-box'>
-                                                        <label for='quantity'>Quantidade:</label>
-                                                        <input type='text' value='{$item['quantity']}' class='cart-quantity' id='quantity' disabled>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div><br>";
-                                    }
+        foreach ($cartDetails as $item) {
+            echo "
+                <img src='{$item['productImg']}' alt='{$item['title']}' class='cart-img'>
+                <div class='detail-box'>
+                    <div class='cart-product-title'><h3 style='color: #efece3'>{$item['title']}</h3></div>
+                    <div class='cart-price' style='color: #efece3'>{$item['price']}€</div>
+                    <div class='cart-quantity-box'>
+                        <label for='quantity' style='color: #efece3'>Quantidade:</label>
+                        <input type='text' value='{$item['quantity']}' class='cart-quantity' id='quantity' disabled>
+                    </div>
+                </div>
+            ";
+        }
+            ?></div>
+                                        </div>
+        <?php
+        echo "
+            <div class='total'>
+                <div class='total-title' style='color: #efece3'>Total</div>
+                <div style='color: #efece3'>€{$total}</div>
+            </div>
+        ";
+    }
+?>
 
-                                    echo "
-                                    <div class='total'>
-                                        <div class='total-title'>Total</div>
-                                        <div>€{$total}</div>
-                                    </div>";
-                                } else {
-                                    echo "<div class='empty-cart'>Nenhum item no carrinho.</div>";
-                                }
-                            ?>
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="col">
@@ -138,7 +134,7 @@
                     </div>
                 </div>
                 
-                <input type="submit" value="Concluir Pagamento" class="submit-btn">
+                <a href="#"><input type="submit" value="Concluir Pagamento" class="submit-btn"></a>
             </form>
         </div>
     </section>

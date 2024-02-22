@@ -191,4 +191,71 @@ function updateUser($db, $ID, $nome, $email, $morada, $telefone){
     header("location: ../editProfile.php?error=none");
     exit();
 }
-?>
+
+function createOrder($db, $clienteID, $userid) {
+    $status = 0; // Se você deseja definir o status aqui, não é necessário passá-lo como parâmetro
+    $dataHora = date('Y-m-d'); // Formato correto para DateTime
+
+    // Correção na consulta SQL para corresponder ao schema fornecido
+    $sql = "INSERT INTO Pedidos (ClienteID, Email, Status, Data) VALUES (?, ?, ?, ?)";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        die("Erro na preparação da declaração: " . $db->lastErrorMsg());
+    }
+
+    // Bind dos parâmetros
+    $stmt->bindParam(1, $clienteID, SQLITE3_INTEGER);
+    $stmt->bindParam(2, $userid, SQLITE3_TEXT); // Supondo que você tenha um $email para vincular aqui
+    $stmt->bindParam(3, $status, SQLITE3_INTEGER);
+    $stmt->bindParam(4, $dataHora, SQLITE3_TEXT); // Mudado para SQLITE3_FLOAT se Total pode ser decimal
+
+    if (!$stmt->execute()) {
+        die("Erro na execução da declaração: " . $db->lastErrorMsg());
+    }
+
+    $lastId = $db->lastInsertRowID();
+
+    // Não precisa fechar o stmt em SQLite3, mas se estiver usando PDO: $stmt = null;
+
+    return $lastId;
+}
+
+function createOrderLine($db, $encomendaId, $productsInCart)
+{
+    // Preparação da declaração fora do loop
+    $sql = "INSERT INTO ItensPedido (PedidoID, ProdutoID, Quantidade, PreçoUni) VALUES (?, ?, ?, (SELECT Preço FROM Produtos WHERE ID = ?))";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        echo "Erro: Preparação da declaração falhou.<br>";
+        return false;
+    }
+
+    foreach ($productsInCart as $item) {
+        // Verifique se todas as informações necessárias estão presentes
+        if (!isset($item['title'], $item['quantity'])) {
+            echo "Erro: Variáveis necessárias ausentes em um item do carrinho<br>";
+            continue; // Pule para a próxima iteração do loop
+        }
+
+        $nomeProduto = $item['title'];
+        $quantidade = $item['quantity'];
+
+        // Bind dos parâmetros usando variáveis
+        $stmt->bindValue(1, $encomendaId, SQLITE3_INTEGER);
+        $stmt->bindValue(2, $produtoID, SQLITE3_INTEGER);
+        $stmt->bindValue(3, $quantidade, SQLITE3_INTEGER);
+        $stmt->bindValue(4, $produtoID, SQLITE3_INTEGER); // O mesmo ID do produto para a subconsulta
+
+        // Execute a declaração dentro do loop
+        $result = $stmt->execute();
+
+        if (!$result) {
+            echo "Erro: Execução da declaração falhou para o item: $produtoID.<br>";
+            continue; // Pule para a próxima iteração do loop
+        }
+    }
+
+    return true; // Se chegar aqui, todos os itens foram inseridos com sucesso
+}

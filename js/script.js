@@ -35,6 +35,32 @@ var swiper = new Swiper('.slider2', {
     },
 });
 
+
+function enviarEncomendaForm() {
+    var formulario = document.getElementById("encomendaForm");
+    if (formulario.checkValidity()) {
+      formulario.submit();
+    } else {
+      toastr.warning("Preencha todos os campos do checkup", "Atenção", {
+        closeButton: false,
+        progressBar: true,
+        positionClass: "toast-top-right",
+        timeOut: 3000,
+        extendedTimeOut: 1000,
+        preventDuplicates: false,
+        newestOnTop: false,
+        showDuration: 300,
+        hideDuration: 300,
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "slideDown",
+        hideMethod: "slideUp",
+        toastClass: "custom-toast-class",
+      });
+    }
+  }
+  
+
 function formLoginRegistar() {
     const home = document.querySelector(".login");
     const formContainer = document.querySelector(".form_container");
@@ -313,16 +339,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 if (titleElement && priceElement && quantityElement && imgElement) {
                     var title = titleElement.innerText;
-                    var price = priceElement.innerText.replace("€", "").trim(); // Remove o símbolo de euro e espaços em branco
-                    var quantity = quantityElement.value;
+                    var price = parseFloat(priceElement.innerText.replace("€", "").trim()); // Remove o símbolo de euro e espaços em branco
+                    var quantity = parseInt(quantityElement.value, 10);
                     var productImg = imgElement.src;
                 
                     // Calcula o total enquanto coleta os dados
-                    total += parseFloat(price) * parseInt(quantity, 10);
-                
+                    total += price * quantity;
+
                     var product = {
                         title: title,
-                        price: price,
+                        price: price.toString(),
                         quantity: quantity,
                         productImg: productImg
                     };
