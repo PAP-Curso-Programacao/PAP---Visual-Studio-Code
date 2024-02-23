@@ -44,7 +44,7 @@
                     <li class="list">
                         <a href="contact.php" class="nav-link">
                             <i class='bx bx-envelope icon'></i>
-                            <span class="link">Contacte Nos</span>
+                            <span class="link">Contacto</span>
                         </a>
                     </li>
                     <li class="list">
@@ -63,7 +63,7 @@
     <section class="contact-details">
         <div class="details">
             <span>Entre em Contato</span>
-            <h2>Visite a nossa pastelaria ou entre em contato connosco</h2>
+            <h2>Visite a nossa pastelaria ou entre em contacto connosco</h2>
             <h3>Pastelaria Crocancia</h3>
             <div>
                 <li>
@@ -92,7 +92,7 @@
     <section class="form-details">
         <form action="">
             <span>Deixe uma mensagem</span>
-            <h2>Deliciamo-nos ao receber notícias vossas</h2>
+            <h2>Gostamos de receber notícias vossas</h2>
             <input type="text" placeholder="Nome">
             <input type="text" placeholder="Email">
             <input type="text" placeholder="Assunto">
@@ -114,7 +114,7 @@
                 345 678 <br>Email: pastelaria@gmail.com</p>
             </div>
             <div>
-                <img src="img/icon/boy.png" alt="">
+                <img src="img/review/5.jpeg" alt="">
                 <p><span>Volodymyr Krasnyak</span>CEO<br> Telemovel: +351 968 
                 765 432 <br>Email: pastelaria@gmail.com</p>
             </div>

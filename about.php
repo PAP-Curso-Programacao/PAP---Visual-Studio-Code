@@ -45,7 +45,7 @@
                     <li class="list">
                         <a href="contact.php" class="nav-link">
                             <i class='bx bx-envelope icon'></i>
-                            <span class="link">Contacte Nos</span>
+                            <span class="link">Contacto</span>
                         </a>
                     </li>
                     <li class="list">
@@ -91,7 +91,7 @@
                 </div>
                 <div class="card">
                     <div class="image-section">
-                        <img src="img/icon/boy.png" alt="">
+                        <img src="img/review/5.jpeg" alt="">
                     </div>
                     <div class="content">
                         <h3>Myro</h3>

@@ -52,7 +52,7 @@
                     <li class="list">
                         <a href="contact.php" class="nav-link">
                             <i class='bx bx-envelope icon'></i>
-                            <span class="link">Contacte Nos</span>
+                            <span class="link">Contacto</span>
                         </a>
                     </li>
                     <li class="list">

@@ -22,15 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
   }
   if (invalidPhone($telemovel) !== false) {
-    header("location: ../login.php?error=invalidemail");
+    header("location: ../login.php?error=invalidphone");
     exit();
   }
   if(pwdMatch($password, $confirmPassword) !== false){
     header("location: ../login.php?error=passwordsdontmatch");
     exit();
   }
-  if(userExists($db, $email) !== false){
-    header("location: ../login.php?error=emailtaken");
+  if(userExists($db, $email, $telemovel) !== false){
+    header("location: ../login.php?error=userexists");
     exit();
   }
   createUser($db,$nome,$email,$password,$telemovel);

@@ -54,7 +54,7 @@
                 <li class="list">
                     <a href="contact.php" class="nav-link">
                         <i class='bx bx-envelope icon'></i>
-                        <span class="link">Contacte Nos</span>
+                        <span class="link">Contacto</span>
                     </a>
                 </li>
                 <li class="list">
@@ -95,11 +95,11 @@
                             </div>
                             <div class="data">
                                 <h4>Email:</h4>
-                                <p><input type="email" name="email" placeholder="<?php echo $email; ?>"></p>
+                                <p><input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly></p>
                             </div>
                             <div class="data">
                                 <h4>Telemovel:</h4>
-                                <p><input type="text" name="telemovel" placeholder="<?php echo $telemovel; ?>"></p>
+                                <p><input type="text" name="telemovel" value="<?php echo htmlspecialchars($telemovel); ?>" readonly></p>
                             </div>
                             <div class="data">
                                 <h4>Morada:</h4>

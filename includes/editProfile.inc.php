@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
       }
     
-      updateUser($db, $_SESSION["userid"], $nome, $email, $morada, $telefone);
+      updateUser($db, $_SESSION["userid"],$morada);
     } else {
       header("location: ../login.php");
       exit();

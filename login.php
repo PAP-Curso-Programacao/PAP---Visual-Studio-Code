@@ -1,5 +1,6 @@
 <?php
     session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +49,7 @@
                     <li class="list">
                         <a href="contact.php" class="nav-link">
                             <i class='bx bx-envelope icon'></i>
-                            <span class="link">Contacte Nos</span>
+                            <span class="link">Contacto</span>
                         </a>
                     </li>
                     <li class="list">
@@ -114,8 +115,26 @@
                     case "emptyinput":
                         $errorMessage = "Preencha todos os campos!";
                         break;
-                    default:
+                    case "emailnotfound":
+                        $errorMessage = "Email não encontrado!";
                         break;
+                case "invalidemail":
+                    $errorMessage = "Escolha um gmail diferente!";
+                    break;
+                case "invalidphone":
+                    $errorMessage = "Escolha um numero de telemovel diferente!";
+                    break;
+                case "passwordsdontmatch":
+                    $errorMessage = "Passwords nao coincidem!";
+                    break;
+                case "userexists": 
+                    $errorMessage = "Dados ja existem!";
+                    break;
+                case "stmtfailed":
+                    $errorMessage = "Aconteceu algo de errado, tente novamente!";
+                    break;
+                default:
+                    break;
                 }
 
                 if (!empty($errorMessage)) {
@@ -180,63 +199,44 @@
     </section>
 
     <?php
-        if(isset($_GET["error"])){
-            if($_GET["error"] == "emptyinput"){
-                $errorMessage = "Preencha todos os campos!";
-            }
-            else if($_GET["error"] == "wronglogin"){
-                $errorMessage = "Informacao do login incorreta!";
-            }
-            else if($_GET["error"] == "invalidemail"){
-                $errorMessage = "Escolha um gmail diferente!";
-            }
-            else if($_GET["error"] == "invalidphone"){
-                $errorMessage = "Escolha um numero de telemovel diferente!";
-            }
-            else if($_GET["error"] == "passwordsdontmatch"){
-                $errorMessage = "Passwords nao coincidem!";
-            }
-            else if($_GET["error"] == "stmtfailed"){
-                $errorMessage = "Aconteceu algo de errado, tente novamente!";
-            }
-            if (!empty($errorMessage)) {
-                echo '<script>';
-                echo 'document.addEventListener("DOMContentLoaded", function() {';
-                echo 'toastr.warning("' . $errorMessage . '", "' . $errorType . '", {
-                closeButton: false,
-                progressBar: true,
-                positionClass: "toast-top-right",
-                timeOut: 3000,
-                extendedTimeOut: 1000,
-                preventDuplicates: false,
-                newestOnTop: false,
-                showDuration: 300,
-                hideDuration: 300,
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "slideDown",
-                hideMethod: "slideUp",
-                toastClass: "custom-toast-class"
-            });';
-                echo '});';
-                echo '</script>';
-            }
-        }
-    ?>
-     <?php
-                        if (isset($_GET["error"])) {
-                            $errorMessage = "";
-                            $errorType = "Sucesso";
+    if (isset($_GET["error"])) {
+        $errorMessage = "";
+        $errorType = "Sucesso";
 
-                            switch ($_GET["error"]) {
-                                case "none":
-                                    $errorMessage = "Login feito com sucesso!";
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }   
-                        ?>
+        switch ($_GET["error"]) {
+            case "none":
+                $errorMessage = "Registo feito com sucesso! Faz login!";
+                break;
+            default:
+                break;
+        }
+
+        if (!empty($errorMessage)) {
+            echo '<script>';
+echo 'document.addEventListener("DOMContentLoaded", function() {';
+echo 'toastr.success("' . $errorMessage . '", "' . $errorType . '", {';
+echo 'closeButton: false,';
+echo 'progressBar: true,';
+echo 'positionClass: "toast-top-right",';
+echo 'timeOut: 3000,';
+echo 'extendedTimeOut: 1000,';
+echo 'preventDuplicates: false,';
+echo 'newestOnTop: false,';
+echo 'showDuration: 300,';
+echo 'hideDuration: 300,';
+echo 'showEasing: "swing",';
+echo 'hideEasing: "linear",';
+echo 'showMethod: "slideDown",';
+echo 'hideMethod: "slideUp",';
+echo 'toastClass: "custom-toast-class"';
+echo '});';
+echo '});';
+echo '</script>';
+
+        }
+    }
+    ?>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

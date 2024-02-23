@@ -36,7 +36,6 @@
         return !preg_match("/^[0-9]{9}$/", $telefone);
     }
 
-
     function pwdMatch($password, $confirmPassword){
         $result;
         if($password !== $confirmPassword){
@@ -47,9 +46,10 @@
         }
         return $result;
     }
+    
 
-    function userExists($db, $email){   
-        $sql = "SELECT * FROM Clientes WHERE Email = ?;";
+    function userExists($db, $email, $telefone){   
+        $sql = "SELECT * FROM Clientes WHERE Email = :email or Telefone = :telefone;";
         $stmt = $db->prepare($sql);
     
         if (!$stmt) {
@@ -58,6 +58,7 @@
         }
     
         $stmt->bindValue(1, $email, SQLITE3_TEXT);
+        $stmt->bindValue(2, $telefone, SQLITE3_TEXT);
         $result = $stmt->execute();
     
         if ($row = $result->fetchArray()) {
@@ -98,11 +99,35 @@
     }
     return $result;
     }
+    
+    function emailExists($db, $email) {
+        $sql = "SELECT * FROM Clientes WHERE Email = ?;"; // Assumindo que 'users' é o nome da sua tabela de usuários
+        $stmt = mysqli_stmt_init($db);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../login.php?error=stmtfailed");
+            exit();
+        }
+    
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+    
+        $resultData = mysqli_stmt_get_result($stmt);
+    
+        if ($row = mysqli_fetch_assoc($resultData)) {
+            return $row;
+        } else {
+            return false;
+        }
+    
+        mysqli_stmt_close($stmt);
+    }
+    
 
     function loginUser($db, $email, $password){
     $userExists = userExists($db, $email, $email);
 
     if ($userExists === false) {
+        header("location: ../login.php?error=emailnotfound");
         exit();
     }
 
@@ -161,9 +186,9 @@
     }
 }
 
-function updateUser($db, $ID, $nome, $email, $morada, $telefone){
+function updateUser($db, $ID, $morada){
     
-    $sql = "UPDATE Clientes SET Nome = ?, Email = ?, Morada = ?, Telefone = ? WHERE ID = ?";
+    $sql = "UPDATE Clientes SET Morada = ? WHERE ID = ?";
     $stmt = $db->prepare($sql);
 
     if (!$stmt) {
@@ -172,11 +197,8 @@ function updateUser($db, $ID, $nome, $email, $morada, $telefone){
     }
 
     // Bind dos parâmetros usando variáveis
-    $stmt->bindParam(1, $nome, SQLITE3_TEXT);
-    $stmt->bindParam(2, $email, SQLITE3_TEXT);
-    $stmt->bindParam(3, $morada, SQLITE3_TEXT);
-    $stmt->bindParam(4, $telefone, SQLITE3_TEXT);
-    $stmt->bindParam(5, $ID, SQLITE3_INTEGER);  
+    $stmt->bindParam(1, $morada, SQLITE3_TEXT);
+    $stmt->bindParam(2, $ID, SQLITE3_INTEGER);  
 
     $result = $stmt->execute();
 

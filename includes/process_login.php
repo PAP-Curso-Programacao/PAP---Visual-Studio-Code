@@ -12,7 +12,6 @@
         header("location: ../login.php?error=emptyinput");
         exit();
     }
-
     loginUser($db, $email, $password);
     } else {
     header("location: ../login.php");

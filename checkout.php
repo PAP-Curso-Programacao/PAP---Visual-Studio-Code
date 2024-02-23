@@ -45,7 +45,7 @@
                     <li class="list">
                         <a href="contact.php" class="nav-link">
                             <i class='bx bx-envelope icon'></i>
-                            <span class="link">Contacte Nos</span>
+                            <span class="link">Contacto</span>
                         </a>
                     </li>
                     <li class="list">
@@ -110,34 +110,34 @@
                         </div>
                         <div class="inputBox">
                             <span >Nome No Cartão:</span>
-                            <input type="text" placeholder="Ex: Alberto Tavares">
+                            <input type="text" placeholder="Ex: Alberto Tavares" required>
                         </div>
                         <div class="inputBox">
                             <span>Número Do Cartão:</span>
-                            <input type="number" placeholder="Ex: 1111-2222-3333-4444">
+                            <input type="number" placeholder="Ex: 1111-2222-3333" required>
                         </div>
                         <div class="inputBox">
                             <span>Mês Expirado:</span>
-                            <input type="text" placeholder="Ex: Janeiro">
+                            <input type="text" placeholder="Ex: Janeiro" required>
                         </div>
 
                         <div class="flex">
                             <div class="inputBox">
                                 <span>Ano Expirado:</span>
-                                <input type="number" placeholder="Ex: 2022">
+                                <input type="number" placeholder="Ex: 2022" required>
                             </div>
                             <div class="inputBox">
                                 <span>CVV :</span>
-                                <input type="text" placeholder="Ex: 1234">
+                                <input type="number" placeholder="Ex: 123" required>
                             </div>
                         </div>
                     </div>
                 </div>
-                
                 <a href="#"><input type="submit" value="Concluir Pagamento" class="submit-btn"></a>
             </form>
         </div>
     </section>
+
 
     <footer id="footer" class="footer">
         <div class="col">
