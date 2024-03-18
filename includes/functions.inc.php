@@ -76,11 +76,17 @@
         if (!$stmt) {
             header("location: ../login.php?error=stmtfailed");
             exit();
-        }
-    
+        };
+        
+        $options = [
+            'cost' => 12
+        ];
+
+        $passwordHash = password_hash($password, PASSWORD_BCRYPT, $options);
+
         $stmt->bindValue(1, $nome, SQLITE3_TEXT);
         $stmt->bindValue(2, $email, SQLITE3_TEXT);
-        $stmt->bindValue(3, $password, SQLITE3_TEXT);
+        $stmt->bindValue(3, $passwordHash, SQLITE3_TEXT);
         $stmt->bindValue(4, $telefone, SQLITE3_TEXT);
         $result = $stmt->execute();
     
