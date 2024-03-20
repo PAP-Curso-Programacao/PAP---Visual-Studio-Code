@@ -2,7 +2,6 @@
     session_start();
 
     $userLoggedIn = isset($_SESSION["userid"])
-    
 ?>
 
 <!DOCTYPE html>

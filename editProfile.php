@@ -52,17 +52,20 @@
                     </a>
                 </li>
                 <li class="list">
-                    <a href="contact.php" class="nav-link">
-                        <i class='bx bx-envelope icon'></i>
-                        <span class="link">Contacto</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="login.php" class="nav-link">
-                        <i class='bx bx-user icon'></i>
-                        <span class="link">Login</span>
-                    </a>
-                </li>
+                        <?php if(isset($_SESSION['useruid']) && $_SESSION['useruid'] == true): ?>
+                            <!-- Usuário está logado: Mostrar Perfil -->
+                            <a href="profile.php" class="nav-link">
+                            <i class='bx bx-user icon'></i>
+                            <span class="link">Perfil</span>
+                            </a>
+                        <?php else: ?>
+                            <!-- Usuário não está logado: Mostrar Login -->
+                            <a href="login.php" class="nav-link">
+                            <i class='bx bx-user icon'></i>
+                            <span class="link">Login</span>
+                            </a>
+                        <?php endif; ?>
+                    </li>
                 </ul>
             </div>
         </div>

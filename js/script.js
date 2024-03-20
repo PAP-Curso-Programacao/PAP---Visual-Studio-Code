@@ -288,7 +288,7 @@ function addProductToCart(title, price, productImg) {
                 <div class="detail-box">
                     <div class="cart-product-title">${title}</div>
                     <div class="cart-price">${price}</div>
-                    <input type="number" value="1" class="cart-quantity" id="quantity">
+                    <input type="number" value="1" class="cart-quantity" id="quantity" min="1">
                 </div>
                 <i class='bx bx-trash cart-remove'></i>
         `;

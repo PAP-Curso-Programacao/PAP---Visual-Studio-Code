@@ -1371,13 +1371,12 @@ footer .copyright{
 }
 
 @media (max-width:477px) {
-
     .profile .wrapper{
-        padding: 40px 120px;
-        width: 100%;
+        margin-top: 7rem;
+        padding: 40px;
+        width: 80%;
         display: table;
         box-sizing: border-box;
-
     }
 
     .profile .wrapper .right{

@@ -5,13 +5,40 @@ import sqlite3
 #from kivy.graphics import border_radius
 #from kivymd.utils import border_radius
 
+nome_produto = ""
+preco_produto = ""
+descricao_produto = ""
+stock_produto = ""
+imagem_produto = ""
+
+def update_nome_produto(e):
+    global nome_produto
+    nome_produto = e.data
+
+def update_preco_produto(e):
+    global preco_produto
+    preco_produto = e.data
+
+def update_descricao_produto(e):
+    global descricao_produto
+    descricao_produto = e.data
+
+def update_stock_produto(e):
+    global stock_produto
+    stock_produto = e.data
+
+def update_imagem_produto(e):
+    global imagem_produto
+    imagem_produto = e.data
+
+
 def main(page: Page):
 
     page.title = 'Pastelaria'
 
     #Finalizado
     def InfoProduto():
-        connect = sqlite3.connect("Pastelaria.db")
+        connect = sqlite3.connect("database/Pastelaria.db")
         cursor = connect.cursor()
         produtos = []
         for cont in cursor.execute("SELECT Nome FROM Produtos"):
@@ -20,7 +47,7 @@ def main(page: Page):
         return produtos
     
     def IdProduto():
-        connect = sqlite3.connect("Pastelaria.db")
+        connect = sqlite3.connect("database/Pastelaria.db")
         cursor = connect.cursor()
         cursor.execute(f"Select Count(*) from Produtos")
         cat = cursor.fetchone()[0]
@@ -28,7 +55,7 @@ def main(page: Page):
         return cat+1
     
     def IdCliente():
-        connect = sqlite3.connect("Pastelaria.db")
+        connect = sqlite3.connect("database/Pastelaria.db")
         cursor = connect.cursor()
         cursor.execute(f"Select Count(*) from Clientes")
         cat = cursor.fetchone()[0]
@@ -37,7 +64,7 @@ def main(page: Page):
     
     def OnOffCliente(ID):
         
-        connect = sqlite3.connect("Pastelaria.db")
+        connect = sqlite3.connect("database/Pastelaria.db")
         cursor = connect.cursor()
         cursor.execute(f"Select Atividade from Clientes where ID = ?",(ID,))
         atividade = cursor.fetchone()[0]
@@ -48,7 +75,6 @@ def main(page: Page):
         cursor.execute(f'UPDATE Clientes set Atividade = ? WHERE ID = ?', (nova_atividade, ID))
         
         connect.commit()
-        page.update()
         connect.close()
         
 
@@ -66,8 +92,34 @@ def main(page: Page):
         1,alignment= alignment.center_right)
         page_2.update()
 
+    def updateProduto(ID):
+        conn = sqlite3.connect('database/Pastelaria.db')
+        cursor = conn.cursor()
+
+        if preco_produto == '':
+            pass
+        else:
+            cursor.execute('UPDATE Produtos SET Preço = ? WHERE ID = ?', 
+               (preco_produto, ID,))
+        if descricao_produto == '':
+            pass
+        else:
+            cursor.execute('UPDATE Produtos SET Descrição = ? WHERE ID = ?', 
+               (descricao_produto, ID,))
+        if stock_produto == '':
+            pass
+        else:
+            cursor.execute('UPDATE Produtos SET Stock = ? WHERE ID = ?', 
+               (stock_produto, ID,))
+        #cursor.execute('UPDATE Produtos SET Preço = ?, Descrição = ?, Stock = ? WHERE ID = ?', 
+        #       (preco_produto, descricao_produto, stock_produto, ID,))
+
+        conn.commit()
+        conn.close()
+
+
     def UniProduto(ID):
-        connect = sqlite3.connect("Pastelaria.db")
+        connect = sqlite3.connect("database/Pastelaria.db")
         cursor = connect.cursor()
         cursor.execute('SELECT * FROM Produtos WHERE ID = ?', (ID,))
         row = cursor.fetchone()
@@ -98,17 +150,17 @@ def main(page: Page):
                         ]
                     ),
                     Text('Nome', color="black"),
-                    TextField(label=row[1],color='Black',border_color='#cd9595',height=40),
+                    Text(row[1],color='Black',size=40),
                     Text('Preço', color='black'),
-                    TextField(label=row[2],color='Black',height=40),
+                    TextField(label=row[2],color='Black',height=40,on_change=update_preco_produto),
                     Text('Descrição', color='Black'),
-                    TextField(label=row[3],color='Black',height=40),
+                    TextField(label=row[3],color='Black',height=40,on_change=update_descricao_produto),
                     Text('Stock', color='Black'),
-                    TextField(label=row[4],color='Black',height=40),
+                    TextField(label=row[4],color='Black',height=40,on_change=update_stock_produto),
                     Image(src=row[5],width=100,height=100),
                     Row(alignment='spaceBetween',
                     controls=[
-                        Container(content=ElevatedButton(text='Submit',color="White",bgcolor='#cd9452',width=150,on_click=lambda _: page.go('/'),),
+                        Container(content=ElevatedButton(text='Submit',color="White",bgcolor='#cd9452',width=150,on_click=lambda _,id=cont: (updateProduto(id),page.go('/'))),
                             ),
                         Container(height=20),
                         Container(content=ElevatedButton(text='Cancel',color="White",bgcolor='RED',width=150,on_click=lambda _: page.go('/'))),
@@ -123,34 +175,15 @@ def main(page: Page):
     # Suponha que você tenha variáveis para armazenar os valores dos campos de texto
 
     # Funções para atualizar as variáveis quando o texto nos campos de texto muda
-    def update_nome_produto(new_value):
-        global nome_produto
-        nome_produto = new_value
-
-    def update_preco_produto(new_value):
-        global preco_produto
-        preco_produto = new_value
-
-    def update_descricao_produto(new_value):
-        global descricao_produto
-        descricao_produto = new_value
-
-    def update_stock_produto(new_value):
-        global stock_produto
-        stock_produto = new_value
-
-    def update_imagem_produto(new_value):
-        global imagem_produto
-        imagem_produto = new_value
+    
 
     def addProduto():
-        conn = sqlite3.connect('Pastelaria.db')
+        conn = sqlite3.connect('database/Pastelaria.db')
         cursor = conn.cursor()
 
-        cursor.execute('INSERT INTO Produtos (Nome, Preço, Descrição, Stock, Imagem) VALUES (?, ?, ?, ?, ?)', (nome_produto, preco_produto, descricao_produto, stock_produto, imagem_produto,))
+        cursor.execute('INSERT INTO Produtos (Nome, Preço, Descrição, Stock, Imagem) VALUES (?, ?, ?, ?, ?)', (nome_produto, preco_produto, descricao_produto, stock_produto, imagem_produto))
         conn.commit()
         conn.close()
-        add_produto_view.update()
 
 
 
@@ -246,7 +279,7 @@ def main(page: Page):
             on_click=lambda _: OnOffCliente(id)
         )
 
-    connect = sqlite3.connect("Pastelaria.db")
+    connect = sqlite3.connect("database/Pastelaria.db")
     cursor = connect.cursor()
 
     for cont in cursor.execute('SELECT * FROM Clientes'):
@@ -261,7 +294,7 @@ def main(page: Page):
                     padding=15,
                     content=Column(
                         controls=[
-                                Image(src='PAP\\Imagem\\bolasberlim.jpg',width=400,height=100),
+                                Image(src='img/icon/boy.png',width=400,height=100),
                                 Text(f'ID: {cont[0]}',color="Black",size=17),
                                 Text(f'{cont[1]}',color="White",size=20),
                                 Text(cont[2],color='Black',size=12),
@@ -284,7 +317,7 @@ def main(page: Page):
                     padding=15,
                     content=Column(
                         controls=[
-                            Image(src='PAP\\Imagem\\bolasberlim.jpg',width=400,height=100),
+                            Image(src='img/icon/boy.png',width=400,height=100),
                             Text(f'ID: {cont[0]}',color="Black",size=17),
                             Text(f'{cont[1]}',color="White",size=20),
                             Text(cont[2],color='Black',size=12),
@@ -300,7 +333,7 @@ def main(page: Page):
     connect.close()
 
     def enviarPedido(ID):
-        connect = sqlite3.connect("Pastelaria.db")
+        connect = sqlite3.connect("database/Pastelaria.db")
         cursor = connect.cursor()
 
         cursor.execute(f'UPDATE Pedidos set Status = ? WHERE ID = ?', (1, ID))
@@ -342,7 +375,7 @@ def main(page: Page):
     )
 
 
-    connect = sqlite3.connect("Pastelaria.db")
+    connect = sqlite3.connect("database/Pastelaria.db")
     cursor = connect.cursor()
 
     for cont in cursor.execute('SELECT * FROM Pedidos'):
@@ -404,7 +437,7 @@ def main(page: Page):
         on_scroll_interval=0,
     )
 
-    connect = sqlite3.connect("Pastelaria.db")
+    connect = sqlite3.connect("database/Pastelaria.db")
     cursor = connect.cursor()
     cursor.execute(f"Select Count(*) from Produtos")
     cat = cursor.fetchone()[0]
@@ -431,7 +464,7 @@ def main(page: Page):
 
     categories = ['Clientes','Produtos','Pedidos']
     for category in categories:
-        connect = sqlite3.connect("Pastelaria.db")
+        connect = sqlite3.connect("database/Pastelaria.db")
         cursor = connect.cursor()
         cursor.execute(f"Select Count(*) from {category}")
         cat = cursor.fetchone()[0]

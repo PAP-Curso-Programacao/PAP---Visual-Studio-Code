@@ -7,6 +7,7 @@
     <title>Pagamento</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.css" rel="stylesheet"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -139,6 +140,44 @@
     </section>
 
 
+    <?php
+    if (isset($_GET["error"])) {
+        $errorMessage = "";
+        $errorType = "Sucesso";
+
+        switch ($_GET["error"]) {
+            case "none":
+                $errorMessage = "Encomenda feita com sucesso!";
+                break;
+            default:
+                break;
+        }
+
+        if (!empty($errorMessage)) {
+            echo '<script>';
+echo 'document.addEventListener("DOMContentLoaded", function() {';
+echo 'toastr.success("' . $errorMessage . '", "' . $errorType . '", {';
+echo 'closeButton: false,';
+echo 'progressBar: true,';
+echo 'positionClass: "toast-top-right",';
+echo 'timeOut: 3000,';
+echo 'extendedTimeOut: 1000,';
+echo 'preventDuplicates: false,';
+echo 'newestOnTop: false,';
+echo 'showDuration: 300,';
+echo 'hideDuration: 300,';
+echo 'showEasing: "swing",';
+echo 'hideEasing: "linear",';
+echo 'showMethod: "slideDown",';
+echo 'hideMethod: "slideUp",';
+echo 'toastClass: "custom-toast-class"';
+echo '});';
+echo '});';
+echo '</script>';
+
+        }
+    }
+    ?>
     <footer id="footer" class="footer">
         <div class="col">
             <h4>Contact</h4>
@@ -186,6 +225,7 @@
         </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

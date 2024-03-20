@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         createOrderLine($db, $encomendaId, $productsInCart);
         header("location: ../catalogo.php?error=none");
     } else {
-        echo "Erro na criação da encomenda.";
+        echo "Erro na criação da encomenda";
     }
 } else {
     header("location: ../index.php");
