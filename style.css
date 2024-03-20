@@ -290,6 +290,19 @@ nav.open ~ .overlay{
         margin: 0 0 15px 0;
     }
 }
+
+.reveal{
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: all 2s sec;
+}
+
+.reveal.active{
+    transform: translateY(0px);
+    opacity: 1;
+}
+
 /*CART*/
 nav .cart{
     position: fixed;
@@ -1583,3 +1596,14 @@ footer .copyright{
     opacity: 1 !important;
     pointer-events: none !important;
 }
+
+/*UPGRADE PARA A PAP
+    - Meter o site mais apelativo com as animações de baixo para cima;
+    - Site full responsive;
+    - Meter a password em hash na base de daddos;
+    - Inserir um admin dashboard;
+    - N0 admin dashboard inserir novos produtos na base de dados;
+    - No admin dashboard ver os clientes e encomendas;
+    - No admin dashboard na parte das encomendas ver o id, o nome, o email, nº telemovel e os produtos que encomendou;
+    - No admin dashboard dar para eliminar os produtos; 
+*/
