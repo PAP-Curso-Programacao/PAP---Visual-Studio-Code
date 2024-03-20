@@ -49,7 +49,7 @@
     
 
     function userExists($db, $email, $telefone){   
-        $sql = "SELECT * FROM Clientes WHERE Email = :email or Telefone = :telefone;";
+        $sql = "SELECT * FROM Clientes WHERE Email = :email OR Telefone = :telefone;";
         $stmt = $db->prepare($sql);
     
         if (!$stmt) {
@@ -57,8 +57,9 @@
             exit();
         }
     
-        $stmt->bindValue(1, $email, SQLITE3_TEXT);
-        $stmt->bindValue(2, $telefone, SQLITE3_TEXT);
+        // Associe os valores usando os nomes dos placeholders
+        $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+        $stmt->bindValue(':telefone', $telefone, SQLITE3_TEXT);
         $result = $stmt->execute();
     
         if ($row = $result->fetchArray()) {
@@ -68,9 +69,12 @@
         }
     }
     
+    
 
-    function createUser($db, $nome, $email, $password, $telefone){
-        $sql = "INSERT INTO Clientes (Nome, Email, Senha, Telefone) VALUES (?, ?, ?, ?)";
+    function createUser($db, $nome, $email, $password, $telefone, $dataRegisto){
+        $dataRegisto = $dataRegisto ?: date('Y-m-d');
+
+        $sql = "INSERT INTO Clientes (Nome, Email, Senha, Telefone, dataRegisto) VALUES (?, ?, ?, ?, ?)";
         $stmt = $db->prepare($sql);
     
         if (!$stmt) {
@@ -88,6 +92,7 @@
         $stmt->bindValue(2, $email, SQLITE3_TEXT);
         $stmt->bindValue(3, $passwordHash, SQLITE3_TEXT);
         $stmt->bindValue(4, $telefone, SQLITE3_TEXT);
+        $stmt->bindValue(5, $dataRegisto, SQLITE3_TEXT);
         $result = $stmt->execute();
     
         if ($result) {
@@ -130,27 +135,41 @@
     
 
     function loginUser($db, $email, $password){
-    $userExists = userExists($db, $email, $email);
-
-    if ($userExists === false) {
-        header("location: ../login.php?error=emailnotfound");
+        // Verifica se os dados de login correspondem ao do administrador
+        if ($email === "admin@gmail.com" && $password === "admin") {
+            // Inicia sessão para admin
+            session_start();
+            $_SESSION["userid"] = "admin"; // Atribua um identificador único para a sessão do admin
+            $_SESSION["useruid"] = "admin"; // Atribua o nome de usuário para a sessão
+            header("location: ../admin.dashboard.php"); // Redireciona para o dashboard do admin
+            exit();
+        }
+    
+        // Se não for o admin, continua com o processo normal de login
+        $userExists = userExists($db, $email, $email);
+    
+        if ($userExists === false) {
+            header("location: ../login.php?error=emailnotfound");
+            exit();
+        }
+    
+        // Obtenha a senha armazenada no banco de dados
+        $storedPassword = $userExists["Senha"];
+    
+        // Verifica a senha fornecida com a senha armazenada
+        if (!password_verify($password, $storedPassword)) {
+            // Se a senha não corresponder, redirecione para a página de login com um erro
+            header("location: ../login.php?error=wronglogin");
+            exit();
+        }
+        
+        // Inicia sessão para usuário normal
+        session_start();
+        $_SESSION["userid"] = $userExists["ID"];
+        $_SESSION["useruid"] = $userExists["Email"];
+        header("location: ../index.php?error=none");
         exit();
-    }
-
-    // Obtenha a senha armazenada no banco de dados
-    $storedPassword = $userExists["Senha"];
-
-    // Compare a senha fornecida com a senha armazenada (sem hash)
-    if ($password !== $storedPassword) {
-        header("location: ../login.php?error=wronglogin");
-        exit();
-    }
-    session_start();
-    $_SESSION["userid"] = $userExists["ID"];
-    $_SESSION["useruid"] = $userExists["Email"];
-    header("location: ../index.php?error=none");
-    exit();
-    }
+}    
 
     function emptyInputProfile($nome, $telefone, $email){
     $result = false;
@@ -262,12 +281,12 @@ function createOrderLine($db, $encomendaId, $productsInCart)
 
     foreach ($productsInCart as $item) {
         // Verifique se todas as informações necessárias estão presentes
-        if (!isset($item['title'], $item['quantity'])) {
+        if (!isset($item['id'], $item['title'], $item['quantity'])) {
             echo "Erro: Variáveis necessárias ausentes em um item do carrinho<br>";
             continue; // Pule para a próxima iteração do loop
         }
 
-        $nomeProduto = $item['title'];
+        $produtoID = $item['id'];
         $quantidade = $item['quantity'];
 
         // Bind dos parâmetros usando variáveis
@@ -286,4 +305,24 @@ function createOrderLine($db, $encomendaId, $productsInCart)
     }
 
     return true; // Se chegar aqui, todos os itens foram inseridos com sucesso
+}
+
+function getRecentUsers($db, $limit = 5) {
+    $sql = "SELECT Nome, Email, dataRegisto FROM Clientes ORDER BY dataRegisto DESC LIMIT ?";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        return false; // Ou trate o erro conforme sua lógica de aplicação
+    }
+
+    // No SQLite3, os índices dos parâmetros começam em 1
+    $stmt->bindValue(1, $limit, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+
+    $recentUsers = [];
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $recentUsers[] = $row;
+    }
+    
+    return $recentUsers;
 }

@@ -59,12 +59,14 @@
                     </li>
                 </ul>
                 <div class="bottom-content">
-                    <li class="list">
-                        <a href="" class="nav-link">
+                    <?php if (isset($_SESSION["useruid"]) && $_SESSION["useruid"] === "admin"): ?>
+                        <li class="list">
+                            <a href="../admin_dashboard.php" class="nav-link">
                             <i class='bx bxs-dashboard icon'></i>
                             <span class="link">Dashboard</span>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

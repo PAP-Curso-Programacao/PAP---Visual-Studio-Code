@@ -1600,10 +1600,104 @@ footer .copyright{
 /*UPGRADE PARA A PAP
     - Meter o site mais apelativo com as animações de baixo para cima;
     - Site full responsive;
-    - Meter a password em hash na base de daddos;
-    - Inserir um admin dashboard;
-    - N0 admin dashboard inserir novos produtos na base de dados;
+    - Meter a password em hash na base de daddos; DONE
+    - Inserir um admin dashboard; 
+    - No admin dashboard inserir novos produtos na base de dados;
     - No admin dashboard ver os clientes e encomendas;
     - No admin dashboard na parte das encomendas ver o id, o nome, o email, nº telemovel e os produtos que encomendou;
     - No admin dashboard dar para eliminar os produtos; 
 */
+
+/*ADMIN DASHBOARD*/
+.containeradmin {
+    right: 0;
+    height: 100vh;
+    background: var(--white-light);
+}
+.containeradmin .content {
+    position: relative;
+    margin-top: 10vh;
+    min-height: 90vh;
+    background: var(--white-light);
+}
+.containeradmin .content .cards {
+    padding: 20px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.containeradmin .content .cards .card {
+    width: 250px;
+    height: 150px;
+    background: white;
+    margin: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.containeradmin .content .content-2 {
+    min-height: 60vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.containeradmin .content .content-2 .recent-payments {
+    min-height: 50vh;
+    flex: 5;
+    background: white;
+    margin: 0 25px 25px 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+}
+.containeradmin .content .content-2 .novos-clientes {
+    flex: 2;
+    background: white;
+    min-height: 50vh;
+    margin: 0 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+}
+.containeradmin .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px 10px;
+    border-bottom: 2px solid #999;
+}
+.containeradmin .btn {
+    background: var(--orange);
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+}
+.containeradmin .btn:hover {
+    border: var(--border);
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06)
+}
+.containeradmin table {
+    padding: 10px;
+}
+.containeradmin th,
+.containeradmin td {
+    text-align: left;
+    padding: 8px;
+}
+
+.containeradmin .content .content-2 .novos-clientes table td:nth-child(1) img {
+    height: 40px;
+    width: 40px;
+}
+@media screen and (max-width:536px) {
+    .container .content .cards {
+        justify-content: center;
+    }
+    .container .content .content-2 .recent-payments table th:nth-child(2),
+    .container .content .content-2 .recent-payments table td:nth-child(2) {
+        display: none;
+    }
+}

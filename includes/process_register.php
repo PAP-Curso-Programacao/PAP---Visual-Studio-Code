@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("location: ../login.php?error=userexists");
     exit();
   }
-  createUser($db,$nome,$email,$password,$telemovel);
+  createUser($db,$nome,$email,$password,$telemovel, $dataRegisto);
 } else {
   header("location: ../login.php");
   exit();
