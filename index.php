@@ -108,7 +108,7 @@
         </div>
     </section>    
 
-    <section id="feature" class="feature">
+    <section id="feature reveal" class="feature reveal">
         <div class="fe-box">
             <img src="img/icon/online.png" alt="">
             <h6>Online Order</h6>
@@ -123,7 +123,7 @@
         </div>
     </section>
 
-    <section id="product" class="product">
+    <section id="product reveal" class="product reveal">
         <h2>Os Nossos Produtos</h2>
         <p>Descubra um mundo de sabores refinados</p>
         <div class="pro-container">
@@ -152,7 +152,7 @@
         </div>
     </section>
 
-    <section id="review" class="review">
+    <section id="review reveal" class="review reveal">
         <div class="container">
             <div class="board">
                 <h2 class="text-light">Mensagens dos nossos clientes</h2>
@@ -254,7 +254,25 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js">
+        window.addEventListener('scroll', reveal);
+function reveal(){
+    var reveals = document.querySelectorAll('.reveal');
+
+    for (var i = 0; i < reveals.length; i++){
+        var windowheight = window.innerHeight;
+        var revealtop = reveals[i].getBoundingClientRect().top;
+        var revealpoint = 150;
+
+        if(revealtop < windowheight - revealpoint){
+            reveals[i].classList.add('active');
+        }
+        else{
+            reveals[i].classList.remove('active');
+        }
+    }
+}
+    </script>
 </body>
 
 </html>
