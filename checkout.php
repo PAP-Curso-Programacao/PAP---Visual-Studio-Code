@@ -55,7 +55,7 @@
                             <span class="link">Login</span>
                         </a>
                     </li>
-                </ul
+                </ul>
             </div>
         </div>
     </nav>
