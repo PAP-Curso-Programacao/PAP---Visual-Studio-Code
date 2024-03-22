@@ -171,15 +171,47 @@
         exit();
 }    
 
-    function emptyInputProfile($nome, $telefone, $email){
-    $result = false;
+function emptyInputProfile($db, $nome, $email, $telefone)
+{
+    $userId = $_SESSION["userid"];
 
-    // Verificar se todos os campos estão vazios
-    if (empty($nome) && empty($telefone) && empty($email)) {
-        $result = true;
+    $sql = "SELECT * FROM Clientes WHERE ID = :userid";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':userid', $userId, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+
+    $user = array();
+
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $user = array(
+            'nome' => $row['Nome'],
+            'email' => $row['Email'],
+            'telefone' => $row['Telefone'],
+            'imagem_perfil' => $row['Perfil']
+        );
     }
 
-    return $result;
+    if (userExistsProfile($db, $userId, $nome, $email, $telefone) !== false) {
+        header("location: ../editProfile.php?error=userexists2");
+        exit();
+    }
+
+    if (empty($nome)) {
+        $nome = $user['Nome'];
+    }
+
+    if (empty($email)) {
+        $email = $user['Email'];
+    }
+
+    if (empty($telefone)) {
+        $telefone = $user['Telefone'];
+    }
+
+    $imagem_perfil = $user['Perfil'];
+
+    updateUser($db, $userId, $nome, $email, $telefone, $imagem_perfil);
+    return false;
 }
 
     function userExistsProfile($db, $ID, $email, $telefone){
@@ -211,9 +243,9 @@
     }
 }
 
-function updateUser($db, $ID, $morada){
-    
-    $sql = "UPDATE Clientes SET Morada = ? WHERE ID = ?";
+function updateImage($db, $ID, $imagem_perfil_caminho)
+{
+    $sql = "UPDATE Clientes SET Perfil = ? WHERE ID = ?";
     $stmt = $db->prepare($sql);
 
     if (!$stmt) {
@@ -221,9 +253,34 @@ function updateUser($db, $ID, $morada){
         exit();
     }
 
-    // Bind dos parâmetros usando variáveis
-    $stmt->bindParam(1, $morada, SQLITE3_TEXT);
-    $stmt->bindParam(2, $ID, SQLITE3_INTEGER);  
+    $stmt->bindParam(1, $imagem_perfil_caminho, SQLITE3_TEXT);
+    $stmt->bindParam(2, $ID, SQLITE3_INTEGER);
+
+    $result = $stmt->execute();
+
+    if (!$result) {
+        header("location: ../editProfile.php?error=stmtexecutionfailed&msg=" . $db->lastErrorMsg());
+        exit();
+    }
+
+    $stmt->close();
+}
+
+
+function updateUser($db, $ID, $nome, $email, $telefone)
+{
+    $sql = "UPDATE Clientes SET Nome = ?, Email = ?, Telefone = ? WHERE ID = ?";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        header("location: ../editProfile.php?error=stmtfailed&msg=" . $db->lastErrorMsg());
+        exit();
+    }
+
+    $stmt->bindParam(1, $nome, SQLITE3_TEXT);
+    $stmt->bindParam(3, $email, SQLITE3_TEXT);
+    $stmt->bindParam(2, $telefone, SQLITE3_TEXT);
+    $stmt->bindParam(4, $ID, SQLITE3_INTEGER);
 
     $result = $stmt->execute();
 
@@ -234,7 +291,6 @@ function updateUser($db, $ID, $morada){
 
     $stmt->close();
 
-    // Após o fechamento da declaração, você pode redirecionar
     header("location: ../editProfile.php?error=none");
     exit();
 }
@@ -244,7 +300,7 @@ function createOrder($db, $clienteID, $userid) {
     $dataHora = date('Y-m-d'); // Formato correto para DateTime
 
     // Correção na consulta SQL para corresponder ao schema fornecido
-    $sql = "INSERT INTO Pedidos (ClienteID, Email, Status, Data) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO Pedidos (ClienteID, Email, DataPedida) VALUES (?, ?, ?)";
     $stmt = $db->prepare($sql);
 
     if (!$stmt) {
@@ -254,8 +310,7 @@ function createOrder($db, $clienteID, $userid) {
     // Bind dos parâmetros
     $stmt->bindParam(1, $clienteID, SQLITE3_INTEGER);
     $stmt->bindParam(2, $userid, SQLITE3_TEXT); // Supondo que você tenha um $email para vincular aqui
-    $stmt->bindParam(3, $status, SQLITE3_INTEGER);
-    $stmt->bindParam(4, $dataHora, SQLITE3_TEXT); // Mudado para SQLITE3_FLOAT se Total pode ser decimal
+    $stmt->bindParam(3, $dataHora, SQLITE3_TEXT); // Mudado para SQLITE3_FLOAT se Total pode ser decimal
 
     if (!$stmt->execute()) {
         die("Erro na execução da declaração: " . $db->lastErrorMsg());
@@ -308,7 +363,7 @@ function createOrderLine($db, $encomendaId, $productsInCart)
 }
 
 function getRecentUsers($db, $limit = 5) {
-    $sql = "SELECT Nome, Email, dataRegisto FROM Clientes ORDER BY dataRegisto DESC LIMIT ?";
+    $sql = "SELECT ID, Nome, Email, dataRegisto, Perfil FROM Clientes ORDER BY dataRegisto DESC LIMIT ?";
     $stmt = $db->prepare($sql);
 
     if (!$stmt) {
@@ -325,4 +380,109 @@ function getRecentUsers($db, $limit = 5) {
     }
     
     return $recentUsers;
+}
+
+function contarProdutos($db) {
+    $sql = "SELECT COUNT(*) AS total FROM Produtos";
+    $result = $db->query($sql);
+    $row = $result->fetchArray();
+    return $row['total'];
+}
+
+function contarClientes($db) {
+    $sql = "SELECT COUNT(*) AS total FROM Clientes";
+    $result = $db->query($sql);
+    $row = $result->fetchArray();
+    return $row['total'];
+}
+
+function contarPedidos($db) {
+    $sql = "SELECT COUNT(*) AS total FROM Pedidos";
+    $result = $db->query($sql);
+    $row = $result->fetchArray();
+    return $row['total'];
+}
+
+
+function getRecentOrders($db, $limit = 5) {
+    $sql = "SELECT ID, ClienteID, Email, DataPedida FROM Pedidos ORDER BY DataPedida DESC LIMIT ?";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        return []; // Ou trate o erro conforme sua lógica de aplicação
+    }
+
+    // No SQLite3, os índices dos parâmetros começam em 1
+    $stmt->bindValue(1, $limit, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+
+    $recentOrders  = [];
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $recentOrders[] = $row;
+    }
+    
+    return $recentOrders;
+}
+
+function pagination($db, $currentPage = 1, $rowsPerPage = 5) {
+    // Contar o total de produtos
+    $result = $db->query('SELECT COUNT(*) as count FROM Produtos');
+    $row = $result->fetchArray();
+    $totalProducts = $row['count'];
+
+    // Calcular o total de páginas
+    $totalPages = ceil($totalProducts / $rowsPerPage);
+
+    // Calcular o índice do primeiro produto na página
+    $offset = ($currentPage - 1) * $rowsPerPage;
+
+    // Consulta SQL para recuperar produtos da página atual
+    $sql = "SELECT * FROM Produtos ORDER BY ID LIMIT $rowsPerPage OFFSET $offset";
+    $result = $db->query($sql);
+
+    $products = [];
+    while ($product = $result->fetchArray(SQLITE3_ASSOC)) {
+        $products[] = $product;
+    }
+
+    return ['products' => $products, 'totalPages' => $totalPages];
+}
+
+function getMostSoldProduct($db) {
+    $sql = "SELECT Produtos.Nome, Produtos.Imagem, SUM(ItensPedido.Quantidade) as TotalVendido
+            FROM ItensPedido
+            JOIN Produtos ON ItensPedido.ProdutoID = Produtos.ID
+            GROUP BY ItensPedido.ProdutoID
+            ORDER BY TotalVendido DESC
+            LIMIT 1";
+    
+    $result = $db->query($sql);
+    
+    // Verifica se o resultado contém pelo menos uma linha
+    if ($row = $result->fetchArray()) {
+        // Retorna o nome, a quantidade total vendida e a imagem do produto mais vendido
+        return ['nome' => $row['Nome'], 'imagem' => $row['Imagem'], 'totalVendido' => $row['TotalVendido']];
+    } else {
+        // Retorna null se não houver vendas ou ocorrer um erro
+        return null;
+    }
+}
+
+function getLeastSoldProduct($db) {
+    $sql = "SELECT Produtos.Nome, Produtos.Imagem, SUM(ItensPedido.Quantidade) as TotalVendido
+            FROM ItensPedido
+            JOIN Produtos ON ItensPedido.ProdutoID = Produtos.ID
+            GROUP BY ItensPedido.ProdutoID
+            ORDER BY TotalVendido ASC
+            LIMIT 1";
+    
+    $result = $db->query($sql);
+    
+    // Verifica se o resultado contém pelo menos uma linha
+    if ($row = $result->fetchArray()) {
+        return ['nome' => $row['Nome'], 'imagem' => $row['Imagem'], 'totalVendido' => $row['TotalVendido']];
+    } else {
+        // Retorna null se não houver vendas ou ocorrer um erro
+        return null;
+    }
 }

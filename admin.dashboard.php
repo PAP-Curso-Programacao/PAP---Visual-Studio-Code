@@ -1,5 +1,13 @@
 <?php
     session_start();
+    require_once 'includes/conn.php';
+    require_once 'includes/functions.inc.php';
+
+    $recentUsers = getRecentUsers($db, 5); // Busca os 5 usuários mais recentes
+    $totalProdutos = contarProdutos($db); // Chama a função e armazena o resultado na variável $totalProdutos.
+    $totalClientes = contarClientes($db); // Chama a função e armazena o resultado na variável $totalClientes.
+    $totalPedidos = contarPedidos($db); // Chama a função e armazena o resultado na variável
+    $recentOrders = getRecentOrders($db, 5); // Chama a função e armazena o resultado na variável $recentOrders
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +16,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastelaria</title>
+    <title>Administrador</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -35,20 +43,20 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.clientes.php" class="nav-link">
                             <i class='bx bx-user icon'></i>
                             <span class="link">Clientes</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.products.php" class="nav-link">
                             <i class='bx bxs-package icon'></i>
                             <span class="link">Produtos</span>
                         </a>
                     </li>
                     <li class="list">
                         <a href=".php" class="nav-link">
-                            <i class='bx bxs-package icon'></i>
+                            <i class='bx bx-notepad icon'></i>
                             <span class="link">Pedidos</span>
                         </a>
                     </li>
@@ -67,7 +75,7 @@
             <div class="cards">
                 <div class="card">
                     <div class="box">
-                        <h1>2194</h1>
+                        <h1><?php echo $totalClientes; ?></h1>
                         <h3>Clientes</h3>
                     </div>
                     <div class="icon-case">
@@ -76,7 +84,7 @@
                 </div>
                 <div class="card">
                     <div class="box">
-                        <h1>53</h1>
+                        <h1><?php echo $totalProdutos; ?></h1>
                         <h3>Produtos</h3>
                     </div>
                     <div class="icon-case">
@@ -85,7 +93,7 @@
                 </div>
                 <div class="card">
                     <div class="box">
-                        <h1>5</h1>
+                        <h1><?php echo $totalPedidos; ?></h1>
                         <h3>Pedidos</h3>
                     </div>
                     <div class="icon-case">
@@ -94,77 +102,50 @@
                 </div>
             </div>
             <div class="content-2">
-                <div class="recent-payments">
+                <div class="pedidos-recentes">
                     <div class="title">
-                        <h2>Recent Payments</h2>
-                        <a href="#" class="btn">View All</a>
+                        <h2>Encomendas recentes</h2>
+                        <a href="#" class="btn">Ver todos</a>
                     </div>
                     <table>
                         <tr>
-                            <th>Name</th>
-                            <th>School</th>
-                            <th>Amount</th>
-                            <th>Option</th>
+                            <th>ID</th>
+                            <th>ClienteID</th>
+                            <th>Email</th>
+                            <th>Data do Pedido</th>
                         </tr>
+                        <?php foreach ($recentOrders as $order): ?>
                         <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
+                            <td><?php echo htmlspecialchars($order['ID']); ?></td>
+                            <td><?php echo htmlspecialchars($order['ClienteID']); ?></td>
+                            <td><?php echo htmlspecialchars($order['Email']); ?></td>
+                            <td><?php echo htmlspecialchars($order['DataPedida']); ?></td>
                         </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
+                        <?php endforeach; ?>
                     </table>
                 </div>
                 <div class="novos-clientes">
                     <div class="title">
                         <h2>Novos Clientes</h2>
-                        <a href="#" class="btn">Ver todos</a>
+                        <a href="admin.clientes.php" class="btn">Ver todos</a>
                     </div>
                     <table>
                         <tr>
-                            <th>Profile</th>
-                            <th>Name</th>
+                            <th>Perfil</th>
+                            <th>ID</th>
+                            <th>Nome</th>
                             <th>Email</th>
-                            <th>option</th>
+                            <th>DataRegisto</th>
                         </tr>
+                        <?php foreach ($recentUsers as $user): ?>
                         <tr>
-                            <!-- Supondo que você queira mostrar um ícone de perfil genérico -->
-                            <td><img src="caminho_para_icon_perfil.png" alt="Perfil" style="width:40px;height:40px;"></td>
+                            <td><img src="<?php echo htmlspecialchars($user['Perfil']); ?>" style="width: 70px; height:70px;"></td>
+                            <td><?php echo htmlspecialchars($user['ID']); ?></td>
                             <td><?php echo htmlspecialchars($user['Nome']); ?></td>
                             <td><?php echo htmlspecialchars($user['Email']); ?></td>
                             <td><?php echo htmlspecialchars($user['dataRegisto']); ?></td>
-                            <!-- Supondo que você queira adicionar um botão ou link como opção -->
-                            <td><a href="link_para_detalhes_do_usuario.php?id=<?php echo $user['ID']; ?>" class="btn">Detalhes</a></td>
                         </tr>
+                        <?php endforeach; ?>
                     </table>
                 </div>
             </div>

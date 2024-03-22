@@ -75,44 +75,42 @@
 
     <section class="profile">
     <div class="wrapper">
-        <div class="left">
-            <img src="img/icon/boy.png" alt="" width="100">
             <?php
                 include('/includes/profile.inc.php');
                 foreach ($user as $info) {
                 $nome = $info[0];
                 $email = $info[1];
-                $morada = $info[2];
-                $telemovel = $info[3];
+                $telemovel = $info[2];
+                $image_perfil = $info[3];
             ?>
-        </div>
+        <div class="left">
+            <form action="includes/editProfile.inc.php" method="post" enctype="multipart/form-data">
+                <img src="<?php echo $image_perfil; ?>" alt="" width="100">
+                <label for="fileInput" class="label-ABC">Atualizar Foto</label>
+                <input class="input-btn" name="profile_image" type="file" accept="image/*" id="fileInput">
+                </div>
         <div class="right">
             <div class="info">
                 <h3>Informações</h3>
                     <div class="info_data">
-                        <form action="includes/editProfile.inc.php" method="post">
                             <div class="data">
                                 <h4>Nome:</h4>
-                                <p><input type="text" name="name" value="<?php echo htmlspecialchars($nome); ?>" readonly></p>
-
+                                <p><input type="text" id="name" name="name" value="<?php echo htmlspecialchars($nome); ?>"></p>
                             </div>
                             <div class="data">
                                 <h4>Email:</h4>
-                                <p><input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly></p>
+                                <p><input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>"></p>
                             </div>
                             <div class="data">
                                 <h4>Telemovel:</h4>
-                                <p><input type="text" name="telemovel" value="<?php echo htmlspecialchars($telemovel); ?>" readonly></p>
+                                <p><input type="text" id="telemovel" name="telemovel" value="<?php echo htmlspecialchars($telemovel); ?>"></p>
                             </div>
-                            <div class="data">
-                                <h4>Morada:</h4>
-                                <p><input type="text" name="morada" placeholder="<?php echo $morada; ?>"></p>
-                            </div>  
                     </div>
                 </div>
                 <div class="btn">
                     <ul>
-                        <button type="submit" class="s-btnn"><i class='bx bx-refresh icon'></i></button>
+                        <a href="index.php"><i class='bx bx-arrow-back icon'></i></a>
+                        <button type="submit" id="btnSubmit" class="s-btnn"><i class='bx bx-refresh icon'></i></button>
                         <a href="includes/logout.inc.php"><i class='bx bx-log-out icon'></i></a>
                     </ul>
                 </div>
@@ -172,5 +170,22 @@
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
+    <script>
+    var fileInput = document.getElementById('fileInput');
+    var imageToChange = document.querySelector('.left img'); // Assume que a imagem a ser mudada está dentro de um div com classe 'left'
+
+    fileInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                imageToChange.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+    </script>
 </body>
 </html>

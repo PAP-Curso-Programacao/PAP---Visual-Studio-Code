@@ -1,5 +1,18 @@
 <?php
     session_start();
+    require_once 'includes/conn.php';
+    require_once 'includes/functions.inc.php';
+
+    $mostSoldProduct = getMostSoldProduct($db);
+    $leastSoldProduct = getLeastSoldProduct($db);
+
+    // Obter o número da página atual da URL
+    $currentPage = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
+
+    // Chamar a função de paginação
+    $paginationResult = pagination($db, $currentPage);
+    $products = $paginationResult['products'];
+    $totalPages = $paginationResult['totalPages'];
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +21,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastelaria</title>
+    <title>Administrador</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -35,20 +48,20 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.clientes.php" class="nav-link">
                             <i class='bx bx-user icon'></i>
                             <span class="link">Clientes</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.products.php" class="nav-link">
                             <i class='bx bxs-package icon'></i>
                             <span class="link">Produtos</span>
                         </a>
                     </li>
                     <li class="list">
                         <a href=".php" class="nav-link">
-                            <i class='bx bxs-package icon'></i>
+                            <i class='bx bx-notepad icon'></i>
                             <span class="link">Pedidos</span>
                         </a>
                     </li>
@@ -62,6 +75,77 @@
             </div>
         </div>
     </nav>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="js/script.js"></script>
+
+        <div class="containeradmin">
+            <div class="content">
+                <div class="cards">
+                    <div class="card">
+                        <div class="produto">
+                            <?php if ($leastSoldProduct): ?>
+                                <img src="<?php echo htmlspecialchars($leastSoldProduct['imagem']); ?>" style="width: 150px; height:100px;">
+                                <div class="box">
+                                    <h1><?php echo htmlspecialchars($leastSoldProduct['totalVendido']); ?> unidades</h1>
+                                    <h3><?php echo htmlspecialchars($leastSoldProduct['nome']); ?></h3>
+                                </div>
+                            <?php else: ?>
+                                <div class="box">
+                                    <h1>Por incrivel que apareça não temos produto menos vendidos!</h1>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="produto">
+                            <?php if ($mostSoldProduct): ?>
+                                <img src="<?php echo htmlspecialchars($mostSoldProduct['imagem']); ?>" style="width: 150px; height:100px;">
+                                <div class="box">
+                                    <h1><?php echo htmlspecialchars($mostSoldProduct['totalVendido']); ?> unidades</h1>
+                                    <h3><?php echo htmlspecialchars($mostSoldProduct['nome']); ?></h3>
+                                </div>
+                            <?php else: ?>
+                                <div class="box">
+                                    <h1>Por incrivel que apareça não temos produto mais vendidos!</h1>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="content-2">
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            <div class="produtos">
+                                <table>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Imagem</th>
+                                        <th>Nome</th>
+                                        <th>Preço</th>
+                                        <th>Quantidade</th>
+                                        <th>Editar</th>
+                                    </tr>
+                                    <?php foreach ($products as $product): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($product['ID']); ?></td>
+                                        <td><img src="<?php echo $product['Imagem']; ?>" style="width: 150px; height:100px;"></td>
+                                        <td><?php echo htmlspecialchars($product['Nome']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['Preço']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['Stock']); ?></td>
+                                        <td><a href="admin.editProducts.php" class="btn-edit">Edit</a></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </table>
+                            </div>
+                            <div class="pagination">
+                                <?php if ($currentPage > 1): ?>
+                                    <a href="?page-nr=<?php echo $currentPage - 1; ?>">Anterior</a>
+                                <?php endif; ?>
+                                <?php if ($currentPage < $totalPages): ?>
+                                    <a href="?page-nr=<?php echo $currentPage + 1; ?>">Próximo</a>
+                                <?php endif; ?>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </div>   
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/script.js"></script>
 </body>

@@ -22,5 +22,5 @@ $user = array();
 // Loop para obter os resultados da consulta
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     // Adiciona cada produto ao array $catalogos
-    $user[] = array($row['Nome'], $row['Email'], $row['Morada'], $row['Telefone']);
+    $user[] = array($row['Nome'], $row['Email'], $row['Telefone'], $row['Perfil']);
 }

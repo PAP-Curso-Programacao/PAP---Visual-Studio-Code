@@ -69,9 +69,6 @@
     <section class="overlay"></section>
 
     <section class="profile">
-        <div class="wrapper">
-            <div class="left">
-                <img src="img/icon/boy.png" alt="" width="100">
                 <?php
                     include('/includes/profile.inc.php');
                     // Loop para obter os resultados da consulta
@@ -79,9 +76,12 @@
                     // Informações do cliente recebidas do banco de dados
                     $nome = $info[0];
                     $email = $info[1];
-                    $telemovel = $info[3];
-                    $morada = $info[2];
+                    $telemovel = $info[2];
+                    $image_perfil = $info[3];
                 ?>
+        <div class="wrapper">
+            <div class="left">
+                <img src="<?php echo $image_perfil; ?>" alt="" width="100">
             </div>
             <div class="right">
                 <div class="info">
@@ -98,10 +98,6 @@
                         <div class="data">
                             <h4>Telemovel:</h4>
                             <p><?php echo $telemovel; ?></p>
-                        </div>
-                        <div class="data">
-                            <h4>Morada:</h4>
-                            <p><?php echo $morada; ?></p>
                         </div>
                     </div>
                 </div>

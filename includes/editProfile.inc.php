@@ -10,7 +10,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once 'conn.php';
     require_once 'functions.inc.php';
 
-    if (emptyInputProfile($nome, $telefone, $email) !== false) {
+    if (isset($_FILES["profile_image"]) && $_FILES["profile_image"]["error"] == 0) {
+      $targetDir = "../img/profiles/";
+      $targetFile = $targetDir . basename($_FILES["profile_image"]["name"]);
+      $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+  
+      $allowedExtensions = array("jpg", "jpeg", "png", "gif");
+      if (in_array($imageFileType, $allowedExtensions)) {
+        if (move_uploaded_file($_FILES["profile_image"]["tmp_name"], $targetFile)) {
+          $imagem_perfil_nome = basename($_FILES["profile_image"]["name"]);
+          $imagem_perfil_caminho = ".\img\profiles\\" . $imagem_perfil_nome;
+          
+          updateImage($db, $_SESSION["userid"], $imagem_perfil_caminho);
+          header("location: ../editProfile.php?error=none");
+  
+          exit();
+        }
+      }
+    }
+  
+
+    if (emptyInputProfile($db, $nome, $telefone, $email) !== false) {
         header("location: ../editProfile.php?error=emptyinput");
         exit();
       }
@@ -27,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
       }
     
-      updateUser($db, $_SESSION["userid"],$morada);
+      updateUser($db, $_SESSION["userid"], $nome, $email, $imagem_perfil_caminho);
     } else {
       header("location: ../login.php");
       exit();
