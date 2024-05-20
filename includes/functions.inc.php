@@ -323,8 +323,44 @@ function createOrder($db, $clienteID, $userid) {
     return $lastId;
 }
 
-function createOrderLine($db, $encomendaId, $productsInCart)
+function getProductIdByName($db, $nomeProduto)
 {
+    $nomeProduto = trim($nomeProduto);
+    $sql = "SELECT ID FROM Produtos WHERE Nome = ?";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        die("Erro na preparação da declaração: " . $db->lastErrorMsg());
+    }
+
+    $stmt->bindParam(1, $nomeProduto, SQLITE3_TEXT);
+    $result = $stmt->execute();
+    if (!$result) {
+        echo "Erro ao inserir o item do pedido para $produtoNome.<br>";
+    } else {
+        echo "Item do pedido inserido para $produtoNome com sucesso.<br>";
+    }
+
+    if (!$result) {
+        die("Erro na execução da declaração: " . $db->lastErrorMsg());
+    }
+
+    $row = $result->fetchArray(SQLITE3_ASSOC);
+
+    if ($row === false) {
+        echo "Produto não encontrado para o nome: $nomeProduto<br>";
+        $stmt->close();
+        return null;
+    }
+
+    $idProduto = $row['Nome'];
+    $stmt->close();
+
+    return $idProduto;
+}
+
+
+function createOrderLine($db, $encomendaId, $productsInCart){
     // Preparação da declaração fora do loop
     $sql = "INSERT INTO ItensPedido (PedidoID, ProdutoID, Quantidade, PreçoUni) VALUES (?, ?, ?, (SELECT Preço FROM Produtos WHERE ID = ?))";
     $stmt = $db->prepare($sql);
@@ -336,7 +372,7 @@ function createOrderLine($db, $encomendaId, $productsInCart)
 
     foreach ($productsInCart as $item) {
         // Verifique se todas as informações necessárias estão presentes
-        if (!isset($item['id'],$item['title'], $item['quantity'])) {
+        if (!isset($item['title'], $item['quantity'])) {
             echo "Erro: Variáveis necessárias ausentes em um item do carrinho<br>";
             continue; // Pule para a próxima iteração do loop
         }
@@ -345,6 +381,7 @@ function createOrderLine($db, $encomendaId, $productsInCart)
         $quantidade = $item['quantity'];
 
         $idProduto = getProductIdByName($db, $produtoNome);
+        echo "ID do Produto para $produtoNome: $idProduto<br>";
 
         if ($idProduto === null) {
             continue;
@@ -360,8 +397,7 @@ function createOrderLine($db, $encomendaId, $productsInCart)
         $result = $stmt->execute();
 
         if (!$result) {
-            echo "Erro: Execução da declaração falhou para o item: $produtoNome.<br>";
-            continue; // Pule para a próxima iteração do loop
+            echo "Erro: Execução da declaração falhou para o item: $produtoNome" . $db->lastErrorMsg();
         }
     }
 
@@ -492,4 +528,29 @@ function getLeastSoldProduct($db) {
         // Retorna null se não houver vendas ou ocorrer um erro
         return null;
     }
+}
+
+function addProduto($db, $nome, $preco, $desc, $stock, $imagem_produto_caminho){
+    $sql = "INSERT INTO Produtos (Nome, Preço, Descrição, Stock, Imagem) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        header("location: ../admin.products.php?error=stmtfailed&msg=" . $db->lastErrorMsg());
+        exit();
+    }
+
+    $stmt->bindValue('1', $nome, SQLITE3_TEXT);
+    $stmt->bindValue('2', $preco, SQLITE3_TEXT);
+    $stmt->bindValue('3', $desc, SQLITE3_TEXT);
+    $stmt->bindValue('4', $stock, SQLITE3_TEXT);
+    $stmt->bindValue('5', $imagem_produto_caminho, SQLITE3_TEXT);
+    $result = $stmt->execute();
+
+    if ($result) {
+        header("location: ../admin.products.php?error=none");
+    } else {
+        echo "Erro ao inserir o produto no banco de dados: " . $stmt->error;
+        header("location: ../admin.products.php?error=stmtfailed" . $db->lastErrorMsg());
+    }
+    exit();
 }

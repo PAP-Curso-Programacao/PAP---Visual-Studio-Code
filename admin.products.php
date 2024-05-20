@@ -24,6 +24,7 @@
     <title>Administrador</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -76,39 +77,34 @@
         </div>
     </nav>
 
-        <div class="containeradmin">
+        <div class="containeradmin" style="padding: 20px">
             <div class="content">
                 <div class="cards">
-                    <div class="card">
-                        <div class="produto">
-                            <?php if ($leastSoldProduct): ?>
-                                <img src="<?php echo htmlspecialchars($leastSoldProduct['imagem']); ?>" style="width: 150px; height:100px;">
-                                <div class="box">
-                                    <h1><?php echo htmlspecialchars($leastSoldProduct['totalVendido']); ?> unidades</h1>
-                                    <h3><?php echo htmlspecialchars($leastSoldProduct['nome']); ?></h3>
+                        <div class="add-products form-container">
+                            <form action="includes/add.product.php" method="POST" enctype="multipart/form-data">
+                                <div class="input-field">
+                                    <label style="font-size: 14px">Nome do produto:</label>
+                                    <input type="text" name="name" required>
                                 </div>
-                            <?php else: ?>
-                                <div class="box">
-                                    <h1>Por incrivel que apareça não temos produto menos vendidos!</h1>
+                                <div class="input-field">
+                                    <label style="font-size: 14px">Preço do produto:</label>
+                                    <input type="number" name="preco" required>
                                 </div>
-                            <?php endif; ?>
+                                <div class="input-field">
+                                    <label style="font-size: 14px">Descrição do produto:</label>
+                                    <textarea name="desc"></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <label style="font-size: 14px">Quantidade do produto:</label>
+                                    <input type="number" name="stock" required>
+                                </div>
+                                <div class="input-field">
+                                    <label style="font-size: 14px">Imagem do produto:</label>
+                                    <input type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/gif" required>
+                                </div>
+                                <input type="submit" name="add_produto" value="Adicionar produto" class="btn">
+                            </form>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="produto">
-                            <?php if ($mostSoldProduct): ?>
-                                <img src="<?php echo htmlspecialchars($mostSoldProduct['imagem']); ?>" style="width: 150px; height:100px;">
-                                <div class="box">
-                                    <h1><?php echo htmlspecialchars($mostSoldProduct['totalVendido']); ?> unidades</h1>
-                                    <h3><?php echo htmlspecialchars($mostSoldProduct['nome']); ?></h3>
-                                </div>
-                            <?php else: ?>
-                                <div class="box">
-                                    <h1>Por incrivel que apareça não temos produto mais vendidos!</h1>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
                     <div class="content-2">
                         <form method="POST" action="" enctype="multipart/form-data">
                             <div class="produtos">
@@ -147,5 +143,6 @@
             </div> 
         </div>   
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/script.js"></script>
 </body>

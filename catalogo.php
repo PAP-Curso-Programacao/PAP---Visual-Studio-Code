@@ -36,7 +36,7 @@
                     <div class="total-title">Total</div>
                     <div class="total-price">$0</div>
                 </div>
-                <button type="button" class="btn-buy">Comprar Agora</button>
+                <button onlick="buyNow()" type="button" class="btn-buy" >Comprar Agora</button>
                 <i class='bx bx-x' id="close-cart"></i>
             </div>
         </div>
@@ -175,8 +175,8 @@
     var isUserLoggedIn = <?php echo json_encode(isset($_SESSION['userid']) && $_SESSION['useruid']); ?>;
 
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
