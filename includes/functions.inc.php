@@ -336,30 +336,37 @@ function createOrderLine($db, $encomendaId, $productsInCart)
 
     foreach ($productsInCart as $item) {
         // Verifique se todas as informações necessárias estão presentes
-        if (!isset($item['id'], $item['title'], $item['quantity'])) {
+        if (!isset($item['id'],$item['title'], $item['quantity'])) {
             echo "Erro: Variáveis necessárias ausentes em um item do carrinho<br>";
             continue; // Pule para a próxima iteração do loop
         }
 
-        $produtoID = $item['id'];
+        $produtoNome = $item['title'];
         $quantidade = $item['quantity'];
+
+        $idProduto = getProductIdByName($db, $produtoNome);
+
+        if ($idProduto === null) {
+            continue;
+        }
 
         // Bind dos parâmetros usando variáveis
         $stmt->bindValue(1, $encomendaId, SQLITE3_INTEGER);
-        $stmt->bindValue(2, $produtoID, SQLITE3_INTEGER);
+        $stmt->bindValue(2, $idProduto, SQLITE3_INTEGER);
         $stmt->bindValue(3, $quantidade, SQLITE3_INTEGER);
-        $stmt->bindValue(4, $produtoID, SQLITE3_INTEGER); // O mesmo ID do produto para a subconsulta
+        $stmt->bindValue(4, $idProduto, SQLITE3_INTEGER); // O mesmo ID do produto para a subconsulta
 
         // Execute a declaração dentro do loop
         $result = $stmt->execute();
 
         if (!$result) {
-            echo "Erro: Execução da declaração falhou para o item: $produtoID.<br>";
+            echo "Erro: Execução da declaração falhou para o item: $produtoNome.<br>";
             continue; // Pule para a próxima iteração do loop
         }
     }
 
-    return true; // Se chegar aqui, todos os itens foram inseridos com sucesso
+    $stmt->close();
+    return $encomendaId;
 }
 
 function getRecentUsers($db, $limit = 5) {

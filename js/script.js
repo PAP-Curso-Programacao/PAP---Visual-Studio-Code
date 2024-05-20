@@ -200,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (buyNowButton) {
         buyNowButton.addEventListener('click', function() {
             var productsInCart = [];
+            var total = 0;
 
             document.querySelectorAll('.cart-box').forEach(function(box) {
                 var titleElement = box.querySelector('.cart-product-title');
@@ -214,6 +215,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     var productImg = imgElement.src;
                     var quantity = quantityInput.value;
 
+                    total += price * quantity;
+
                     var product = {
                         title: title,
                         price: price,
@@ -223,11 +226,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // Adiciona o produto ao array productsInCart
                     productsInCart.push(product);
+                }else{
+                    console.error("Um ou mais elementos esperados estão faltando no cartBox.");
                 }
             });
 
             console.log(productsInCart);
-            // Aqui você pode proceder com a lógica para lidar com os produtos do carrinho, como enviar para um servidor, etc.
+            var detailsEncoded = encodeURIComponent(JSON.stringify(productsInCart));
+            window.location.href = "checkout.php?details=" + detailsEncoded + "&total=" + total;
     });
 }});
 
@@ -296,45 +302,3 @@ function addProductToCart(title, price, productImg) {
         cartItems.append(cartShopBox);
     }
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    var buyNowButton = document.querySelector('.btn-buy');
-    if (buyNowButton) {
-        buyNowButton.addEventListener('click', function() {
-            var productsInCart = [];
-            var total = 0;
-
-            var cartBoxes = document.querySelectorAll('.cart-box');
-            cartBoxes.forEach(function(box, index) {
-                var titleElement = box.querySelector('.cart-product-title');
-                var priceElement = box.querySelector('.cart-price');
-                var quantityElement = box.querySelector('.cart-quantity');
-                var imgElement = box.querySelector('.cart-img');
-            
-                if (titleElement && priceElement && quantityElement && imgElement) {
-                    var title = titleElement.innerText;
-                    var price = parseFloat(priceElement.innerText.replace("€", "").trim()); // Remove o símbolo de euro e espaços em branco
-                    var quantity = parseInt(quantityElement.value, 10);
-                    var productImg = imgElement.src;
-                
-                    // Calcula o total enquanto coleta os dados
-                    total += price * quantity;
-
-                    var product = {
-                        title: title,
-                        price: price.toString(),
-                        quantity: quantity,
-                        productImg: productImg
-                    };
-                    productsInCart.push(product);
-                } else {
-                    console.error("Um ou mais elementos esperados estão faltando no cartBox.");
-                }
-            });
-
-            // Redirecionar para a página de checkout
-            var detailsEncoded = encodeURIComponent(JSON.stringify(productsInCart));
-            window.location.href = "checkout.php?details=" + detailsEncoded + "&total=" + total;
-        });
-    }
-});
