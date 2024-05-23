@@ -1678,6 +1678,7 @@ footer .copyright{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     flex-direction: column;
+    margin-bottom: 2rem;
 }
 .containeradmin .title {
     display: flex;
@@ -1709,12 +1710,18 @@ footer .copyright{
     height: 40px;
     width: 40px;
 }
+
 @media screen and (max-width:536px) {
-    .container .content .cards {
+    .containeradmin .container .content .cards {
         justify-content: center;
     }
-    .container .content .content-2 .pedidos-recentes table th:nth-child(2),
-    .container .content .content-2 .pedidos-recentes table td:nth-child(2) {
+
+    .containeradmin .pedidos-recentes{
+        text-align: center;
+    }
+
+    .containeradmin .container .content .content-2 .pedidos-recentes table th:nth-child(2),
+    .containeradmin .container .content .content-2 .pedidos-recentes table td:nth-child(2) {
         display: none;
     }
 }
@@ -1725,10 +1732,13 @@ footer .copyright{
 }
 
 .containeradmin .add-products{
-    width: 30%;
+    max-width: 300px;
     margin-top: -3.5rem;
     height: auto;
     position: relative;
+    background: var(--white); 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Adiciona sombra */
+    padding: 20px; /* Adiciona padding interno */
 }
 
 .containeradmin .add-products input, textarea{
@@ -1763,6 +1773,7 @@ footer .copyright{
     flex-direction: column;
 }
 
+
 .containeradmin .content-2 .produtos .btn-edit{
     background: var(--orange);
     color: var(--white-light);
@@ -1792,3 +1803,117 @@ footer .copyright{
     font-weight: 500;
     transition: all .50 ease;
 }
+
+@media (max-width: 738px) {
+    .containeradmin .content .cards{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .containeradmin .content .content-2 {
+        margin-top: 3.5rem;
+    }
+}
+
+/*ADMIN CLIENT PAGE*/
+.containerCliente {
+    margin-left: 15rem;
+    margin-right: 15rem;
+}
+
+.containerCliente .content {
+    position: relative;
+    margin-top: 15vh;
+}
+
+.containerCliente .card {
+    margin: 0 25px;
+    flex: 2;
+    background: #fff;
+    min-height: 70vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: hidden;
+}
+
+.containerCliente .card-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.containerCliente .card-body {
+    padding: 20px;
+    font-size: 14px;
+}
+
+.containerCliente .table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.containerCliente .table th, .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.containerCliente .btn-home{
+    margin-left: 50rem;
+    background: var(--orange);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 1rem 3rem;
+    border-radius: 3rem;
+}
+
+.containerCliente .btn-edit{
+    background: var(--orange);
+    color: var(--white);
+    cursor: pointer;
+    padding: 1rem 3rem;
+    border-radius: 3rem;
+}
+
+.containerCliente .card-body .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+.containerCliente .card-body .pagination a {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: var(--white);
+    background-color: var(--orange);
+    padding: 10px 35px;
+    margin: 5px;
+    font-size: 18px;
+    border-radius: 3rem;
+    font-weight: 500;
+    transition: all .50 ease;
+}
+
+.containerCliente .card-body input{
+    outline: none;
+    border: 1px solid #55555544;
+    background: transparent;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+.containerCliente .input-field label {
+    margin-right: 10px; /* Adicione um espaçamento entre o rótulo e o input */
+}
+
+.containerCliente  .input-field input,
+.containerCliente  .input-field select {
+    width: calc(100% - 100px); /* Calcula o restante do espaço disponível após a largura do rótulo */
+}
+

@@ -467,7 +467,7 @@ function getRecentOrders($db, $limit = 5) {
     return $recentOrders;
 }
 
-function pagination($db, $currentPage = 1, $rowsPerPage = 5) {
+function paginationProducts($db, $currentPage = 1, $rowsPerPage = 5) {
     // Contar o total de produtos
     $result = $db->query('SELECT COUNT(*) as count FROM Produtos');
     $row = $result->fetchArray();
@@ -490,6 +490,32 @@ function pagination($db, $currentPage = 1, $rowsPerPage = 5) {
 
     return ['products' => $products, 'totalPages' => $totalPages];
 }
+
+function paginationClientes($db, $currentPage = 1, $rowsPerPage = 5) {
+    // Contar o total de clientes
+    $result = $db->query('SELECT COUNT(*) as count FROM Clientes');
+    $row = $result->fetchArray();
+    $totalClients = $row['count'];
+
+    // Calcular o total de páginas
+    $totalPages = ceil($totalClients / $rowsPerPage);
+
+    // Calcular o índice do primeiro cliente na página
+    $offset = ($currentPage - 1) * $rowsPerPage;
+
+    // Consulta SQL para recuperar clientes da página atual
+    $sql = "SELECT * FROM Clientes ORDER BY ID LIMIT $rowsPerPage OFFSET $offset";
+    $result = $db->query($sql);
+
+    $clientes = [];
+    while ($cliente = $result->fetchArray(SQLITE3_ASSOC)) {
+        $clientes[] = $cliente;
+    }
+
+    return ['clientes' => $clientes, 'totalPages' => $totalPages];
+}
+
+
 
 function getMostSoldProduct($db) {
     $sql = "SELECT Produtos.Nome, Produtos.Imagem, SUM(ItensPedido.Quantidade) as TotalVendido
@@ -553,4 +579,23 @@ function addProduto($db, $nome, $preco, $desc, $stock, $imagem_produto_caminho){
         header("location: ../admin.products.php?error=stmtfailed" . $db->lastErrorMsg());
     }
     exit();
+}
+
+function getClientes($db) {
+    $sql = "SELECT ID, Nome, Email, Telefone FROM Clientes ORDER BY ID";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        return []; // Ou trate o erro conforme sua lógica de aplicação
+    }
+
+    // No SQLite3, os índices dos parâmetros começam em 1
+    $result = $stmt->execute();
+
+    $clientes = [];
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $clientes[] = $row;
+    }
+    
+    return $clientes;
 }

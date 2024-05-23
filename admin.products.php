@@ -3,14 +3,14 @@
     require_once 'includes/conn.php';
     require_once 'includes/functions.inc.php';
 
-    $mostSoldProduct = getMostSoldProduct($db);
-    $leastSoldProduct = getLeastSoldProduct($db);
+    // $mostSoldProduct = getMostSoldProduct($db);
+    // $leastSoldProduct = getLeastSoldProduct($db);
 
     // Obter o número da página atual da URL
     $currentPage = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
 
     // Chamar a função de paginação
-    $paginationResult = pagination($db, $currentPage);
+    $paginationResult = paginationProducts($db, $currentPage);
     $products = $paginationResult['products'];
     $totalPages = $paginationResult['totalPages'];
 ?>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="input-field">
                                     <label style="font-size: 14px">Descrição do produto:</label>
-                                    <textarea name="desc"></textarea>
+                                    <textarea style="max-width:100%" name="desc"></textarea>
                                 </div>
                                 <div class="input-field">
                                     <label style="font-size: 14px">Quantidade do produto:</label>
