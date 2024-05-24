@@ -599,3 +599,28 @@ function getClientes($db) {
     
     return $clientes;
 }
+
+function apagarCliente($db, $cliente_id) {
+    // Verificar se o ID é um número válido
+    if (!filter_var($cliente_id, FILTER_VALIDATE_INT)) {
+        return false; // Se o ID não for válido, retorna falso
+    }
+
+    // Query para apagar o cliente
+    $sql = "DELETE FROM Clientes WHERE ID = :id";
+    $stmt = $db->prepare($sql);
+
+    if ($stmt === false) {
+        return false; // Se a preparação da declaração falhar, retorna falso
+    }
+
+    // Vincular o parâmetro (no SQLite3, a vinculação é feita com bindValue)
+    $stmt->bindValue(':id', $cliente_id, SQLITE3_INTEGER);
+
+    // Executar a query
+    if ($stmt->execute()) {
+        return true; // Se a exclusão for bem-sucedida, retorna verdadeiro
+    } else {
+        return false; // Se a execução da query falhar, retorna falso
+    }
+}
