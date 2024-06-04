@@ -624,3 +624,52 @@ function apagarCliente($db, $cliente_id) {
         return false; // Se a execução da query falhar, retorna falso
     }
 }
+function addUser($db, $nome, $email, $senha, $telefone, $cargo, $target_file) {
+    // Obtém a data atual no formato do banco de dados
+    $dataRegisto = date('Y-m-d');
+
+    // Prepara a declaração SQL para inserir um novo usuário
+    $sql = "INSERT INTO Clientes (Nome, Email, Senha, Telefone, `role`, dataRegisto, Perfil) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $db->prepare($sql);
+
+    // Verifica se a preparação da declaração SQL foi bem sucedida
+    if (!$stmt) {
+        header("location: ../addClientes.php?error=stmtfailed&msg=" . $db->lastErrorMsg());
+        exit();
+    }
+
+    // Liga os parâmetros à declaração SQL
+
+    $stmt->bindValue('1', $nome, SQLITE3_TEXT);
+    $stmt->bindValue('2', $email, SQLITE3_TEXT);
+    $stmt->bindValue('3', $senha, SQLITE3_TEXT);
+    $stmt->bindValue('4', $telefone, SQLITE3_TEXT);
+    $stmt->bindValue('5', $cargo, SQLITE3_TEXT);
+    $stmt->bindValue('6', $dataRegisto, SQLITE3_TEXT);
+    $stmt->bindValue('7', $target_file, SQLITE3_TEXT);
+    $result = $stmt->execute();
+
+    // Executa a declaração SQL
+    if ($result) {
+        header("location: ../admin.clientes.php?error=none");
+    } else {
+        echo "Erro ao inserir o cliente na base de dados: " . $stmt->error;
+        header("location: ../admin.clientes.php?error=stmtfailed" . $db->lastErrorMsg());
+    }
+    exit();
+    // Fecha a declaração SQL
+}
+
+function getClienteById($db, $cliente_id) {
+    $sql = "SELECT * FROM Clientes WHERE ID = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $cliente_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        return $result->fetch_assoc();
+    } else {
+        return false; // Se não encontrar nenhum cliente com o ID fornecido
+    }
+}

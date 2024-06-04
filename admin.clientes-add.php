@@ -73,37 +73,43 @@
                     <a href="admin.clientes.php" class="btn-home">Voltar</a>
                 </div>
                 <div class="card-body">
-                    <form action="POST">
+                    <form action="includes/addCliente.php" method="POST" enctype="multipart/form-data">
                         <div style="display: flex; justify-content: space-between;">
                             <div class="input-field" style="flex: 1">
                                 <label> Nome</label>
-                                <input type="text" name="name" class="">
+                                <input type="text" name="name" class="" required>
                             </div>
                             <div class="input-field" style="flex: 1">
                                 <label> Telemovel</label>
-                                <input type="text" name="phone" class="">
+                                <input type="number" name="phone" class="" required>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
                             <div class="input-field" style="flex: 1">
                                 <label> Email</label>
-                                <input type="text" name="email" class="">
+                                <input type="text" name="email" class="" required>
                             </div>
                             <div class="input-field" style="flex: 1">
                                 <label> Password</label>
-                                <input type="text" name="password" class="">
+                                <input type="password" name="password" class="" required>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
                             <div class="input-field" style="flex: 1">
                                 <label> Escolha o cargo</label>
-                                <select name="" class="form-select" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; width:20%">
+                                <select name="role" class="form-select" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; width:20%">
                                     <option value="">Escolha o cargo</option>
                                     <option value="admin">Administrador</option>
                                     <option value="user">Cliente</option>
                                 </select>
-                                <button type="submit" name="salvarCliente" class="btn-edit" style="margin-left: 10px; float: right; font-weight: bold">Guardar</button>
                             </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div class="input-field" style="flex: 1">
+                                <label >Foto de perfil</label>
+                                <input type="file" name="profile_image" style="width: 30%;" required>
+                            </div>
+                            <button type="submit" class="btn-edit" style="margin-left: 10px; float: right; font-weight: bold; height: 4rem; margin-top: 1rem;">Guardar</button>
                         </div>
                     </div>        
                     </form>
