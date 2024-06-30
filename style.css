@@ -1661,7 +1661,7 @@ footer .copyright{
 }
 .containeradmin .content .content-2 .pedidos-recentes {
     min-height: 50vh;
-    flex: 5;
+    flex: 2;
     font-size: 14px;
     background: white;
     margin: 0 25px 25px 25px;

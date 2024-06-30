@@ -1,32 +1,26 @@
 <?php
-    session_start();
+session_start();
 
-    require_once 'conn.php'; // ou qualquer arquivo onde você tenha a conexão com o banco de dados
-    require_once 'functions.inc.php';
+require_once 'includes/conn.php';
+require_once 'includes/functions.inc.php';
 
-    if(isset($_GET['id'])) {
-        $cliente_id = $_GET['id'];
-    
-        // Obtém os dados do cliente pelo ID
-        $cliente_dados = getClienteById($conn, $cliente_id);
-    
-        // Se o cliente existe, preencha os campos do formulário com seus dados
-        if($cliente_dados) {
-            $nome = $cliente_dados['Nome'];
-            $telefone = $cliente_dados['Telefone'];
-            $email = $cliente_dados['Email'];
-            $senha = $cliente_dados['Senha']
-            $perfil = $cliente_dados['Perfil'];
-            $role = $cliente_dados['role'];
-        } else {
-        }
+$nome = $telefone = $email = $senha = $perfil = $role = '';
+
+if (isset($_GET['ID'])) {
+    $cliente_id = $_GET['ID'];
+    $cliente_dados = getClienteById($db, $cliente_id);
+
+    if ($cliente_dados) {
+        $nome = $cliente_dados['Nome'];
+        $telefone = $cliente_dados['Telefone'];
+        $email = $cliente_dados['Email'];
+        $senha = $cliente_dados['Senha'];
+        $perfil = $cliente_dados['Perfil'];
+        $role = $cliente_dados['role'];
+    } else {
+        echo "Cliente não encontrado.";
     }
-    
-    // Processa o formulário enviado
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Lógica para processar o formulário enviado
-        // Recupere os dados do formulário, valide-os, atualize o cliente no banco de dados, etc.
-    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -101,24 +95,25 @@
                 </div>
                 <div class="card-body">
                     <form action="includes/editCliente.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="ID" value="<?php echo $cliente_id; ?>">
                         <div style="display: flex; justify-content: space-between;">
                             <div class="input-field" style="flex: 1">
                                 <label> Nome</label>
-                                <input type="text" name="name" class="" value="<?php echo $nome; ?>" required>
+                                <input type="text" name="name" class="" value="<?php echo htmlspecialchars($nome); ?>" required>
                             </div>
                             <div class="input-field" style="flex: 1">
                                 <label> Telemovel</label>
-                                <input type="number" name="phone" class="" value="<?php echo $telefone; ?>" required>
+                                <input type="number" name="phone" class="" value="<?php echo htmlspecialchars($telefone); ?>" required>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
                             <div class="input-field" style="flex: 1">
                                 <label> Email</label>
-                                <input type="text" name="email" class="" value="<?php echo $email; ?>" required>
+                                <input type="email" name="email" class="" value="<?php echo htmlspecialchars($email); ?>" required>
                             </div>
                             <div class="input-field" style="flex: 1">
                                 <label> Password</label>
-                                <input type="password" name="password" class="" value="<?php echo $password; ?>" required>
+                                <input type="password" name="password" class=""  value="<?php echo htmlspecialchars($senha); ?>" required>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
@@ -126,19 +121,22 @@
                                 <label> Escolha o cargo</label>
                                 <select name="role" class="form-select" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; width:20%">
                                     <option value="">Escolha o cargo</option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="user">Cliente</option>
+                                    <option value="admin" <?php if($role == 'admin') echo 'selected'; ?>>Administrador</option>
+                                    <option value="user" <?php if($role == 'user') echo 'selected'; ?>>Cliente</option>
                                 </select>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
-                            <div class="input-field" style="flex: 1">
-                                <label >Foto de perfil</label>
-                                <input type="file" name="profile_image" style="width: 30%;" required>
+                           <div class="input-field" style="flex: 1">
+                                <?php if (!empty($perfil)): ?>
+                                    <label> Foto de perfil: <?php echo basename($perfil); ?></label>
+                                <?php else: ?>
+                                    <label>Foto de perfil</label>
+                                <?php endif; ?>
+                                <input type="file" name="profile_image" style="width: 30%;">
                             </div>
                             <button type="submit" class="btn-edit" style="margin-left: 10px; float: right; font-weight: bold; height: 4rem; margin-top: 1rem;">Guardar</button>
                         </div>
-                    </div>        
                     </form>
                 </div>
             </div>
@@ -147,3 +145,5 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
+
+</html>

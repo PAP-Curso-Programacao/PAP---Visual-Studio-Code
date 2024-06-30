@@ -660,16 +660,45 @@ function addUser($db, $nome, $email, $senha, $telefone, $cargo, $target_file) {
     // Fecha a declaração SQL
 }
 
+// Função para obter os dados de um cliente pelo ID
 function getClienteById($db, $cliente_id) {
+    // Prepare a consulta SQL para selecionar o cliente com base no ID
     $sql = "SELECT * FROM Clientes WHERE ID = ?";
     $stmt = $db->prepare($sql);
-    $stmt->bind_param("i", $cliente_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    
+    // Vincule o parâmetro do ID ao statement
+    $stmt->bindValue(1, $cliente_id, SQLITE3_INTEGER);
+    $result=$stmt->execute();
+    
+    // Obtenha o resultado da consulta
+    $cliente = array();
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $cliente = $row;
+    }
 
-    if ($result->num_rows > 0) {
-        return $result->fetch_assoc();
+    if (!empty($cliente)) {
+        return $cliente;
     } else {
         return false; // Se não encontrar nenhum cliente com o ID fornecido
     }
+}
+
+function updateProfileImage($conn, $cliente_id, $caminho) {
+    $sql = "UPDATE Clientes SET Perfil = ? WHERE ID = ?";
+    $stmt = $conn->prepare($sql);
+    
+    if ($stmt === false) {
+        error_log("Failed to prepare the SQL statement: " . $conn->error);
+        return false;
+    }
+
+    $stmt->bindParam(1, $caminho);
+    $stmt->bindParam(2, $cliente_id);
+
+    if (!$stmt->execute()) {
+        error_log("Failed to execute the statement: " . $stmt->error);
+        return false;
+    }
+
+    return true;
 }

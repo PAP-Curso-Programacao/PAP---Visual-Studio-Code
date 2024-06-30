@@ -14,3 +14,5 @@ $db = new MyDB();
 if (!$db) {
   echo $db->lastErrorMsg();
 }
+
+$conn = $db;

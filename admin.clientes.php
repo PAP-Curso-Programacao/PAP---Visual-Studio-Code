@@ -98,7 +98,7 @@
                             <td><?php echo htmlspecialchars($cliente['Email']); ?></td>
                             <td><?php echo htmlspecialchars($cliente['Telefone']); ?></td>
                             <td width="300px">
-                                    <a href="admin.clientes-edit.php" class="btn-edit" style="background-color: #0b0; font-weight: 500">Editar</a>
+                                    <a href="admin.clientes-edit.php?ID=<?php echo $cliente['ID']; ?>" class="btn-edit" style="background-color: #0b0; font-weight: 500">Editar</a>
                                     <a href="includes/admin.clientes-delete.php?id=<?php echo $cliente['ID']; ?>" class="btn-edit" style="background-color: #fc0000; font-weight: 500">Apagar</a>
                             </td>
                         </tr>
