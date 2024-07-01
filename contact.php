@@ -6,6 +6,7 @@
     <title>Contact Us</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -95,7 +96,12 @@
             <h2>Gostamos de receber notícias vossas</h2>
             <input type="text" placeholder="Nome">
             <input type="text" placeholder="Email">
-            <input type="text" placeholder="Assunto">
+            <select>
+                <option value="" disabled selected>Escolha um assunto</option>
+                <option value="reclamacoes">Reclamações</option>
+                <option value="elogio">Elogios</option>
+                <option value="outros">Outros</option>
+            </select>
             <textarea name="" id="" cols="30" rows="10" placeholder="Mensagem"></textarea>
             <div class="s-btnn">
                 <a href="#">Submeter</a>
@@ -167,6 +173,8 @@
             <p>© 2024 Todos os direitos reservados</p>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

@@ -823,6 +823,28 @@ nav .cart #close-cart{
     border: var(--border);
 }
 
+.form-details form select {
+    width: 100%;
+    padding: 12px 15px;
+    outline: none;
+    margin-bottom: 20px;
+    border: var(--border);
+    background-color: white;
+    font-size: 14px;
+    color: var(--black);
+    border-radius: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.form-details form select option {
+    font-size: 14px;
+    color: var(--black);
+}
+
+
 .form-details form button{
     background-color: var(--orange);
     color: var(--white-light);
@@ -1616,10 +1638,10 @@ footer .copyright{
     - Site full responsive;
     - Meter a password em hash na base de daddos; DONE
     - Inserir um admin dashboard; DONE
-    - No admin dashboard inserir novos produtos na base de dados;
-    - No admin dashboard ver os clientes, produtos e encomendas; 
+    - No admin dashboard inserir novos produtos na base de dados; DONE
+    - No admin dashboard ver os clientes, produtos e encomendas; DONE
     - No admin dashboard na parte das encomendas ver o id, o nome, o email, nº telemovel e os produtos que encomendou;
-    - No admin dashboard dar para editar os produtos; 
+    - No admin dashboard dar para editar os produtos; DONE
 */
 
 /*ADMIN DASHBOARD*/
@@ -1916,4 +1938,3 @@ footer .copyright{
 .containerCliente  .input-field select {
     width: calc(100% - 100px); /* Calcula o restante do espaço disponível após a largura do rótulo */
 }
-

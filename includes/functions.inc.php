@@ -47,6 +47,10 @@
         return $result;
     }
     
+    function isEmptyCart($cart) {
+        $result = empty($cart);
+        return $result;
+    }    
 
     function userExists($db, $email, $telefone){   
         $sql = "SELECT * FROM Clientes WHERE Email = :email OR Telefone = :telefone;";
@@ -294,31 +298,48 @@ function updateUser($db, $ID, $nome, $email, $telefone)
     header("location: ../editProfile.php?error=none");
     exit();
 }
-
 function createOrder($db, $clienteID, $userid) {
     $status = 0; // Se você deseja definir o status aqui, não é necessário passá-lo como parâmetro
     $dataHora = date('Y-m-d'); // Formato correto para DateTime
 
-    // Correção na consulta SQL para corresponder ao schema fornecido
-    $sql = "INSERT INTO Pedidos (ClienteID, Email, DataPedida) VALUES (?, ?, ?)";
-    $stmt = $db->prepare($sql);
-
-    if (!$stmt) {
-        die("Erro na preparação da declaração: " . $db->lastErrorMsg());
+    // Consulta SQL para obter o nome do cliente
+    $sql_cliente = "SELECT Nome FROM Clientes WHERE ID = ?";
+    $stmt_cliente = $db->prepare($sql_cliente);
+    $stmt_cliente->bindParam(1, $clienteID, SQLITE3_INTEGER);
+    
+    $result_cliente = $stmt_cliente->execute();
+    if (!$result_cliente) {
+        die("Erro ao consultar o nome do cliente: " . $db->lastErrorMsg());
     }
 
-    // Bind dos parâmetros
-    $stmt->bindParam(1, $clienteID, SQLITE3_INTEGER);
-    $stmt->bindParam(2, $userid, SQLITE3_TEXT); // Supondo que você tenha um $email para vincular aqui
-    $stmt->bindParam(3, $dataHora, SQLITE3_TEXT); // Mudado para SQLITE3_FLOAT se Total pode ser decimal
+    $row = $result_cliente->fetchArray(SQLITE3_ASSOC);
+    if (!$row) {
+        die("Cliente com ID $clienteID não encontrado.");
+    }
+    
+    $nomeCliente = $row['Nome'];
 
-    if (!$stmt->execute()) {
-        die("Erro na execução da declaração: " . $db->lastErrorMsg());
+    // Consulta SQL para inserir o pedido
+    $sql_pedido = "INSERT INTO Pedidos (ClienteID, Nome, Email, DataPedida) VALUES (?, ?, ?, ?)";
+    $stmt_pedido = $db->prepare($sql_pedido);
+    
+    if (!$stmt_pedido) {
+        die("Erro na preparação da declaração para inserir o pedido: " . $db->lastErrorMsg());
+    }
+
+    // Bind dos parâmetros para a inserção do pedido
+    $stmt_pedido->bindParam(1, $clienteID, SQLITE3_INTEGER);
+    $stmt_pedido->bindParam(2, $nomeCliente, SQLITE3_TEXT);
+    $stmt_pedido->bindParam(3, $userid, SQLITE3_TEXT); // Supondo que você tenha um $email para vincular aqui
+    $stmt_pedido->bindParam(4, $dataHora, SQLITE3_TEXT); // Mudado para SQLITE3_FLOAT se Total pode ser decimal
+
+    if (!$stmt_pedido->execute()) {
+        die("Erro na execução da declaração para inserir o pedido: " . $db->lastErrorMsg());
     }
 
     $lastId = $db->lastInsertRowID();
 
-    // Não precisa fechar o stmt em SQLite3, mas se estiver usando PDO: $stmt = null;
+    // Não precisa fechar o stmt em SQLite3, mas se estiver usando PDO: $stmt_pedido = null;
 
     return $lastId;
 }
@@ -336,12 +357,6 @@ function getProductIdByName($db, $nomeProduto)
     $stmt->bindParam(1, $nomeProduto, SQLITE3_TEXT);
     $result = $stmt->execute();
     if (!$result) {
-        echo "Erro ao inserir o item do pedido para $produtoNome.<br>";
-    } else {
-        echo "Item do pedido inserido para $produtoNome com sucesso.<br>";
-    }
-
-    if (!$result) {
         die("Erro na execução da declaração: " . $db->lastErrorMsg());
     }
 
@@ -353,7 +368,7 @@ function getProductIdByName($db, $nomeProduto)
         return null;
     }
 
-    $idProduto = $row['Nome'];
+    $idProduto = $row['ID']; // Corrigido para retornar o ID do produto, não o nome
     $stmt->close();
 
     return $idProduto;
@@ -370,7 +385,7 @@ function createOrderLine($db, $encomendaId, $productsInCart){
         return false;
     }
 
-    foreach ($productsInCart as $item) {
+    foreach ($productsInCart as $index => $item) {
         // Verifique se todas as informações necessárias estão presentes
         if (!isset($item['title'], $item['quantity'])) {
             echo "Erro: Variáveis necessárias ausentes em um item do carrinho<br>";
@@ -624,7 +639,7 @@ function apagarCliente($db, $cliente_id) {
         return false; // Se a execução da query falhar, retorna falso
     }
 }
-function addUser($db, $nome, $email, $senha, $telefone, $cargo, $target_file) {
+function addUser($db, $nome, $email, $senha, $telefone, $cargo, $imagem_perfil_caminho) {
     // Obtém a data atual no formato do banco de dados
     $dataRegisto = date('Y-m-d');
 
@@ -646,7 +661,7 @@ function addUser($db, $nome, $email, $senha, $telefone, $cargo, $target_file) {
     $stmt->bindValue('4', $telefone, SQLITE3_TEXT);
     $stmt->bindValue('5', $cargo, SQLITE3_TEXT);
     $stmt->bindValue('6', $dataRegisto, SQLITE3_TEXT);
-    $stmt->bindValue('7', $target_file, SQLITE3_TEXT);
+    $stmt->bindValue('7', $imagem_perfil_caminho, SQLITE3_TEXT);
     $result = $stmt->execute();
 
     // Executa a declaração SQL

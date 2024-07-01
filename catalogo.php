@@ -25,7 +25,7 @@
         <div class="shopping-cart">
             <i class='bx bx-shopping-bag' id="cart-icon"></i>
             <span id="cart-badge" class="cart-badge">0</span>
-            <div class="cart">
+            <div class="cart" id="cart-content">
                 <h2 class="cart-title">O Seu Carrinho</h2>
                 <div class="cart-content">
                         <div class="cart-box">
@@ -167,16 +167,14 @@
             <p>© 2024 Todos os direitos reservados</p>
         </div>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
 <script>
-
     var isUserLoggedIn = <?php echo json_encode(isset($_SESSION['userid']) && $_SESSION['useruid']); ?>;
 
 </script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
