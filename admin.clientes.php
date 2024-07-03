@@ -1,13 +1,13 @@
 <?php
-    session_start();
+session_start();
 
-    require_once 'includes/conn.php';
-    require_once 'includes/functions.inc.php';
+require_once 'includes/conn.php';
+require_once 'includes/functions.inc.php';
 
-    $currentPage = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
-    $paginationResultClientes = paginationClientes($db, $currentPage);
-    $clientes = $paginationResultClientes['clientes'];
-    $totalPagesClientes = $paginationResultClientes['totalPages'];
+$currentPage = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
+$paginationResultClientes = paginationClientes($db, $currentPage);
+$clientes = $paginationResultClientes['clientes'];
+$totalPagesClientes = $paginationResultClientes['totalPages'];
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +56,7 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.pedidos.php" class="nav-link">
                             <i class='bx bx-notepad icon'></i>
                             <span class="link">Pedidos</span>
                         </a>
@@ -105,6 +105,54 @@
                         <?php endforeach; ?>
                         </tbody>
                    </table>
+                   <?php if(isset($_GET["error"])): ?>
+                        <?php
+                        $errorMessage = "";
+                        $errorType = "Atenção";
+
+                        switch ($_GET["error"]) {
+                            case "client_in_use":
+                                $errorMessage = "Não é possível excluir o cliente porque ele está associado a uma encomenda!";
+                                break;
+                            case "stmtfailed":
+                                $errorMessage = "Aconteceu algo de errado, tente novamente!";
+                                break;
+                            case "invalidphone":
+                                $errorMessage = "Número de telemovel inválido! Deve ter exatamente 9 dígitos.";
+                                break;
+                            case "invalidemail":
+                                $errorMessage = "Email inválido!";
+                                break;
+                            case "emailexists":
+                                $errorMessage = "Este email já está em uso por outro cliente!";
+                                break;
+                            default:
+                                break;
+                        }
+                        ?>
+                        <?php if (!empty($errorMessage)): ?>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    toastr.warning("<?php echo $errorMessage; ?>", "<?php echo $errorType; ?>", {
+                                        closeButton: false,
+                                        progressBar: true,
+                                        positionClass: "toast-top-right",
+                                        timeOut: 3000,
+                                        extendedTimeOut: 1000,
+                                        preventDuplicates: false,
+                                        newestOnTop: false,
+                                        showDuration: 300,
+                                        hideDuration: 300,
+                                        showEasing: "swing",
+                                        hideEasing: "linear",
+                                        showMethod: "slideDown",
+                                        hideMethod: "slideUp",
+                                        toastClass: "custom-toast-class"
+                                    });
+                                });
+                            </script>
+                        <?php endif; ?>
+                    <?php endif; ?>
                     <div class="pagination">
                         <?php if ($currentPage > 1): ?>
                             <a href="?page-nr=<?php echo $currentPage - 1; ?>">Anterior</a>
@@ -117,7 +165,9 @@
             </div>
         </div>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
+</html>

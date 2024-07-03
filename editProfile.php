@@ -126,11 +126,14 @@
     $errorType = "Atenção";
 
     switch ($_GET["error"]) {
-      case "ivalidname":
+      case "invalidname":
         $errorMessage = "Nome inválido!";
         break;
-      case "ivalidphone":
+      case "invalidphone":
         $errorMessage = "Número de telemovel inválido!";
+        break;
+      case "invalidemail":
+        $errorMessage = "Email ja existe!";
         break;
       case "userexists":
         $errorMessage = "Nome ou Telemovel já existem!";

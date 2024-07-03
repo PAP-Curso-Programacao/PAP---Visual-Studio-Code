@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.pedidos.php" class="nav-link">
                             <i class='bx bx-notepad icon'></i>
                             <span class="link">Pedidos</span>
                         </a>
@@ -115,7 +115,6 @@
                                         <th>Nome</th>
                                         <th>Preço</th>
                                         <th>Quantidade</th>
-                                        <th>Editar</th>
                                     </tr>
                                     <?php foreach ($products as $product): ?>
                                     <tr>
@@ -124,7 +123,8 @@
                                         <td><?php echo htmlspecialchars($product['Nome']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Preço']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Stock']); ?></td>
-                                        <td><a href="admin.editProducts.php" class="btn-edit">Edit</a></td>
+                                        <td><a href="admin.editProducts.php?id=<?php echo $product['ID']; ?>" class="btn-edit">Edit</a></td>
+                                        <td><a href="includes/admin.products-delete.php?id=<?php echo $product['ID']; ?>" class="btn-edit" style="background-color: #fc0000; font-weight: 500;">Apagar</a>                                        </td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </table>

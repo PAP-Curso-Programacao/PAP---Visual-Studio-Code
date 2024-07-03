@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.pedidos.php" class="nav-link">
                             <i class='bx bx-notepad icon'></i>
                             <span class="link">Pedidos</span>
                         </a>

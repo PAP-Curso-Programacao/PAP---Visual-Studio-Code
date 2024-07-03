@@ -2,9 +2,9 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $cliente_id = $_SESSION['userid'];
     $nome = $_POST['name'];
     $email = $_POST['email'];
-    $morada = $_POST['morada'];
     $telefone = $_POST['telemovel'];
 
     require_once 'conn.php';
@@ -29,19 +29,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
   
+    // Verificar se o email já existe para outro usuário
+    $stmt = $db->prepare("SELECT * FROM Clientes WHERE Email = :email AND ID != :id");
+    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+    $stmt->bindValue(':id', $cliente_id, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+
+    if ($result->fetchArray()) {
+        header("Location: ../editProfile.php?error=invalidemail");
+        exit();
+    }
+
+
+    $stmt = $db->prepare("SELECT * FROM Clientes WHERE Telefone = :telefone AND ID != :id");
+    $stmt->bindValue(':telefone', $telefone, SQLITE3_TEXT);
+    $stmt->bindValue(':id', $cliente_id, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+
+    if ($result->fetchArray()) {
+        header("Location: ../editProfile.php?error=invalidphone");
+        exit();
+    }
+
+    if (strlen($telefone) !== 9) {
+      header("Location: ../editProfile.php?error=invalidphone");
+      exit();
+    }
 
     if (emptyInputProfile($db, $nome, $telefone, $email) !== false) {
         header("location: ../editProfile.php?error=emptyinput");
         exit();
       }
-      if (invalidName($nome) !== false) {
-        header("location: ../editProfile.php?error=ivalidnome");
-        exit();
-      }
-      if (invalidPhone($telefone) !== false) {
-        header("location: ../editProfile.php?error=ivalidphone");
-        exit();
-      }
+      if (invalidName($nome)) {
+        header("location: ../editProfile.php?error=invalidname");
+        exit(); // Importante: garantir que o script pare aqui após o redirecionamento
+    }
       if (userExistsProfile($db, $_SESSION["userid"], $email, $telefone) !== false) {
         header("location: ../editProfile.php?error=userexists");
         exit();

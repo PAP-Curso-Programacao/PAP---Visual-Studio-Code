@@ -36,7 +36,7 @@
                     <div class="total-title">Total</div>
                     <div class="total-price">$0</div>
                 </div>
-                <button onlick="buyNow()" type="button" class="btn-buy" >Comprar Agora</button>
+                <button type="button" class="btn-buy" >Comprar Agora</button>
                 <i class='bx bx-x' id="close-cart"></i>
             </div>
         </div>
@@ -99,19 +99,17 @@
     <div class="pro-container">
         <?php
             include('/includes/catalogo.inc.php');
-
             $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
-
             foreach ($catalogos as $catalogo) {
                 $imagem = htmlspecialchars($catalogo[0]);
                 $nome = htmlspecialchars($catalogo[1]);
                 $preco = htmlspecialchars($catalogo[2]);
         ?>
-                <div class="pro">
-                    <img src="<?php echo $imagem; ?>" alt="<?php echo $nome; ?>">
+                <div class="pro cart-box">
+                    <img src="<?php echo $imagem; ?>" alt="<?php echo $nome; ?>" class="cart-img">
                     <div class="des">
-                        <h5><?php echo $nome; ?></h5>
-                        <h4><?php echo $preco; ?>€</h4>
+                        <h5 class="cart-product-title"><?php echo $nome; ?></h5>
+                        <h4 class="cart-price"><?php echo $preco; ?>€</h4>
                     </div>
                     <a href="#"><i class='bx bx-cart add-cart'></i></a>
                 </div>
@@ -120,6 +118,7 @@
         ?>
     </div>
 </section>
+
 
 <footer id="footer" class="footer">
         <div class="col">

@@ -12,7 +12,7 @@
 
     function invalidName($nome){
         $result;
-        if(!preg_match("/^[a-zA-Z0-9_ ]*$/", $nome)){
+        if (!preg_match("/^[a-zA-Z _]*$/", $nome)){
             $result = true;
         }
         else{
@@ -270,6 +270,28 @@ function updateImage($db, $ID, $imagem_perfil_caminho)
     $stmt->close();
 }
 
+function updateImageProduct($db, $ID, $imagem_perfil_caminho)
+{
+    $sql = "UPDATE Produtos SET Imagem = ? WHERE ID = ?";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        header("location: ../editProduct.php?error=stmtfailed&msg=" . $db->lastErrorMsg());
+        exit();
+    }
+
+    $stmt->bindParam(1, $imagem_perfil_caminho, SQLITE3_TEXT);
+    $stmt->bindParam(2, $ID, SQLITE3_INTEGER);
+
+    $result = $stmt->execute();
+
+    if (!$result) {
+        header("location: ../editProduct.php?error=stmtexecutionfailed&msg=" . $db->lastErrorMsg());
+        exit();
+    }
+
+    $stmt->close();
+}
 
 function updateUser($db, $ID, $nome, $email, $telefone)
 {
@@ -530,8 +552,6 @@ function paginationClientes($db, $currentPage = 1, $rowsPerPage = 5) {
     return ['clientes' => $clientes, 'totalPages' => $totalPages];
 }
 
-
-
 function getMostSoldProduct($db) {
     $sql = "SELECT Produtos.Nome, Produtos.Imagem, SUM(ItensPedido.Quantidade) as TotalVendido
             FROM ItensPedido
@@ -639,6 +659,7 @@ function apagarCliente($db, $cliente_id) {
         return false; // Se a execução da query falhar, retorna falso
     }
 }
+
 function addUser($db, $nome, $email, $senha, $telefone, $cargo, $imagem_perfil_caminho) {
     // Obtém a data atual no formato do banco de dados
     $dataRegisto = date('Y-m-d');
@@ -716,4 +737,141 @@ function updateProfileImage($conn, $cliente_id, $caminho) {
     }
 
     return true;
+}
+
+function getOrders($db, $limit = 5) {
+    $sql = "SELECT p.ID, p.ClienteID, c.Nome AS NomeCliente, p.Email, p.DataPedida 
+            FROM Pedidos p
+            INNER JOIN Clientes c ON p.ClienteID = c.ID
+            ORDER BY p.ID DESC
+            LIMIT ?";
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        // Trate o erro conforme necessário
+        return [];
+    }
+
+    // No SQLite3, os índices dos parâmetros começam em 1
+    $stmt->bindValue(1, $limit, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+
+    $orders  = [];
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $orders[] = $row;
+    }
+    
+    return $orders;
+}
+
+
+function fetchOrders($db, $searchTerm) {
+    $sql = "SELECT ID, ClienteID, Nome, Email, DataPedida FROM Pedidos WHERE ID = :searchTerm";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':searchTerm', $searchTerm, SQLITE3_TEXT);
+    $result = $stmt->execute();
+
+    $orders = [];
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $orders[] = $row;
+    }
+
+    return $orders;
+}
+
+function paginationPedidos($db, $currentPage = 1, $rowsPerPage = 5) {
+    // Contar o total de clientes
+    $result = $db->query('SELECT COUNT(*) as count FROM Pedidos');
+    $row = $result->fetchArray();
+    $totalPedidos = $row['count'];
+
+    // Calcular o total de páginas
+    $totalPages = ceil($totalPedidos / $rowsPerPage);
+
+    // Calcular o índice do primeiro cliente na página
+    $offset = ($currentPage - 1) * $rowsPerPage;
+
+    // Consulta SQL para recuperar clientes da página atual
+    $sql = "SELECT * FROM Pedidos ORDER BY ID LIMIT $rowsPerPage OFFSET $offset";
+    $result = $db->query($sql);
+
+    $pedidos = [];
+    while ($pedido = $result->fetchArray(SQLITE3_ASSOC)) {
+        $pedidos[] = $pedido;
+    }
+
+    return ['pedidos' => $pedidos, 'totalPages' => $totalPages, 'currentPage' => $currentPage];
+}
+
+function atualizarProduto($db, $id, $nome, $preco, $descricao, $stock, $imagem_perfil_caminho) {
+    // Preparando a declaração SQL para atualização
+    $stmt = $db->prepare("UPDATE Produtos SET Nome = ?, Preço = ?, Descrição = ?, Stock = ?, Imagem = ? WHERE ID = ?");
+    $stmt->bindParam(1, $nome);
+    $stmt->bindParam(2, $preco);
+    $stmt->bindParam(3, $descricao);
+    $stmt->bindParam(4, $stock);
+    $stmt->bindParam(5, $imagem_perfil_caminho);
+    $stmt->bindParam(6, $id);
+
+    // Executando a declaração
+    $stmt->execute();
+
+    // Fechando a declaração e a conexão
+    $stmt->close();
+}
+
+// Função para obter os detalhes de um produto pelo ID
+function obterProdutoPorId($db, $id) {
+    $stmt = $db->prepare("SELECT * FROM Produtos WHERE ID = :id");
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+
+    // Verifica se encontrou um produto com o ID especificado
+    if ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        return $row;
+    } else {
+        return null; // Retorna null se o produto não for encontrado
+    }
+}
+
+function deleteProduct($db, $id) {
+    // Prepare a instrução SQL para excluir o produto pelo ID
+    $sql = "DELETE FROM Produtos WHERE ID = :id";
+    
+    // Prepare a instrução
+    $stmt = $db->prepare($sql);
+    if ($stmt) {
+        // Bind o parâmetro ID
+        $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+        
+        // Execute a instrução
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        // Se houver um erro ao preparar a instrução SQL
+        return false;
+    }
+}
+
+
+function isClientInUse($db, $cliente_id) {
+    // Prepare a instrução SQL para verificar se o cliente está em uso
+    $sql = "SELECT COUNT(*) FROM Pedidos WHERE ClienteID = :clientId";
+    
+    $stmt = $db->prepare($sql);
+    if ($stmt) {
+        $stmt->bindValue(':clientId', $cliente_id, SQLITE3_INTEGER);
+        
+        $result = $stmt->execute();
+        $row = $result->fetchArray(SQLITE3_NUM);
+        
+        // Se o contador for maior que 0, o cliente está em uso
+        return $row[0] > 0;
+    } else {
+        // Se houver um erro ao preparar a instrução SQL
+        return false;
+    }
 }

@@ -1636,11 +1636,12 @@ footer .copyright{
 /*UPGRADE PARA A PAP
     - Meter o site mais apelativo com as animações de baixo para cima;
     - Site full responsive;
+    - Avisos de numeros de telemovel no dashboard e no editProfile nao pode ser igual a da base de dados
     - Meter a password em hash na base de daddos; DONE
     - Inserir um admin dashboard; DONE
     - No admin dashboard inserir novos produtos na base de dados; DONE
     - No admin dashboard ver os clientes, produtos e encomendas; DONE
-    - No admin dashboard na parte das encomendas ver o id, o nome, o email, nº telemovel e os produtos que encomendou;
+    - No admin dashboard na parte das encomendas ver o id, o nome, o email, nº telemovel e os produtos que encomendou; DONE
     - No admin dashboard dar para editar os produtos; DONE
 */
 
@@ -1795,10 +1796,9 @@ footer .copyright{
     flex-direction: column;
 }
 
-
 .containeradmin .content-2 .produtos .btn-edit{
     background: var(--orange);
-    color: var(--white-light);
+    color: var(--white);
     font-size: 12px;
     cursor: pointer;
     padding: 1rem 3rem;
@@ -1824,6 +1824,76 @@ footer .copyright{
     border-radius: 3rem;
     font-weight: 500;
     transition: all .50 ease;
+}
+.containerEdit {
+    margin-top: 15vh;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.containerEdit .content-2 {
+    max-width: 1000px;
+    height: auto;
+    position: relative;
+    background: var(--white); 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Adiciona sombra */
+    padding: 20px;
+}
+
+.containerEdit .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.containerEdit .form-group {
+    flex: 1 1 45%; /* Distribui espaço igualmente entre os elementos */
+}
+
+.containerEdit .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.containerEdit .form-group label {
+    flex: 0 0 100px; /* Define a largura fixa para a label */
+    margin-right: 15px; /* Espaçamento entre label e input */
+    font-size: 14px;
+}
+
+.containerEdit  .form-group input[type="text"],
+.containerEdit  .form-group input[type="number"],
+.containerEdit  .form-group textarea {
+    flex: 1; /* Ocupa todo o espaço restante */
+    outline: none;
+    border: 1px solid #55555544;
+    background: transparent;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.containerEdit .form-group img {
+    max-width: 120px;
+    height: auto;
+    margin-top: 10px;
+}
+
+.containerEdit .form-actions{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.containerEdit .form-actions button {
+    background-color: var(--orange); /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    padding: 10px 20px; /* Espaçamento interno do botão */
+    border: none; /* Remove a borda */
+    border-radius: 5px; /* Arredonda os cantos do botão */
+    cursor: pointer; /* Mostra um cursor ao passar por cima */
+    transition: background-color 0.3s ease; /* Transição suave da cor de fundo */
 }
 
 @media (max-width: 738px) {
@@ -1937,4 +2007,162 @@ footer .copyright{
 .containerCliente  .input-field input,
 .containerCliente  .input-field select {
     width: calc(100% - 100px); /* Calcula o restante do espaço disponível após a largura do rótulo */
+}
+
+/*DASHBOARD PEDIDOS*/
+.containerPedido {
+    display: flex;
+    margin-left: 15rem;
+    margin-right: 15rem;
+}
+
+.containerPedido .content {
+    position: relative;
+    margin-top: 15vh;
+    flex: 2;
+}
+
+.containerPedido .card {
+    margin: 0 25px;
+    background: #fff;
+    max-height: 70vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: hidden;
+}
+
+.containerPedido .card-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.containerPedido .card-body {
+    padding: 20px;
+    font-size: 14px;
+}
+
+.containerPedido .table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.containerPedido .table th, .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.containerPedido .card-body .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+.containerPedido .card-body .pagination a {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: var(--white);
+    background-color: var(--orange);
+    padding: 10px 35px;
+    margin: 5px;
+    font-size: 18px;
+    border-radius: 3rem;
+    font-weight: 500;
+    transition: all .50 ease;
+}
+
+.containerPedido .search-panel {
+    flex: 1;
+    margin-top: 15vh;
+    border-left: 1px solid #ccc;
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    min-height: 70vh;
+}
+
+.containerPedido .search-panel .card-body {
+    padding: 20px;
+}
+
+.containerPedido .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px 10px;
+    border-bottom: 2px solid #999;
+}
+
+.containerPedido .search-panel input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.containerPedido .search-panel button {
+    width: 100%;
+    padding: 10px;
+    background: var(--orange);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.containerPedido .search-panel #searchResults {
+    margin-top: 20px;
+}
+
+.containerPedido .search-panel #searchResults .table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.containerPedido .search-panel #searchResults .table th, .search-panel #searchResults .table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.containerPedido .input-group {
+    display: flex;
+    align-items: center;
+}
+
+.containerPedido .input-group input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.containerPedido .input-group button {
+    margin-bottom: 1rem;
+    width: 20%;
+    background: var(--orange);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.containerPedido .order-details p {
+    margin-bottom: 15px; /* Espaço entre linhas */
+}
+
+.containerPedido .order-details p strong {
+    font-weight: bold; /* Texto em negrito */
+}
+
+.containerPedido .order-details {
+    margin-bottom: 15px; /* Espaço entre cada detalhe de encomenda */
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Borda ao redor de cada detalhe de encomenda */
+    border-radius: 5px; /* Borda arredondada */
 }

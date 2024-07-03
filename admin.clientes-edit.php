@@ -6,11 +6,13 @@ require_once 'includes/functions.inc.php';
 
 $nome = $telefone = $email = $senha = $perfil = $role = '';
 
+// Verificar se há um ID de cliente na query string
 if (isset($_GET['ID'])) {
     $cliente_id = $_GET['ID'];
     $cliente_dados = getClienteById($db, $cliente_id);
 
     if ($cliente_dados) {
+        // Preencher as variáveis com os dados do cliente
         $nome = $cliente_dados['Nome'];
         $telefone = $cliente_dados['Telefone'];
         $email = $cliente_dados['Email'];
@@ -32,12 +34,13 @@ if (isset($_GET['ID'])) {
     <title>Administrador</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <nav>
+<nav>
         <div class="logo">
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">Pastelaria Crocancia</span>
@@ -68,7 +71,7 @@ if (isset($_GET['ID'])) {
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.pedidos.php" class="nav-link">
                             <i class='bx bx-notepad icon'></i>
                             <span class="link">Pedidos</span>
                         </a>
@@ -89,7 +92,7 @@ if (isset($_GET['ID'])) {
             <div class="card" style="min-height: 0vh">
                 <div class="card-header">
                     <h4 style="font-size: 18px;">
-                        Editar Clientes    
+                        Editar Cliente
                     </h4>
                     <a href="admin.clientes.php" class="btn-home">Voltar</a>
                 </div>
@@ -113,7 +116,7 @@ if (isset($_GET['ID'])) {
                             </div>
                             <div class="input-field" style="flex: 1">
                                 <label> Password</label>
-                                <input type="password" name="password" class=""  value="<?php echo htmlspecialchars($senha); ?>" required>
+                                <input type="password" name="password" class="" value="<?php echo htmlspecialchars($senha); ?>" required>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
@@ -127,7 +130,7 @@ if (isset($_GET['ID'])) {
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
-                           <div class="input-field" style="flex: 1">
+                            <div class="input-field" style="flex: 1">
                                 <?php if (!empty($perfil)): ?>
                                     <label> Foto de perfil: <?php echo basename($perfil); ?></label>
                                 <?php else: ?>
@@ -142,8 +145,10 @@ if (isset($_GET['ID'])) {
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
-
 </html>

@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href=".php" class="nav-link">
+                        <a href="admin.pedidos.php" class="nav-link">
                             <i class='bx bx-notepad icon'></i>
                             <span class="link">Pedidos</span>
                         </a>
@@ -105,7 +105,7 @@
                 <div class="pedidos-recentes">
                     <div class="title">
                         <h2>Encomendas recentes</h2>
-                        <a href="#" class="btn">Ver todos</a>
+                        <a href="admin.pedidos.php" class="btn">Ver todos</a>
                     </div>
                     <table>
                         <tr>

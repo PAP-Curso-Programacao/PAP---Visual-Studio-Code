@@ -26,6 +26,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = $current_data['Senha'];
     }   
 
+      // Validar número de telefone (exatamente 9 dígitos)
+      if (strlen($phone) !== 9) {
+        header("Location: ../admin.clientes.php?error=invalidphone");
+        exit;
+    }
+
+    // Validar e-mail
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("Location: ../admin.clientes.php?error=invalidemail");
+        exit;
+    }
+
+    $stmt = $db->prepare("SELECT * FROM Clientes WHERE Email = :email AND ID != :id");
+    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+
+    if ($result->fetchArray()) {
+        header("Location: ../admin.clientes.php?error=emailexists");
+        exit();
+    }
+
     if (isset($profile_image) && $profile_image['error'] === UPLOAD_ERR_OK) {
         $targetDir = "../img/profiles/";
         $targetFile = $targetDir . basename($profile_image['name']);
