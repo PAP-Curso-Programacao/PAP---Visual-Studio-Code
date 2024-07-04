@@ -875,3 +875,46 @@ function isClientInUse($db, $cliente_id) {
         return false;
     }
 }
+
+
+
+function inserirMensagem($db, $idCliente, $assunto, $mensagem) {
+    try {
+        $dataHora = date('Y-m-d'); // Formato correto para DateTime
+        
+        // Buscar o ID do assunto na tabela Assuntos
+        $stmtAssunto = $db->prepare('SELECT IdAssunto FROM Assuntos WHERE NomeAssunto = :nomeAssunto');
+        $stmtAssunto->bindValue(':nomeAssunto', $assunto, SQLITE3_TEXT); // Bind de valor para SQLite3
+        $resultAssunto = $stmtAssunto->execute();
+
+        // Verificar se o assunto foi encontrado
+        if ($row = $resultAssunto->fetchArray(SQLITE3_ASSOC)) {
+            $idAssunto = $row['IdAssunto'];
+        } else {
+            // Caso não encontre o assunto na tabela
+            throw new Exception("Assunto '$assunto' não encontrado na tabela de Assuntos.");
+        }
+
+        // Preparar a declaração SQL para inserção de dados na tabela Mensagens
+        $stmt = $db->prepare('INSERT INTO Mensagem (IdCliente, Mensagem, IdAssunto, DataMensagem) VALUES (:idCliente, :mensagem, :idAssunto, :dataMensagem)');
+        $stmt->bindValue(':idCliente', $idCliente, SQLITE3_INTEGER);
+        $stmt->bindValue(':mensagem', $mensagem, SQLITE3_TEXT);
+        $stmt->bindValue(':idAssunto', $idAssunto, SQLITE3_INTEGER);
+        $stmt->bindValue(':dataMensagem', $dataHora, SQLITE3_TEXT); // SQLite3 usa TEXT para datas
+
+        // Executar a declaração SQL
+        $result = $stmt->execute();
+
+        // Verificar se a inserção foi bem-sucedida
+        if ($result) {
+            // Retorna o ID da última mensagem inserida
+            return $db->lastInsertRowID();
+        } else {
+            return false; // Retorna false se ocorrer algum erro na inserção
+        }
+
+    } catch (Exception $e) {
+        echo "Erro ao inserir mensagem no banco de dados: " . $e->getMessage();
+        return false;
+    }
+}

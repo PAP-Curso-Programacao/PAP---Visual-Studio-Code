@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,20 +93,20 @@
     </section>
 
     <section class="form-details">
-        <form action="">
+        <form action="includes/enviar-email.php" method="POST">
             <span>Deixe uma mensagem</span>
             <h2>Gostamos de receber notícias vossas</h2>
-            <input type="text" placeholder="Nome">
-            <input type="text" placeholder="Email">
-            <select>
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="text" name="email" placeholder="Email" required>
+            <select name="subject" required>
                 <option value="" disabled selected>Escolha um assunto</option>
-                <option value="reclamacoes">Reclamações</option>
-                <option value="elogio">Elogios</option>
-                <option value="outros">Outros</option>
+                <option value="Reclamações">Reclamações</option>
+                <option value="Elogios">Elogios</option>
+                <option value="Outros">Outros</option>
             </select>
-            <textarea name="" id="" cols="30" rows="10" placeholder="Mensagem"></textarea>
-            <div class="s-btnn">
-                <a href="#">Submeter</a>
+            <textarea name="message" id="" cols="30" rows="10" placeholder="Mensagem" required></textarea>
+            <div class="btn">
+                <button name="submitContact">Submeter</button>
             </div>
         </form>
 
@@ -177,5 +179,43 @@
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
+    <?php
+    if (isset($_GET["error"])) {
+        $errorMessage = "";
+        $errorType = "Sucesso";
+
+        switch ($_GET["error"]) {
+            case "none":
+                $errorMessage = "Gmail enviado com sucesso!";
+                break;
+            default:
+                break;
+        }
+
+        if (!empty($errorMessage)) {
+            echo '<script>';
+echo 'document.addEventListener("DOMContentLoaded", function() {';
+echo 'toastr.success("' . $errorMessage . '", "' . $errorType . '", {';
+echo 'closeButton: false,';
+echo 'progressBar: true,';
+echo 'positionClass: "toast-top-right",';
+echo 'timeOut: 3000,';
+echo 'extendedTimeOut: 1000,';
+echo 'preventDuplicates: false,';
+echo 'newestOnTop: false,';
+echo 'showDuration: 300,';
+echo 'hideDuration: 300,';
+echo 'showEasing: "swing",';
+echo 'hideEasing: "linear",';
+echo 'showMethod: "slideDown",';
+echo 'hideMethod: "slideUp",';
+echo 'toastClass: "custom-toast-class"';
+echo '});';
+echo '});';
+echo '</script>';
+
+        }
+    }
+    ?>
 </body>
 </html>

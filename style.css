@@ -879,7 +879,7 @@ nav .cart #close-cart{
     color: var(--black);
 }
 
-.form-details .s-btnn a{
+.form-details .btn button{
     display: inline-block;
     padding: 9px 23px;
     background-color: var(--orange);
@@ -888,6 +888,7 @@ nav .cart #close-cart{
     font-weight: 500;
     border-radius: 3rem;
     transition: all .50s ease;
+    cursor: pointer;
 }
 
 @media (max-width: 799px) {
