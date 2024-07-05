@@ -79,14 +79,14 @@
                         <i class='fa-regular fa-eye-slash pw_hide'></i>
                     </div>
 
-                    <div class="option_field">
+                   <!-- <div class="option_field">
                         <span class="checkbox">
                             <input type="checkbox" id="check">
                             <label for="check">Relembrar me</label>
                         </span>
                         <a href="#" class="forgot_pw">Forgot password</a>
                     </div>
-
+                    -->
                     <button class="button">Entrar Agora</button>
 
                     <div class="login_signup">
