@@ -30,6 +30,14 @@
 </head>
 
 <body>
+<style>
+    /* Estilo para ocultar o texto "No file chosen" */
+
+    /* Oculta o texto do input file */
+    input[type=file] {
+        color: transparent;
+    }
+</style>
     <nav>
         <div class="logo">
             <i class='bx bx-menu menu-icon'></i>
@@ -100,7 +108,7 @@
                                 </div>
                                 <div class="input-field">
                                     <label style="font-size: 14px">Imagem do produto:</label>
-                                    <input type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/gif" required>
+                                    <input type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/gif" style="width: 100%;" required>
                                 </div>
                                 <input type="submit" name="add_produto" value="Adicionar produto" class="btn">
                             </form>

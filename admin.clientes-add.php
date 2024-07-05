@@ -16,6 +16,12 @@
 </head>
 
 <body>
+    <style>
+    /* Estilo para ocultar o texto ao lado do botão "Escolher arquivo" */
+    input[type=file] {
+        color: transparent; /* Oculta o texto do input */
+    }
+</style>
     <nav>
         <div class="logo">
             <i class='bx bx-menu menu-icon'></i>
@@ -105,13 +111,12 @@
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
-                            <div class="input-field" style="flex: 1">
-                                <label >Foto de perfil</label>
-                                <input type="file" name="profile_image" style="width: 30%;" required>
-                            </div>
-                            <button type="submit" class="btn-edit" style="margin-left: 10px; float: right; font-weight: bold; height: 4rem; margin-top: 1rem;">Guardar</button>
+                        <div class="input-field" style="flex: 1">
+                            <label>Foto de perfil</label>
+                            <input type="file" name="profile_image" style="width: 14%; overflow: hidden;" required>
                         </div>
-                    </div>        
+                        <button type="submit" class="btn-edit" style="margin-left: 10px; float: right; font-weight: bold; height: 4rem; margin-top: 1rem;">Guardar</button>
+                    </div>      
                     </form>
                 </div>
             </div>

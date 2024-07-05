@@ -95,7 +95,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="containerEdit">
     <div class="content-2">
-        <h2>Editar Produto</h2>
+    <div style="display: flex;justify-content: space-between; align-items: center;">
+    <h2>Editar Produto</h2>
+        <a href="admin.products.php" class="btn-home">Voltar</a>
+    </div>
         <?php if ($product): ?>
             <form method="POST" action="includes/editProduct.php" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?php echo isset($productId) ? $productId : ''; ?>">
@@ -121,27 +124,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="number" id="stock" name="stock" value="<?php echo isset($product['Stock']) ? $product['Stock'] : ''; ?>" required>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label for="imagem">Imagem:</label>
                     <label for="file-upload" class="custom-file-upload">
                         <img id="img-preview" src="<?php echo isset($product['Imagem']) ? htmlspecialchars($product['Imagem']) : ''; ?>" alt="Imagem do Produto">
                     </label>
-                <input type="file" id="file-upload" name="profile_image" style="display:none;">
-            </div>
-                    <div class="form-actions">
-                        <button type="submit">Guardar</button>
-                    </div>
+                    <input type="file" id="file-upload" name="profile_image" style="display:none;">
                 </div>
 
+                <div class="form-actions" style="margin-top: 1rem;">
+                    <button type="submit">Guardar</button>
+                </div>
                 
             </form>
         <?php else: ?>
             <p>Produto não encontrado.</p>
         <?php endif; ?>
     </div>
-</div>
-
-    
+    </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

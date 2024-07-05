@@ -129,16 +129,17 @@ if (isset($_GET['ID'])) {
                                 </select>
                             </div>
                         </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <div class="input-field" style="flex: 1">
-                                <?php if (!empty($perfil)): ?>
-                                    <label> Foto de perfil: <?php echo basename($perfil); ?></label>
-                                <?php else: ?>
-                                    <label>Foto de perfil</label>
-                                <?php endif; ?>
-                                <input type="file" name="profile_image" style="width: 30%;">
+                        <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                            <div class="input-field" style="flex: 1;">
+                                <label for="file-upload" class="custom-file-upload">
+                                    <?php if (!empty($perfil)): ?>
+                                        <label for="">Foto de perfil:</label>
+                                        <img id="img-preview" src="<?php echo htmlspecialchars($perfil); ?>" alt="Foto de perfil">
+                                    <?php endif; ?>
+                                </label>
+                                <input type="file" id="file-upload" name="profile_image" style="display:none;" onchange="previewImage(event)">
+                                <button type="submit" class="btn-edit" style="margin-left: 10px; float: right; font-weight: bold; height: 4rem; margin-top: 1rem;">Guardar</button>
                             </div>
-                            <button type="submit" class="btn-edit" style="margin-left: 10px; float: right; font-weight: bold; height: 4rem; margin-top: 1rem;">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -150,5 +151,19 @@ if (isset($_GET['ID'])) {
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
+    <script>
+        document.getElementById('img-preview').addEventListener('click', function() {
+            document.getElementById('file-upload').click();
+        });
+
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('img-preview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 </body>
 </html>

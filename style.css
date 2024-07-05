@@ -1897,6 +1897,18 @@ footer .copyright{
     transition: background-color 0.3s ease; /* Transição suave da cor de fundo */
 }
 
+.containerEdit .btn-home{
+    margin-left: 50rem;
+    background: var(--orange);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 1rem 3rem;
+    border-radius: 3rem;
+}
+
+
 @media (max-width: 738px) {
     .containeradmin .content .cards{
         flex-direction: column;
@@ -2005,11 +2017,26 @@ footer .copyright{
     margin-right: 10px; /* Adicione um espaçamento entre o rótulo e o input */
 }
 
-.containerCliente  .input-field input,
-.containerCliente  .input-field select {
+.containerCliente .input-field input,
+.containerCliente .input-field select {
     width: calc(100% - 100px); /* Calcula o restante do espaço disponível após a largura do rótulo */
 }
 
+.containerCliente .custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.containerCliente .custom-file-upload img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.containerCliente .custom-file-upload img:hover {
+    border-color: #000;
+}
 /*DASHBOARD PEDIDOS*/
 .containerPedido {
     display: flex;
