@@ -1,5 +1,5 @@
 <?php 
-session_start(); 
+    session_start(); 
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Contacto</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -31,7 +31,7 @@ session_start();
                     <li class="list">
                         <a href="index.php" class="nav-link">
                             <i class='bx bx-home icon'></i>
-                            <span class="link">Home</span>
+                            <span class="link">Incio</span>
                         </a>
                     </li>
                     <li class="list">
@@ -188,7 +188,7 @@ session_start();
 
         switch ($_GET["error"]) {
             case "none":
-                $errorMessage = "Gmail enviado com sucesso!";
+                $errorMessage = "E-mail enviado com sucesso!";
                 break;
             default:
                 break;

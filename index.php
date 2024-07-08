@@ -31,7 +31,7 @@
                     <li class="list">
                         <a href="index.php" class="nav-link">
                             <i class='bx bx-home icon'></i>
-                            <span class="link">Home</span>
+                            <span class="link">Inicio</span>
                         </a>
                     </li>
                     <li class="list">

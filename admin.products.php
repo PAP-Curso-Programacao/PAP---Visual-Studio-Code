@@ -53,7 +53,7 @@
                     <li class="list">
                         <a href="admin.dashboard.php" class="nav-link">
                             <i class='bx bxs-dashboard icon'></i>
-                            <span class="link">Dashboard</span>
+                            <span class="link">Painel</span>
                         </a>
                     </li>
                     <li class="list">
@@ -77,7 +77,7 @@
                     <li class="list">
                         <a href="includes/logout.inc.php" class="nav-link">
                             <i class='bx bx-user icon'></i>
-                            <span class="link">Logout</span>
+                            <span class="link">Sair</span>
                         </a>
                     </li>
                 </ul>
@@ -149,7 +149,45 @@
                     </div>
                 </div>
             </div> 
-        </div>   
+        </div>  
+        <?php
+    if (isset($_GET["error"])) {
+        $errorMessage = "";
+        $errorType = "Sucesso";
+
+        switch ($_GET["error"]) {
+            case "none":
+                $errorMessage = "Informações guardadas com sucesso!";
+                break;
+            default:
+                break;
+        }
+
+        if (!empty($errorMessage)) {
+            echo '<script>';
+echo 'document.addEventListener("DOMContentLoaded", function() {';
+echo 'toastr.success("' . $errorMessage . '", "' . $errorType . '", {';
+echo 'closeButton: false,';
+echo 'progressBar: true,';
+echo 'positionClass: "toast-top-right",';
+echo 'timeOut: 3000,';
+echo 'extendedTimeOut: 1000,';
+echo 'preventDuplicates: false,';
+echo 'newestOnTop: false,';
+echo 'showDuration: 300,';
+echo 'hideDuration: 300,';
+echo 'showEasing: "swing",';
+echo 'hideEasing: "linear",';
+echo 'showMethod: "slideDown",';
+echo 'hideMethod: "slideUp",';
+echo 'toastClass: "custom-toast-class"';
+echo '});';
+echo '});';
+echo '</script>';
+
+        }
+    }
+    ?> 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/script.js"></script>

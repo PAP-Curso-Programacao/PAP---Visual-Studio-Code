@@ -55,7 +55,7 @@ if (isset($_GET['ID'])) {
                     <li class="list">
                         <a href="admin.dashboard.php" class="nav-link">
                             <i class='bx bxs-dashboard icon'></i>
-                            <span class="link">Dashboard</span>
+                            <span class="link">Painel</span>
                         </a>
                     </li>
                     <li class="list">
@@ -79,7 +79,7 @@ if (isset($_GET['ID'])) {
                     <li class="list">
                         <a href="includes/logout.inc.php" class="nav-link">
                             <i class='bx bx-user icon'></i>
-                            <span class="link">Logout</span>
+                            <span class="link">Sair</span>
                         </a>
                     </li>
                 </ul>

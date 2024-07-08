@@ -40,11 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         atualizarProduto($db, $id, $nome, $preco, $descricao, $stock, $imagem_perfil_caminho);
         
         // Redirecionar de volta para a página de administração ou outra página de destino
-        header("Location: ../admin.products.php?error=none");
+        header("Location: ../admin.editProducts.php?error=none");
         exit();
     } else {
         // Caso o ID do produto não tenha sido enviado corretamente
-        header("Location: ../admin.products.php?error=noid");
+        header("Location: ../admin.editProducts.php?error=noid");
         exit();
     }
 }

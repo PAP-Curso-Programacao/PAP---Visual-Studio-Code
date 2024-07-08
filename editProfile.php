@@ -36,7 +36,7 @@
                 <li class="list">
                     <a href="index.php" class="nav-link">
                         <i class='bx bx-home icon'></i>
-                        <span class="link">Home</span>
+                        <span class="link">Incio</span>
                     </a>
                 </li>
                 <li class="list">
@@ -168,7 +168,44 @@
       }
     }
 ?>
+<?php
+    if (isset($_GET["error"])) {
+        $errorMessage = "";
+        $errorType = "Sucesso";
 
+        switch ($_GET["error"]) {
+            case "none":
+                $errorMessage = "Informações guardadas com sucesso!";
+                break;
+            default:
+                break;
+        }
+
+        if (!empty($errorMessage)) {
+            echo '<script>';
+echo 'document.addEventListener("DOMContentLoaded", function() {';
+echo 'toastr.success("' . $errorMessage . '", "' . $errorType . '", {';
+echo 'closeButton: false,';
+echo 'progressBar: true,';
+echo 'positionClass: "toast-top-right",';
+echo 'timeOut: 3000,';
+echo 'extendedTimeOut: 1000,';
+echo 'preventDuplicates: false,';
+echo 'newestOnTop: false,';
+echo 'showDuration: 300,';
+echo 'hideDuration: 300,';
+echo 'showEasing: "swing",';
+echo 'hideEasing: "linear",';
+echo 'showMethod: "slideDown",';
+echo 'hideMethod: "slideUp",';
+echo 'toastClass: "custom-toast-class"';
+echo '});';
+echo '});';
+echo '</script>';
+
+        }
+    }
+    ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
